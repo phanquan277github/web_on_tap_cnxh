@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn Tập CNXH Khoa Học - Chương 7</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #28a745;
+            --danger-color: #dc3545;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h1 { color: var(--primary-color); margin: 0; font-size: 2rem; }
+        h2 { color: #666; font-weight: 400; margin-top: 10px; font-size: 1.1rem; }
+
+        .stats-bar {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .section-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 30px 0 20px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .section-header.short {
+            background: #17a2b8;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid #ddd;
+        }
+
+        .q-number {
+            font-weight: bold;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Styles cho các lựa chọn trắc nghiệm */
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .option:hover {
+            background: #e2e6ea;
+            border-color: #ced4da;
+        }
+
+        /* Khi đã chọn đáp án (đúng/sai) */
+        .option.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: 600;
+        }
+
+        .option.correct::after {
+            content: "✓";
+            position: absolute;
+            right: 15px;
+            font-weight: bold;
+            color: #155724;
+        }
+
+        .option.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            opacity: 0.8;
+        }
+
+        .option.wrong::after {
+            content: "✕";
+            position: absolute;
+            right: 15px;
+            font-weight: bold;
+            color: #721c24;
+        }
+
+        /* Vô hiệu hóa click sau khi đã chọn */
+        .options-grid.answered {
+            pointer-events: none;
+        }
+
+        /* Nút cho phần tự luận */
+        .btn-toggle {
+            margin-top: 15px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #e3f2fd; 
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .answer-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 6px;
+            color: #856404;
+            display: none;
+        }
+        .answer-box.visible { display: block; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>TRẮC NGHIỆM TƯƠNG TÁC</h1>
+        <h2>Môn học: CNXH Khoa Học - Chương 7: Vấn đề gia đình</h2>
+    </header>
+
+    <div class="stats-bar">
+        <div><strong>Tiến độ:</strong> <span id="progress">0</span> / <span id="total">0</span></div>
+        <div><strong>Điểm:</strong> <span id="score" style="color: var(--secondary-color); font-weight: bold;">0</span></div>
+    </div>
+
+    <div class="section-header">A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)</div>
+    <div id="mc-container"></div>
+
+    <div class="section-header short">B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)</div>
+    <div id="sa-container"></div>
+</div>
+
+<script>
+    // --- DỮ LIỆU TỪ FILE CHUONG7.DOCX ---
+    // Đáp án (a) được xác định dựa trên kiến thức chuẩn Giáo trình CNXH KH
+
+    const mcData = [
+        {
+            q: "Khái niệm dùng để chỉ một cộng đồng người đặc biệt, có vai trò quyết định đến sự tồn tại và phát triển của xã hội?",
+            a: "D",
+            ops: ["A. Dân tộc", "B. Bộ tộc", "C. Bộ lạc", "D. Gia đình"]
+        },
+        {
+            q: "Trong gia đình quan hệ nào là cơ sở, nền tảng hình thành nên các mối quan hệ khác?",
+            a: "A",
+            ops: ["A. Quan hệ hôn nhân", "B. Quan hệ huyết thống", "C. Quan hệ kinh tế", "D. Quan hệ nuôi dưỡng"]
+        },
+        {
+            q: "Trong gia đình, mối quan hệ nào là quan hệ tự nhiên, là yếu tố mạnh mẽ nhất gắn kết các thành viên trong gia đình với nhau?",
+            a: "B",
+            ops: ["A. Quan hệ hôn nhân", "B. Quan hệ huyết thống", "C. Quan hệ kinh tế", "D. Quan hệ nuôi dưỡng"]
+        },
+        {
+            q: "Cộng đồng nào được ví như tế bào của xã hội?",
+            a: "C",
+            ops: ["A. Nhà nước", "B. Dân tộc", "C. Gia đình", "D. Dân cư"]
+        },
+        {
+            q: "Cộng đồng xã hội đầu tiên mà mỗi cá nhân sinh sống, có ảnh hưởng rất lớn đến sự hình thành và phát triển nhân cách của từng con người, đó là:",
+            a: "D",
+            ops: ["A. Dân tộc", "B. Bộ tộc", "C. Bộ lạc", "D. Gia đình"]
+        },
+        {
+            q: "Một trong những cộng đồng để xã hội tác động đến cá nhân, là:",
+            a: "B",
+            ops: ["A. Văn hóa", "B. Gia đình", "C. Giáo dục", "D. Nơi sinh sống"]
+        },
+        {
+            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: tái sản xuất ra con người để duy trì nòi giống, là:",
+            a: "D",
+            ops: ["A. Nhiệm vụ cơ bản của gia đình", "B. Vị trí cơ bản của gia đình", "C. Tính chất cơ bản của gia đình", "D. Chức năng cơ bản của gia đình"]
+        },
+        {
+            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: nuôi dưỡng và giáo dục con cái trở thành người có ích cho xã hội, là:",
+            a: "D",
+            ops: ["A. Nhiệm vụ cơ bản của gia đình", "B. Vị trí cơ bản của gia đình", "C. Tính chất cơ bản của gia đình", "D. Chức năng cơ bản của gia đình"]
+        },
+        {
+            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: thỏa mãn nhu cầu tâm sinh lý, duy trì tình cảm cho các thành viên trong gia đình, là:",
+            a: "D",
+            ops: ["A. Nhiệm vụ cơ bản của gia đình", "B. Vị trí cơ bản của gia đình", "C. Tính chất cơ bản của gia đình", "D. Chức năng cơ bản của gia đình"]
+        },
+        {
+            q: "Chủ nghĩa Mác – Lênin khẳng định: Gia đình là cầu nối giữa cá nhân với xã hội, tức là muốn đề cập đến:",
+            a: "B",
+            ops: ["A. Nhiệm vụ của gia đình với xã hội", "B. Vị trí của gia đình trong xã hội", "C. Tính chất của gia đình trong xã hội", "D. Chức năng của gia đình trong xã hội"]
+        },
+        {
+            q: "Theo quan điểm Chủ nghĩa Mác – Lênin, gia đình có mấy chức năng cơ bản?",
+            a: "B",
+            ops: ["A. 3", "B. 4", "C. 5", "D. 6"]
+        },
+        {
+            q: "Theo quan điểm Chủ nghĩa Mác – Lênin, chức năng nào là chức năng thường xuyên của gia đình?",
+            a: "D",
+            ops: ["A. Tái sản xuất ra con người", "B. Nuôi dưỡng và giáo dục con cái", "C. Phát triển kinh tế", "D. Thỏa mãn nhu cầu tâm sinh lý, duy trì tình cảm"]
+        },
+        {
+            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: gia đình là nơi lưu giữ truyền thống văn hóa của dân tộc. Điều này đề cập đến:",
+            a: "D",
+            ops: ["A. Nhiệm vụ của gia đình", "B. Vị trí của gia đình", "C. Tính chất của gia đình", "D. Chức năng của gia đình (văn hóa)"]
+        },
+        {
+            q: "Gia đình là nơi tổ chức thực hiện chính sách, pháp luật của nhà nước. Điều này đề cập đến:",
+            a: "B",
+            ops: ["A. Nhiệm vụ của gia đình", "B. Vị trí của gia đình (Cầu nối)", "C. Tính chất của gia đình", "D. Chức năng của gia đình"]
+        },
+        {
+            q: "Cơ sở chính trị để xây dựng gia đình trong thời kỳ quá độ lên chủ nghĩa xã hội là:",
+            a: "B",
+            ops: ["A. Đấu tranh giành chính quyền", "B. Thiết lập nhà nước xã hội chủ nghĩa", "C. Đấu tranh giải phóng phụ nữ", "D. Xây dựng Luật Hôn nhân và Gia đình"]
+        },
+        {
+            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, hôn nhân tiến bộ là:",
+            a: "B",
+            ops: ["A. Hôn nhân tự nguyện", "B. Hôn nhân xuất phát từ tình yêu; một vợ một chồng; đúng pháp luật", "C. Hôn nhân đúng pháp luật", "D. Hôn nhân tự do kết hôn/ly hôn"]
+        },
+        {
+            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, bản chất của tình yêu là:",
+            a: "D",
+            ops: ["A. Mù quáng", "B. Say đắm", "C. Không chia sẻ", "D. Hy sinh (Sự hiến dâng/Không vụ lợi)"]
+        },
+        {
+            q: "Cộng đồng nào được ví như một tế bào tự nhiên, là một đơn vị cơ sở để tạo nên cơ thể - xã hội?",
+            a: "C",
+            ops: ["A. Nhà nước", "B. Dân tộc", "C. Gia đình", "D. Dân cư"]
+        },
+        {
+            q: "Mức độ tác động của gia đình đối với xã hội phụ thuộc vào yếu tố nào sau đây?",
+            a: "C",
+            ops: ["A. Chế độ giáo dục", "B. Bản chất văn hóa", "C. Bản chất của từng chế độ xã hội", "D. Truyền thống gia đình"]
+        },
+        {
+            q: "Yếu tố nào đã hạn chế rất lớn đến sự tác động của gia đình đối với xã hội?",
+            a: "A",
+            ops: ["A. Chế độ tư hữu về tư liệu sản xuất", "B. Chế độ giáo dục", "C. Bản chất văn hóa", "D. Truyền thống gia đình"]
+        },
+        {
+            q: "Yếu tố nào đã hạn chế rất lớn đến sự tác động của gia đình đối với xã hội? (Câu hỏi tương tự)",
+            a: "A",
+            ops: ["A. Sự bất bình đẳng trong quan hệ xã hội và gia đình", "B. Chế độ giáo dục", "C. Bản chất văn hóa", "D. Truyền thống gia đình"]
+        },
+        {
+            q: "Giai cấp cầm quyền muốn quản lý xã hội theo yêu cầu của mình, đều coi trọng:",
+            a: "A",
+            ops: ["A. Xây dựng và củng cố gia đình", "B. Phát triển giáo dục", "C. Phát triển văn hóa", "D. Xây dựng chính sách"]
+        },
+        {
+            q: "Khẳng định: “Nếu không giải phóng phụ nữ là xây dựng chủ nghĩa xã hội chỉ một nửa”, là của ai?",
+            a: "A",
+            ops: ["A. Hồ Chí Minh", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
+        },
+        {
+            q: "Nội dung nào sau đây xác định vị trí của gia đình?",
+            a: "D",
+            ops: ["A. Tái sản xuất ra con người", "B. Nuôi dưỡng giáo dục", "C. Tổ chức kinh tế", "D. Cầu nối giữa cá nhân và xã hội (Tổ ấm)"]
+        },
+        {
+            q: "Nội dung nào sau đây xác định chức năng của gia đình?",
+            a: "B",
+            ops: ["A. Tế bào của xã hội", "B. Tái sản xuất con người", "C. Tổ ấm hạnh phúc", "D. Cầu nối cá nhân - xã hội"]
+        },
+        {
+            q: "Đâu là chức năng đặc thù của gia đình mà không một cộng đồng nào có thể thay thế?",
+            a: "B",
+            ops: ["A. Tổ chức kinh tế", "B. Tái sản xuất ra con người", "C. Nuôi dưỡng, giáo dục", "D. Duy trì tình cảm"]
+        },
+        {
+            q: "Chức năng nào thể hiện tình cảm thiêng liêng, trách nhiệm của cha mẹ với con cái?",
+            a: "C",
+            ops: ["A. Tổ chức kinh tế", "B. Tái sản xuất ra con người", "C. Nuôi dưỡng, giáo dục", "D. Duy trì tình cảm"]
+        },
+        {
+            q: "Chức năng nào có ý nghĩa quan trọng đối với sự hình thành nhân cách, đạo đức, lối sống?",
+            a: "C",
+            ops: ["A. Tổ chức kinh tế", "B. Tái sản xuất ra con người", "C. Nuôi dưỡng, giáo dục", "D. Duy trì tình cảm"]
+        },
+        {
+            q: "Chức năng nào góp phần cung cấp nguồn lao động chất lượng cao cho xã hội?",
+            a: "C",
+            ops: ["A. Tổ chức kinh tế", "B. Tái sản xuất ra con người", "C. Nuôi dưỡng, giáo dục", "D. Duy trì tình cảm"]
+        },
+        {
+            q: "Chỉ ra một thiết chế văn hóa - xã hội đặc thù có chức năng mà bất cứ thiết chế nào cũng không thể thay thế:",
+            a: "D",
+            ops: ["A. Nhà trường", "B. Đoàn Thanh niên", "C. Hội sinh viên", "D. Gia đình"]
+        },
+        {
+            q: "Chức năng nào đóng góp vào quá trình sản xuất và tái sản xuất ra của cải?",
+            a: "A",
+            ops: ["A. Chức năng tổ chức kinh tế", "B. Chức năng tổ chức tiêu dùng", "C. Chức năng kinh tế và tiêu dùng", "D. Chức năng tái sản xuất con người"]
+        },
+        {
+            q: "Chức năng nào được coi là chức năng cơ bản và riêng có của gia đình?",
+            a: "A",
+            ops: ["A. Tái sản xuất ra con người", "B. Tổ chức kinh tế", "C. Nuôi dưỡng, giáo dục", "D. Thoả mãn nhu cầu tâm sinh lý"]
+        },
+        {
+            q: "Câu khẳng định về việc chính quyền Xô viết thủ tiêu pháp luật cũ kỹ đối với phụ nữ là của ai?",
+            a: "D",
+            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
+        },
+        {
+            q: "Chủ thể nào có tính cách là cơ sở của việc xây dựng gia đình trong thời kỳ quá độ?",
+            a: "A",
+            ops: ["A. Nhà nước xã hội chủ nghĩa", "B. Đảng Cộng sản", "C. Các đoàn thể", "D. Tổ chức chính quyền địa phương"]
+        },
+        {
+            q: "Ai đã đưa ra luận điểm về việc ly hôn khi tình yêu phai nhạt?",
+            a: "C",
+            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
+        },
+        {
+            q: "Ai đưa ra luận điểm: 'Nếu chỉ riêng hôn nhân dựa trên cơ sở tình yêu mới hợp đạo đức...'?",
+            a: "C",
+            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
+        },
+        {
+            q: "Sự bình đẳng trong quan hệ giữa cha mẹ với con cái và anh chị em có cơ sở từ mối quan hệ nào?",
+            a: "B",
+            ops: ["A. Quan hệ hôn nhân", "B. Quan hệ huyết thống", "C. Quan hệ vợ chồng bình đẳng", "D. Quan hệ cá nhân với gia đình"]
+        },
+        {
+            q: "Cụm từ dùng để chỉ gia đình Việt Nam ngày nay trong bước chuyển biến?",
+            a: "C",
+            ops: ["A. Gia đình truyền thống", "B. Gia đình hiện đại", "C. Gia đình quá độ (Gia đình trong thời kỳ quá độ)", "D. Gia đình hạt nhân"]
+        },
+        {
+            q: "Gia đình Việt Nam hiện nay biến đổi về chức năng tái sản xuất ra con người như thế nào?",
+            a: "B",
+            ops: ["A. Tuân thủ quy định Nhà nước", "B. Chủ động, tự giác (Kế hoạch hóa gia đình)", "C. Bắt buộc", "D. Theo kế hoạch địa phương"]
+        },
+        {
+            q: "Biến đổi về chức năng kinh tế của gia đình ở Việt Nam hiện nay là:",
+            a: "A",
+            ops: ["A. Từ kinh tế tự cấp tự túc thành kinh tế hàng hóa", "B. Thành kinh tế thị trường", "C. Thành kinh tế TBCN", "D. Thành kinh tế XHCN"]
+        },
+        {
+            q: "Giáo dục gia đình ở Việt Nam hiện nay phát triển theo xu hướng nào?",
+            a: "D",
+            ops: ["A. Ưu tiên đầu tư tài chính", "B. Đầu tư toàn bộ", "C. Đầu tư du học", "D. Sự đầu tư tài chính tăng lên"]
+        },
+        {
+            q: "Ngoài biến đổi về quy mô, kết cấu, gia đình VN còn biến đổi về:",
+            a: "B",
+            ops: ["A. Vị trí", "B. Quan hệ gia đình", "C. Vai trò", "D. Quan hệ cộng đồng"]
+        },
+        {
+            q: "Trong gia đình Việt Nam hiện nay, ngoài đàn ông làm chủ, còn mô hình nào?",
+            a: "B",
+            ops: ["A. Phụ nữ làm chủ", "B. Cả gia đình cùng làm chủ (Vợ chồng bình đẳng)", "C. Đàn ông cùng làm chủ", "D. Độc lập"]
+        },
+        {
+            q: "Đâu là phương hướng cơ bản xây dựng gia đình VN hiện nay? (Lãnh đạo)",
+            a: "D",
+            ops: ["A. Biến đổi quy mô", "B. Biến đổi chức năng", "C. Biến đổi quan hệ", "D. Tăng cường sự lãnh đạo của Đảng..."]
+        },
+        {
+            q: "Đâu là phương hướng cơ bản xây dựng gia đình VN hiện nay? (Kinh tế)",
+            a: "D",
+            ops: ["A. Biến đổi quy mô", "B. Biến đổi chức năng", "C. Biến đổi quan hệ", "D. Đẩy mạnh phát triển kinh tế - xã hội..."]
+        },
+        {
+            q: "Đâu là phương hướng cơ bản xây dựng gia đình VN hiện nay? (Phong trào)",
+            a: "D",
+            ops: ["A. Biến đổi quy mô", "B. Biến đổi chức năng", "C. Biến đổi quan hệ", "D. Tiếp tục phát triển phong trào gia đình văn hóa"]
+        },
+        {
+            q: "Luận điểm 'Quan hệ thứ ba... là gia đình' là của ai?",
+            a: "A",
+            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
+        },
+        {
+            q: "Điền từ vào câu nói của V.I.Lênin: '...do trình độ phát triển của lao động và... trình độ phát triển của ...'",
+            a: "D",
+            ops: ["A. Lực lượng sản xuất", "B. Xã hội", "C. Phương thức sản xuất", "D. Gia đình"]
+        },
+        {
+            q: "Điền từ vào câu nói của HCM: 'Nếu không ... là xây dựng chủ nghĩa xã hội chỉ một nửa'",
+            a: "C",
+            ops: ["A. Xây dựng chế độ công hữu", "B. Bình đẳng", "C. Giải phóng phụ nữ", "D. Xóa bỏ gia trưởng"]
+        },
+        {
+            q: "Cơ sở kinh tế - xã hội để xây dựng gia đình trong thời kỳ quá độ là:",
+            a: "B",
+            ops: ["A. Phương thức sản xuất", "B. Chế độ sở hữu xã hội chủ nghĩa (công hữu) đối với tư liệu sản xuất", "C. Khoa học kỹ thuật", "D. Kiến trúc thượng tầng"]
+        },
+        {
+            q: "Luận điểm 'Tư liệu sản xuất chuyển thành tài sản chung... Việc nuôi dạy con cái trở thành công việc của xã hội' là của ai?",
+            a: "C",
+            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
+        },
+        {
+            q: "Điền từ vào câu nói của Lênin: 'thủ tiêu tất cả ... pháp luật cũ kỹ...'",
+            a: "C",
+            ops: ["A. Hủ tục", "B. Hủ tục cũ kỹ", "C. Pháp luật cũ kỹ", "D. Pháp luật lạc hậu"]
+        },
+        {
+            q: "Điền từ vào câu nói của Lênin: 'hủy bỏ tất cả những đặc quyền gắn liền với ...'",
+            a: "D",
+            ops: ["A. Lợi ích kinh tế", "B. Lợi ích xã hội", "C. Chế độ tư hữu", "D. Chế độ tư hữu tư nhân về tư liệu sản xuất"]
+        },
+        {
+            q: "Hôn nhân tiến bộ có khuyến khích việc ly hôn hay không? Vì sao?",
+            a: "D",
+            ops: ["A. Có, vì là điều hay", "B. Có, vì tự nguyện", "C. Không, vì không cho phép", "D. Không, vì ly hôn để lại hậu quả cho xã hội, vợ chồng và con cái"]
+        },
+        {
+            q: "Theo Ph.Ăngghen, hôn nhân như thế nào mới hợp đạo đức?",
+            a: "D",
+            ops: ["A. Dựa trên tình yêu", "B. Cha mẹ cho phép", "C. Pháp luật công nhận", "D. Dựa trên tình yêu và tình yêu được duy trì"]
+        },
+        {
+            q: "Những trường hợp ly hôn cần ngăn chặn?",
+            a: "C",
+            ops: ["A. Tình yêu không còn", "B. Người thứ ba", "C. Lợi dụng quyền ly hôn (Vụ lợi/Thiếu trách nhiệm)", "D. Mất hòa hợp"]
+        },
+        {
+            q: "Thực hiện chức năng nào là yếu tố quan trọng tác động đến hạnh phúc gia đình?",
+            a: "D",
+            ops: ["A. Tái sản xuất con người", "B. Kinh tế", "C. Nuôi dưỡng", "D. Thỏa mãn nhu cầu tâm sinh lý, tình cảm"]
+        },
+        {
+            q: "Để khắc phục khoảng cách giàu nghèo trong gia đình VN, Nhà nước cần làm gì?",
+            a: "C",
+            ops: ["A. Kinh tế nhiều thành phần", "B. Kinh tế thị trường", "C. Có chính sách hỗ trợ các hộ nghèo", "D. Xã hội hóa từ thiện"]
+        },
+        {
+            q: "Trong xã hội nguyên thủy, hình thức gia đình là:",
+            a: "A",
+            ops: ["A. Gia đình cộng đồng (Quần hôn)", "B. Gia đình tập thể", "C. Gia đình cùng dòng máu", "D. Gia đình punaluna"]
+        },
+        {
+            q: "Hình thức gia đình Punaluna tồn tại ở giai đoạn nào?",
+            a: "C",
+            ops: ["A. Sơ khai", "B. Đầu nguyên thủy", "C. Giai đoạn giữa của xã hội nguyên thủy", "D. Cuối nguyên thủy"]
+        },
+        {
+            q: "Hình thức gia đình cặp đôi (đối ngẫu) tồn tại ở giai đoạn nào?",
+            a: "D",
+            ops: ["A. Sơ khai", "B. Đầu nguyên thủy", "C. Giữa nguyên thủy", "D. Giai đoạn cuối của xã hội nguyên thủy"]
+        },
+        {
+            q: "Hình thức gia đình cá thể (một vợ một chồng) tồn tại ở giai đoạn nào?",
+            a: "C",
+            ops: ["A. Đầu nguyên thủy", "B. Giữa nguyên thủy", "C. Giai đoạn cuối nguyên thủy (chuyển sang văn minh)", "D. Chiếm hữu nô lệ"]
+        },
+        {
+            q: "Nội dung cơ bản và trực tiếp để xây dựng gia đình ở Việt Nam hiện nay là gì?",
+            a: "C",
+            ops: ["A. Phát triển kinh tế", "B. Nâng cao dân trí", "C. Xây dựng gia đình no ấm, tiến bộ, hạnh phúc, văn minh", "D. Giải phóng phụ nữ"]
+        },
+        {
+            q: "Theo Ph.Ăngghen, tình yêu lành mạnh là phải:",
+            a: "C",
+            ops: ["A. Trong sáng", "B. Tôn trọng", "C. Hợp đạo đức (tức là có tình yêu nam nữ)", "D. Tiến tới hôn nhân"]
+        },
+        {
+            q: "Theo Luật Hôn nhân và Gia đình VN, con bao nhiêu tuổi được xem xét nguyện vọng khi cha mẹ ly hôn?",
+            a: "C",
+            ops: ["A. 7 tuổi", "B. Trên 7 tuổi", "C. Từ đủ 7 tuổi", "D. 8 tuổi"]
+        },
+        {
+            q: "Điền từ vào luận điểm của Mác-Ăngghen: '...đó là quan hệ giữa chồng và vợ, cha mẹ và con cái, đó là...'",
+            a: "A",
+            ops: ["A. Gia đình", "B. Huyết thống", "C. Tình cảm", "D. Tình yêu"]
+        },
+        {
+            q: "Muốn xóa bỏ nguồn gốc áp bức trong gia đình cần phải:",
+            a: "B",
+            ops: ["A. Phát triển LLSX", "B. Xây dựng chế độ sở hữu XHCN (công hữu)", "C. Giải phóng phụ nữ", "D. Công bằng xã hội"]
+        },
+        {
+            q: "Để tạo cơ sở kinh tế cho phụ nữ bình đẳng, cần phải:",
+            a: "B",
+            ops: ["A. Phát triển PTSX", "B. Xây dựng chế độ sở hữu XHCN (Xóa bỏ tư hữu)", "C. Giải phóng phụ nữ", "D. Công bằng xã hội"]
+        },
+        {
+            q: "Ai đưa ra luận điểm: 'Chế độ một vợ một chồng sinh ra từ sự tập trung nhiều của cải...'?",
+            a: "C",
+            ops: ["A. C.Mác", "B. Mác & Ăngghen", "C. Ph.Ăngghen", "D. V.I.Lênin"]
+        },
+        {
+            q: "'Giữ gìn và phát huy truyền thống văn hóa ứng xử...' là chủ đề năm nào?",
+            a: "D",
+            ops: ["A. 2016", "B. 2017", "C. 2018", "D. 2019"]
+        },
+        {
+            q: "'Bữa cơm gia đình ấm áp yêu thương' là chủ đề năm nào?",
+            a: "A",
+            ops: ["A. 2016 (và các năm sau đó duy trì)", "B. 2017", "C. 2018", "D. 2019"]
+        },
+        {
+            q: "Quan điểm 'Xây dựng đời sống văn hóa lành mạnh...' nằm trong Văn kiện nào?",
+            a: "D",
+            ops: ["A. Cương lĩnh 1991", "B. Cương lĩnh 2011", "C. Đại hội X", "D. Đại hội XII"]
+        },
+        {
+            q: "Thủ tướng phê duyệt Đề án phát huy giá trị gia đình năm nào (QĐ 279)?",
+            a: "A",
+            ops: ["A. 20.02.2014", "B. 24.02.2014", "C. 20.02.2015", "D. 24.02.2015"]
+        },
+        {
+            q: "Đề án phát huy giá trị gia đình có bao nhiêu Dự án thành phần?",
+            a: "C",
+            ops: ["A. 2", "B. 3", "C. 4 (hoặc 5 tùy văn bản cụ thể, thường là 4 dự án lớn)", "D. 5"]
+        },
+        {
+            q: "Dự án nào nằm trong Đề án này? (Giáo dục)",
+            a: "B",
+            ops: ["A. Hỗ trợ tài chính", "B. Giáo dục Quốc gia về đời sống gia đình (Đúng)", "C. Xây dựng nhân cách", "D. Cơ sở dữ liệu"]
+        },
+        {
+            q: "Dự án nào nằm trong Đề án này? (Truyền thông)",
+            a: "D",
+            ops: ["A. Hỗ trợ tài chính", "B. Giáo dục", "C. Xây dựng nhân cách", "D. Truyền thông về các giá trị tốt đẹp..."]
+        },
+        {
+            q: "Dự án nào nằm trong Đề án này? (Hỗ trợ)",
+            a: "D",
+            ops: ["A. Hỗ trợ tài chính", "B. Giáo dục", "C. Xây dựng nhân cách", "D. Hỗ trợ xây dựng gia đình hạnh phúc, bền vững"]
+        },
+        {
+            q: "Câu nói: 'Nhiều gia đình cộng lại mới thành xã hội...' là của ai?",
+            a: "C",
+            ops: ["A. C. Mác", "B. Ph. Ăng ghen", "C. Hồ Chí Minh", "D. V.I. Lênin"]
+        },
+        {
+            q: "Thủ tướng phê duyệt 'Chương trình hành động quốc gia phòng chống bạo lực gia đình' năm nào?",
+            a: "A",
+            ops: ["A. 2014", "B. 2015", "C. 2016", "D. 2017"]
+        },
+        {
+            q: "Ngày Quốc tế nam giới hàng năm là ngày:",
+            a: "C",
+            ops: ["A. 15/5", "B. 20/3", "C. 19/11", "D. 05/6"]
+        },
+        {
+            q: "Ngày Quốc tế hạnh phúc hàng năm là ngày:",
+            a: "B",
+            ops: ["A. 15/5", "B. 20/3", "C. 19/11", "D. 05/6"]
+        },
+        {
+            q: "Ngày 19 tháng 11 hàng năm là ngày gì?",
+            a: "B",
+            ops: ["A. Quốc tế hạnh phúc", "B. Quốc tế nam giới", "C. Quốc tế gia đình", "D. Chống bạo lực gia đình"]
+        }
+    ];
+
+    const saData = [
+        { q: "1. Trong gia đình quan hệ nào là cơ sở, nền tảng hình thành nên các mối quan hệ khác?", a: "Quan hệ hôn nhân" },
+        { q: "2. Trong gia đình, mối quan hệ nào là quan hệ tự nhiên, là yếu tố mạnh mẽ nhất?", a: "Quan hệ huyết thống" },
+        { q: "3. Cộng đồng nào là môi trường tốt nhất để cá nhân trưởng thành?", a: "Gia đình" },
+        { q: "4. Chức năng nào là chức năng đặc thù của gia đình?", a: "Chức năng tái sản xuất ra con người" },
+        { q: "5. Công cụ để xóa bỏ luật lệ cũ kỹ và giải phóng phụ nữ là gì?", a: "Nhà nước (Nhà nước XHCN)" },
+        { q: "6. Gia đình có mấy chức năng cơ bản?", a: "4 chức năng" },
+        { q: "7. Cộng đồng nào được ví như một tế bào tự nhiên của xã hội?", a: "Gia đình" },
+        { q: "8. Câu nói: '...nhiều gia đình cộng lại mới thành xã hội...' là của ai?", a: "Hồ Chí Minh" },
+        { q: "9. Chức năng nào đáp ứng nhu cầu sức lao động và duy trì nòi giống?", a: "Chức năng tái sản xuất ra con người" },
+        { q: "10. Câu khẳng định về Chính quyền Xô viết hủy bỏ đặc quyền của đàn ông là của ai?", a: "V.I.Lênin" },
+        { q: "11. Luận điểm về nghĩa vụ yêu thương và kết hôn là của ai?", a: "Ph.Ăngghen" },
+        { q: "12. Luận điểm 'chỉ riêng hôn nhân dựa trên tình yêu mới hợp đạo đức' là của ai?", a: "Ph.Ăngghen" },
+        { q: "13. Trong mối quan hệ với xã hội, gia đình được ví như?", a: "Tế bào của xã hội" },
+        { q: "14. Điền từ (Ăngghen): 'Nếu chỉ riêng hôn nhân dựa trên cơ sở tình yêu mới ... thì cũng chỉ riêng hôn nhân trong đó tình yêu được duy trì, mới là ... mà thôi'", a: "hợp đạo đức" },
+        { q: "15. Điền từ (Lênin): 'nghĩa vụ của những kẻ yêu nhau há chẳng phải là ... với nhau'", a: "kết hôn" },
+        { q: "16. Luận điểm 'do hai loại sản xuất quyết định...' là của ai?", a: "Ph.Ăngghen" },
+        { q: "17. Điền từ (Lênin): 'mặt khác là do trình độ phát triển của ...'", a: "gia đình" },
+        { q: "18. Thiết chế văn hóa - xã hội đặc thù không thể thay thế là gì?", a: "Gia đình" },
+        { q: "19. Luận điểm 'Việc nuôi dạy con cái trở thành công việc của xã hội' là của ai?", a: "Ph.Ăngghen" },
+        { q: "20. Điền từ (Ăngghen): 'Việc nuôi dạy con cái trở thành công việc của...'", a: "xã hội" },
+        { q: "21. Điền từ (Lênin): 'thủ tiêu tất cả ... tư sản, đê tiện...'", a: "pháp luật cũ kỹ" },
+        { q: "22. Trong xã hội VN hiện nay, nhu cầu thỏa mãn tâm lý – tình cảm có xu hướng thế nào?", a: "Đang tăng lên" },
+        { q: "23. Gia đình mà quan hệ tính giao giữa anh em trai với chị em gái bị hủy bỏ gọi là gì?", a: "Gia đình Punaluna" },
+        { q: "24. Nội dung cơ bản và trực tiếp để xây dựng gia đình ở Việt Nam hiện nay là gì?", a: "Xây dựng gia đình no ấm, bình đẳng, tiến bộ và hạnh phúc" },
+        { q: "25. Theo Luật Hôn nhân Gia đình, con bao nhiêu tuổi được xem xét nguyện vọng khi cha mẹ ly hôn?", a: "Từ đủ 7 tuổi" },
+        { q: "26. Ai đưa ra luận điểm về nguồn gốc của chế độ một vợ một chồng từ tài sản?", a: "Ph.Ăngghen" },
+        { q: "27. Thủ tướng phê duyệt Đề án phát huy giá trị gia đình năm nào?", a: "2014" },
+        { q: "28. Đề án phát huy giá trị gia đình có bao nhiêu Dự án?", a: "4 (hoặc 5 tùy phân loại chi tiết)" },
+        { q: "29. Ngày Quốc tế nam giới là ngày nào?", a: "19 tháng 11" },
+        { q: "30. Chương trình hành động quốc gia phòng chống bạo lực gia đình phê duyệt năm nào?", a: "2014" },
+        { q: "31. Quá độ lên CNXH bỏ qua chế độ TBCN là con đường cách mạng ...", a: "tất yếu khách quan" },
+        { q: "32. Theo Mác-Lênin, từ CNTB lên CNXH tất yếu phải trải qua thời kỳ ...", a: "quá độ chính trị" },
+        { q: "33. Quá độ gián tiếp đối với những nước ... chủ nghĩa tư bản phát triển.", a: "chưa trải qua" }
+    ];
+
+    // KHỞI TẠO
+    const mcContainer = document.getElementById('mc-container');
+    const saContainer = document.getElementById('sa-container');
+    const totalEl = document.getElementById('total');
+    const progressEl = document.getElementById('progress');
+    const scoreEl = document.getElementById('score');
+
+    let answeredCount = 0;
+    let score = 0;
+
+    // Hiển thị tổng số câu hỏi
+    totalEl.innerText = mcData.length;
+
+    // RENDER TRẮC NGHIỆM
+    mcData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = `
+            <span class="q-number">Câu ${index + 1}</span>
+            <div class="q-text">${item.q}</div>
+            <div class="options-grid" id="ops-${index}">
+                ${item.ops.map(op => {
+                    const letter = op.charAt(0); // A, B, C, D
+                    return `<div class="option" onclick="checkAnswer(this, ${index}, '${item.a}', '${letter}')">${op}</div>`;
+                }).join('')}
+            </div>
+        `;
+        mcContainer.appendChild(card);
+    });
+
+    // RENDER TRẢ LỜI NGẮN
+    saData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.style.borderLeftColor = '#17a2b8';
+        card.innerHTML = `
+            <div class="q-text">${item.q}</div>
+            <button class="btn-toggle" onclick="toggleSa(${index})">Xem Đáp Án Gợi Ý</button>
+            <div id="sa-ans-${index}" class="answer-box"><strong>Đáp án:</strong> ${item.a}</div>
+        `;
+        saContainer.appendChild(card);
+    });
+
+    // XỬ LÝ CLICK TRẮC NGHIỆM
+    function checkAnswer(el, index, correctLetter, selectedLetter) {
+        const parent = document.getElementById(`ops-${index}`);
+        
+        // Ngăn click lại nếu đã trả lời
+        if (parent.classList.contains('answered')) return;
+        parent.classList.add('answered');
+
+        // Logic Đúng/Sai
+        if (selectedLetter === correctLetter) {
+            el.classList.add('correct');
+            score++;
+        } else {
+            el.classList.add('wrong');
+            // Tìm và hiện đáp án đúng
+            const options = parent.children;
+            for (let op of options) {
+                if (op.innerText.startsWith(correctLetter)) {
+                    op.classList.add('correct');
+                }
+            }
+        }
+
+        // Cập nhật thống kê
+        answeredCount++;
+        progressEl.innerText = answeredCount;
+        scoreEl.innerText = score;
+    }
+
+    // XỬ LÝ TRẢ LỜI NGẮN
+    function toggleSa(index) {
+        const box = document.getElementById(`sa-ans-${index}`);
+        box.classList.toggle('visible');
+    }
+
+</script>
+
+</body>
+</html>
