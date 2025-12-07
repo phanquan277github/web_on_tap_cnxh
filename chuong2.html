@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm & Trả Lời Ngắn: CNXH Khoa Học - Chương 2</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #28a745;
+            --danger-color: #dc3545;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h1 { color: var(--primary-color); margin: 0; font-size: 2rem; }
+        h2 { color: #666; font-weight: 400; margin-top: 10px; font-size: 1.1rem; }
+
+        .stats-bar {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .section-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 30px 0 20px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid #ddd;
+        }
+
+        .q-number {
+            font-weight: bold;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Styles cho các lựa chọn trắc nghiệm */
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .option:hover {
+            background: #e2e6ea;
+            border-color: #ced4da;
+        }
+
+        /* Khi đã chọn đáp án (đúng/sai) */
+        .option.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: 600;
+        }
+
+        .option.correct::after {
+            content: "✓";
+            position: absolute;
+            right: 15px;
+            font-weight: bold;
+            color: #155724;
+        }
+
+        .option.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            opacity: 0.8;
+        }
+
+        .option.wrong::after {
+            content: "✕";
+            position: absolute;
+            right: 15px;
+            font-weight: bold;
+            color: #721c24;
+        }
+
+        /* Vô hiệu hóa click sau khi đã chọn */
+        .options-grid.answered {
+            pointer-events: none;
+        }
+
+        /* Nút cho phần tự luận */
+        .btn-toggle {
+            margin-top: 15px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #e3f2fd; 
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .answer-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 6px;
+            color: #856404;
+            display: none;
+        }
+        .answer-box.visible { display: block; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>TRẮC NGHIỆM TƯƠNG TÁC</h1>
+        <h2>Chương 2: Sứ mệnh lịch sử của giai cấp công nhân</h2>
+    </header>
+
+    <div class="stats-bar">
+        <div><strong>Tiến độ:</strong> <span id="progress">0</span> / <span id="total">0</span></div>
+        <div><strong>Điểm:</strong> <span id="score" style="color: var(--success-color); font-weight: bold;">0</span></div>
+    </div>
+
+    <div class="section-header">A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)</div>
+    <div id="mc-container"></div>
+
+    <div class="section-header" style="background: #17a2b8;">B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)</div>
+    <div id="sa-container"></div>
+</div>
+
+<script>
+    // --- DỮ LIỆU CÂU HỎI ---
+    const mcData = [
+        { q: "Phạm trù nào được coi là cơ bản nhất, là xuất phát điểm của chủ nghĩa xã hội khoa học?", a: "B", ops: ["A. Giai cấp công nhân", "B. Sứ mệnh lịch sử của giai cấp công nhân", "C. Chuyên chính vô sản", "D. Xã hội chủ nghĩa"] },
+        { q: "Trọng điểm của cuộc đấu tranh tư tưởng lý luận trong thời đại ngày nay là:", a: "B", ops: ["A. Giai cấp công nhân", "B. Sứ mệnh lịch sử của giai cấp công nhân", "C. Chuyên chính vô sản", "D. Xã hội chủ nghĩa"] },
+        { q: "Theo quan điểm của C.Mác và Ph.Ăngghen, quá trình lao động trong công trường thủ công của chủ nghĩa tư bản và trong nghề thủ công, người công nhân:", a: "B", ops: ["A. Không có công cụ lao đông", "B. Phải sử dụng công cụ lao động của mình", "C. Phải sử dụng công cụ lao động của tập thể", "D. Phải phục vụ máy móc"] },
+        { q: "Theo quan điểm C.Mác và Ph.Ăngghen, sản phẩm của bản thân nền đại công nghiệp là:", a: "C", ops: ["A. Giai cấp nông dân", "B. Giai cấp tiểu tư sản", "C. Giai cấp vô sản", "D. Giai cấp công nhân công trường thủ công"] },
+        { q: "Theo C.Mác và Ph.Ăngghen, nền sản xuất đại công nghiệp và phương thức sản xuất tiên tiến đã rèn luyện cho giai cấp công nhân những phẩm chất đặc biệt về:", a: "A", ops: ["A. Tính tổ chức", "B. Tính sáng tạo", "C. Tính linh hoạt", "D. Tính tự chủ"] },
+        { q: "Theo C.Mác và Ph.Ăngghen, nền sản xuất đại công nghiệp và phương thức sản xuất tiên tiến đã rèn luyện cho giai cấp công nhân những phẩm chất đặc biệt về:", a: "A", ops: ["A. Kỷ luật lao động", "B. Tinh thần sáng tạo", "C. Tính linh hoạt", "D. Tinh thần tự chủ"] },
+        { q: "Theo C.Mác và Ph.Ăngghen, nền sản xuất đại công nghiệp và phương thức sản xuất tiên tiến đã rèn luyện cho giai cấp công nhân những phẩm chất đặc biệt về:", a: "C", ops: ["A. Tâm lý lao động máy móc", "B. Tinh thần sáng tạo", "C. Tâm lý lao động công nghiệp", "D. Tâm lý lao động độc lập"] },
+        { q: "Tập đoàn xã hội ổn định, hình thành và phát triển cùng với quá trình phát triển của nền công nghiệp hiện đại, đó là:", a: "B", ops: ["A. Giai cấp nông dân", "B. Giai cấp công nhân", "C. Giai cấp tiểu tư sản", "D. Giai cấp địa chủ"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, giải quyết mâu thuẫn cơ bản về kinh tế và chính trị trong lòng phương thức sản xuất tư bản chủ nghĩa là sứ mệnh lịch sử của ai?", a: "A", ops: ["A. Giai cấp công nhân", "B. Giai cấp tư sản", "C. Giai cấp tiểu tư sản", "D. Những nhà trí thức"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, mục tiêu duy nhất của cuộc cách mạng tư sản là gì?", a: "A", ops: ["A. Giành được chính quyền", "B. Cải tạo xã hội phong kiến", "C. Giải phóng xã hội", "D. Giải phóng con người"] },
+        { q: "Giai cấp nào là đại biểu cho lực lượng sản xuất trong phương thức sản xuất tư bản chủ nghĩa?", a: "A", ops: ["A. Giai cấp công nhân", "B. Giai cấp tư sản", "C. Giai cấp tiểu tư sản", "D. Những nhà trí thức"] },
+        { q: "Theo C. Mác, “tiền đề thực tiễn tuyệt đối cần thiết” cho sự nghiệp xây dựng xã hội mới của giai cấp công nhân là:", a: "C", ops: ["A. Nền sản xuất hiện đại", "B. Xu thế xã hội hóa cao", "C. Nền sản xuất hiện đại với xu thế xã hội hóa cao", "D. Nền sản xuất hiện đại với xu thế xã hội hóa cao và chế độ sở hữu"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, quy luật chung, phổ biến cho sự ra đời của Đảng Cộng sản là:", a: "B", ops: ["A. Sự kết hợp giữa Học thuyết Mác và phong trào công nhân", "B. Sự kết hợp giữa Chủ nghĩa Mác - Lênin với phong trào công nhân", "C. Sự kết hợp giữa Chủ nghĩa Mác – Lênin, phong trào công nhân và điều kiện lịch sử", "D. Sự kết hợp giữa Chủ nghĩa Mác – Lênin, phong trào công nhân và điều kiện kinh tế - xã hội"] },
+        { q: "Giai cấp công nhân Việt Nam ra đời khi nào?", a: "C", ops: ["A. Đầu thế kỷ XIX", "B. Giữa thế kỷ XIX", "C. Đầu thế kỷ XX", "D. Giữa thế kỷ XX"] },
+        { q: "Chỉ ra một trong những hạn chế của giai cấp công nhân Việt Nam do hoàn cảnh lịch sử và nguồn gốc xã hội sinh ra?", a: "A", ops: ["A. Tâm lý tiểu nông", "B. Xuất thân từ nông dân", "C. Số lượng còn ít", "D. Hiệu quả lao động chưa cao"] },
+        { q: "Chỉ ra một trong những hạn chế của giai cấp công nhân Việt Nam do hoàn cảnh lịch sử và nguồn gốc xã hội sinh ra?", a: "A", ops: ["A. Lối sống nông dân", "B. Xuất thân từ nông dân", "C. Số lượng còn ít", "D. Hiệu quả lao động chưa cao"] },
+        { q: "Đại hội nào của Đảng ta đã đề ra phương hướng xây dựng giai cấp công nhân Việt Nam trong quá trình đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước theo định hướng xã hội chủ nghĩa?", a: "B", ops: ["A. Đại hội IX", "B. Đại hội X", "C. Đại hội XI", "D. Đại hội XII"] },
+        { q: "Nghị quyết “Về tiếp tục xây dựng giai cấp công nhân Việt Nam thời kỳ đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước”, được ban hành trong nhiệm kỳ Đại hội lần thứ mấy của Đảng ta?", a: "B", ops: ["A. IX", "B. X", "C. XI", "D. XII"] },
+        { q: "C. Mác và Ph. Ăngghen đã dựa vào những phát kiến nào để luận chứng về sứ mệnh lịch sử của giai cấp công nhân?", a: "B", ops: ["A. Chủ nghĩa xã hội không tưởng – phê phán", "B. Chủ nghĩa duy vật lịch sử và Học thuyết giá trị thặng dư", "C. Triết học cổ điển Đức và Kinh tế chính trị học cổ điển Anh", "D. Chủ nghĩa xã hội không tưởng – phê phán và Kinh tế chính trị học cổ điển Anh"] },
+        { q: "Xét về phương thức lao động, phương thức sản xuất, giai cấp công nhân mang thuộc tính cơ bản nào sau đây?", a: "C", ops: ["A. Có số lượng đông nhất trong dân cư", "B. Là giai cấp tạo ra của cải vật chất làm giàu cho xã hội", "C. Là giai cấp trực tiếp vận hành máy móc có tính chất công nghiệp ngày càng hiện đại", "D. Là giai cấp đối lập với giai cấp tư sản"] },
+        { q: "Xét trong quan hệ sản xuất tư bản chủ nghĩa giai cấp công nhân là :", a: "B", ops: ["A. Giai cấp nghèo khổ nhất", "B. Giai cấp không có tư liệu sản xuất, đi làm thuê cho nhà tư bản, bị nhà tư bản bóc lột giá trị thặng dư", "C. Giai cấp có số lượng đông trong dân cư", "D. Là giai cấp trực tiếp vận hành máy móc có tính chất công nghiệp ngày càng hiện đại"] },
+        { q: "Theo C.Mác và Ph.Ăngghen, nguồn gốc của giá trị thặng dư là:", a: "A", ops: ["A. Lao động không công của công nhân cho nhà tư bản", "B. Lao động của công nhân", "C. Lao động của xã hội", "D. Lao động của toàn thể công nhân trong xã hội"] },
+        { q: "Theo quan điểm C.Mác và Ph.Ăngghen, đại biểu cho phương thức sản xuất tiên tiến, quyết định sự tồn tại và phát triển của xã hội hiện đại là:", a: "C", ops: ["A. Giai cấp nông dân", "B. Giai cấp tiểu tư sản", "C. Giai cấp công nhân", "D. Giai cấp tư sản"] },
+        { q: "Theo C.Mác và Ph.Ăngghen, đại diện cho lực lượng sản xuất tiên tiến trong xã hội tư bản là:", a: "D", ops: ["A. Nhân dân lao động", "B. Những người lao động làm thuê", "C. Giai cấp tư sản", "D. Giai cấp công nhân"] },
+        { q: "Theo C.Mác và Ph.Ăngghen, lực lượng chủ yếu của tiến trình lịch sử quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội:", a: "D", ops: ["A. Nhân dân lao động", "B. Những người lao động làm thuê", "C. Giai cấp tư sản", "D. Giai cấp công nhân"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, nội dung sứ mệnh lịch sử của giai cấp công nhân về chính trị là:", a: "A", ops: ["A. Xoá bỏ chế độ tư bản chủ nghĩa, xoá bỏ chế độ người bóc lột người", "B. Tạo tiền đề vật chất - kỹ thuật cho sự ra đời của xã hội mới", "C. Đại biểu cho lợi ích của nhân dân lao động", "D. Đại biểu cho lợi ích chung của xã hội"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, nội dung sứ mệnh lịch sử của giai cấp công nhân về chính trị là:", a: "A", ops: ["A. Xây dựng xã hội cộng sản chủ nghĩa văn minh", "B. Tạo tiền đề vật chất - kỹ thuật cho sự ra đời của xã hội mới", "C. Đại biểu cho lợi ích của nhân dân lao động", "D. Đại biểu cho lợi ích chung của xã hội"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, nội dung sứ mệnh lịch sử của giai cấp công nhân về chính trị là:", a: "A", ops: ["A. Xây dựng nền dân chủ xã hội chủ nghĩa", "B. Tạo tiền đề vật chất - kỹ thuật cho sự ra đời của xã hội mới", "C. Đại biểu cho lợi ích của nhân dân lao động", "D. Đại biểu cho lợi ích chung của xã hội"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, nội dung sứ mệnh lịch sử của giai cấp công nhân về văn hóa, tư tưởng là:", a: "D", ops: ["A. Xây dựng nền dân chủ xã hội chủ nghĩa", "B. Tạo tiền đề vật chất - kỹ thuật cho sự ra đời của xã hội mới", "C. Đại biểu cho lợi ích của nhân dân lao động", "D. Xây dựng hệ giá trị mới: lao động; công bằng; dân chủ; bình đẳng và tự do"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, nội dung sứ mệnh lịch sử của giai cấp công nhân về văn hóa, tư tưởng là:", a: "D", ops: ["A. Xây dựng nền dân chủ xã hội chủ nghĩa", "B. Tạo tiền đề vật chất - kỹ thuật cho sự ra đời của xã hội mới", "C. Đại biểu cho lợi ích của nhân dân lao động", "D. Phát triển văn hóa, xây dựng đạo đức và lối sống mới xã hội chủ nghĩa"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, nội dung sứ mệnh lịch sử của giai cấp công nhân về văn hóa, tư tưởng là:", a: "D", ops: ["A. Xây dựng nền dân chủ xã hội chủ nghĩa", "B. Tạo tiền đề vật chất - kỹ thuật cho sự ra đời của xã hội mới", "C. Đại biểu cho lợi ích của nhân dân lao động", "D. Xây dựng và củng cố chủ nghĩa Mác - Lênin"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, yêu cầu khách quan của sự vận động, phát triển của lịch sử từ chủ nghĩa tư bản lên chủ nghĩa xã hội là:", a: "B", ops: ["A. Giải quyết mâu thuẫn giữa lực lượng sản xuất và quan hệ sản xuất tư bản chủ nghĩa", "B. Giải quyết mâu thuẫn giữa tính chất xã hội hóa của lực lượng sản xuất với tính chất chiếm hữu tư nhân tư bản chủ nghĩa về tư liệu sản xuất", "C. Giải quyết mâu thuẫn cơ bản về kinh tế và chính trị trong lòng phương thức sản xuất tư bản chủ nghĩa", "D. Giải quyết mâu thuẫn về lợi ích cơ bản không thể điều hòa giữa giai cấp vô sản và giai cấp tư sản"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, cơ sở kinh tế để chấm dứt vĩnh viễn chế độ người bóc lột người là:", a: "C", ops: ["A. Lực lượng sản xuất xã hội hóa cao, ở trình độ phát triển hiện đại", "B. Chế độ công hữu về tư liệu sản xuất", "C. Lực lượng sản xuất xã hội hóa cao, ở trình độ phát triển hiện đại và chế độ công hữu về tư liệu sản xuất", "D. Người công nhân làm chủ về quá trình lao động"] },
+        { q: "Tiền đề để giai cấp công nhân cải tạo toàn diện, sâu sắc và triệt để xã hội cũ và xây dựng thành công xã hội mới là:", a: "B", ops: ["A. Giai cấp công nhân giành được chính quyền", "B. Giai cấp công nhân giành lấy quyền lực thống trị xã hội", "C. Giai cấp công nhân phải được giác ngộ Chủ nghĩa Mác - Lênin", "D. Giai cấp công nhân được trí thức hóa"] },
+        { q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, mục tiêu cao nhất trong việc thực hiện sứ mệnh lịch sử của giai cấp công nhân là:", a: "D", ops: ["A. Xây dựng chủ nghĩa xã hội", "B. Giải phóng giai cấp công nhân và nhân dân lao động thoát khỏi áp bức bóc lột", "C. Giải phóng xã hội", "D. Giải phóng con người"] },
+        { q: "Câu nói: “Sự phát triển tự do của mỗi người là điều kiện cho sự phát triển tự do của tất cả mọi người được C.Mác và Ph.Ăngghen viết trong tác phẩm nào?", a: "D", ops: ["A. Gia đình thần thánh", "B. Hệ tư tưởng Đức", "C. Tình cảnh giai cấp công nhân", "D. Tuyên ngôn của Đảng cộng sản"] },
+        { q: "Ai là người đã khẳng định: “...Cùng với sự phát triển của đại công nghiệp, chính cái nền tảng trên đó giai cấp tư sản đã sản xuất và chiếm hữu sản phẩm của nó đã bị phá sập dưới chân giai cấp tư sản... Sự sụp đổ của giai cấp tư sản và thắng lợi của giai cấp vô sản đều là tất yếu như nhau\"?", a: "C", ops: ["A. C.Mác", "B. Ph.Ăngghen", "C. C.Mác và Ph.Ăngghen", "D. V.I.Lênin"] },
+        { q: "Sứ mệnh lịch sử của giai cấp công nhân do một trong những yếu tố khách quan nào sau đây quy định?", a: "B", ops: ["A. Địa vị chính trị - xã hội", "B. Là con đẻ của nền đại công nghiệp", "C. Do sự phát triển của lực lượng sản xuất hiện đại", "D. Do chiếm số đông trong dân cư"] },
+        { q: "Sứ mệnh lịch sử của giai cấp công nhân do một trong những yếu tố khách quan nào sau đây quy định?", a: "A", ops: ["A. Địa vị kinh tế và địa vị chính trị - xã hội", "B. Là con đẻ của nền đại công nghiệp", "C. Do sự phát triển của lực lượng sản xuất hiện đại", "D. Do chiếm số đông trong dân cư"] },
+        { q: "Theo quan điểm của C.Mác và Ph.Ăngghen: Là con đẻ của nền sản xuất đại công nghiệp, giai cấp công nhân có được những phẩm chất của một giai cấp tiên tiến, giai cấp cách mạng, đó là:", a: "A", ops: ["A. Tính tổ chức và kỷ luật trong cuộc đấu tranh tự giải phóng mình và giải phóng xã hội", "B. Tính sáng tạo trong trong cuộc đấu tranh tự giải phóng mình và giải phóng xã hội", "C. Tính độc lập trong trong cuộc đấu tranh tự giải phóng mình và giải phóng xã hội", "D. Tính quyết đoán trong cuộc đấu tranh tự giải phóng mình và giải phóng xã hội"] },
+        { q: "Theo quan điểm của C.Mác và Ph.Ăngghen: Giai cấp công nhân có được những phẩm chất của một giai cấp tiên tiến, là do:", a: "A", ops: ["A. Quá trình rèn luyện của giai cấp công nhân quy định", "B. Sự áp bức của giai cấp tư sản tạo ra", "C. Địa vị kinh tế và địa vị chính trị - xã hội quy định", "D. Sự phát triển của bản thân giai cấp công nhân về tri thức khoa học"] },
+        { q: "Theo quan điểm của C.Mác và Ph.Ăngghen: Lực lượng đại biểu cho tương lai, cho xu thế đi lên của tiến trình phát triển lịch sử, là:", a: "D", ops: ["A. Nhân dân lao động", "B. Giai cấp nông dân", "C. Giai cấp tiểu tư sản", "D. Giai cấp công nhân"] },
+        { q: "Chủ nghĩa Mác - Lênin chỉ ra những điều kiện thuộc về nhân tố chủ quan để giai cấp công nhân hoàn thành sứ mệnh lịch sử của mình là:", a: "C", ops: ["A. Có sự giúp đỡ của các lực lượng tiến bộ", "B. Sự phát triển về hệ tư tưởng của giai cấp công nhân", "C. Sự phát triển của bản thân giai cấp công nhân cả về số lượng và chất lượng", "D. Bị bóc lột nặng nề nhất."] },
+        { q: "Chủ nghĩa Mác - Lênin chỉ ra những điều kiện thuộc về nhân tố chủ quan để giai cấp công nhân hoàn thành sứ mệnh lịch sử của mình là:", a: "C", ops: ["A. Có sự giúp đỡ của các lực lượng tiến bộ", "B. Sự phát triển về hệ tư tưởng của giai cấp công nhân", "C. Sự lãnh đạo của Đảng cộng sản", "D. Sự phát triển của bản thân giai cấp công nhân về tri thức khoa học"] },
+        { q: "Chủ nghĩa Mác - Lênin chỉ ra những điều kiện thuộc về nhân tố chủ quan để giai cấp công nhân hoàn thành sứ mệnh lịch sử của mình là:", a: "C", ops: ["A. Có sự giúp đỡ của các lực lượng tiến bộ", "B. Sự phát triển về hệ tư tưởng của giai cấp công nhân", "C. Có sự liên minh giai cấp giữa giai cấp công nhân với giai cấp nông dân và các tầng lớp lao động khác", "D. Sự phát triển của bản thân giai cấp công nhân về tri thức khoa học"] },
+        { q: "Dấu hiệu về sự trưởng thành vượt bậc của giai cấp công nhân với tư cách là giai cấp cách mạng là:", a: "D", ops: ["A. Trình độ học vấn cao", "B. Trình độ kỹ thuật cao", "C. Trình độ trưởng thành về ý thức chính trị", "D. Sự ra đời của Đảng cộng sản"] },
+        { q: "Chọn cụm từ còn thiếu: Đảng Cộng sản - ... của giai cấp công nhân ra đời và đảm nhận vai trò lãnh đạo cuộc cách mạng là dấu hiệu về sự trưởng thành vượt bậc của giai cấp công nhân.", a: "A", ops: ["A. Đội tiên phong", "B. Lực lượng", "C. Cơ sở", "D. Cơ quan chỉ huy"] },
+        { q: "Chọn cụm từ còn thiếu: Sức mạnh của Đảng không chỉ thể hiện ở ... mà còn ở mối liên hệ mật thiết giữa Đảng với nhân dân, với quần chúng lao động đông đảo trong xã hội", a: "C", ops: ["A. Số lượng đảng viên", "B. Vai trò của Đảng", "C. Bản chất giai cấp công nhân", "D. Đại diện cho lợi ích của nhân lao động"] },
+        { q: "So với giai cấp công nhân truyền thống ở thế kỷ XIX thì giai cấp công nhân hiện nay vẫn có những điểm tương đồng là:", a: "A", ops: ["A. Vẫn bị giai cấp tư sản và chủ nghĩa tư bản bóc lột giá trị thặng dư", "B. Có xu hướng trí tuệ hóa", "C. Hao phí lao động chủ yếu là hao phí về trí lực", "D. Tất cả các phương"] },
+        { q: "So với giai cấp công nhân truyền thống ở thế kỷ XIX thì giai cấp công nhân hiện nay vẫn có những điểm tương đồng là:", a: "A", ops: ["A. Luôn là lực lượng đi đầu trong các cuộc đấu tranh vì hòa bình, hợp tác và phát triển...", "B. Có xu hướng trí tuệ hóa", "C. Hao phí lao động chủ yếu là hao phí về trí lực", "D. Tất cả các phương"] },
+        { q: "Đặc điểm nào đã tạo thuận lợi để giai cấp công nhân Việt Nam xây dựng khối liên minh giai cấp vững chắc?", a: "D", ops: ["A. Có truyền thống yêu nước", "B. Đại diện cho lợi ích của các giai cấp", "C. Trực tiếp đối kháng với tư bản thực dân Pháp", "D. Xuất thân từ nông dân và các tầng lớp lao động khác"] },
+        { q: "Chỉ ra đặc điểm sứ mệnh lịch sử của giai cấp công nhân?", a: "A", ops: ["A. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ xã hội hóa sản xuất...", "B. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ sự xung đột...", "C. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ những tiền đề kinh tế...", "D. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ giải quyết mâu thuẫn..."] },
+        { q: "Chỉ ra đặc điểm sứ mệnh lịch sử của giai cấp công nhân?", a: "C", ops: ["A. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ xã hội hóa sản xuất...", "B. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ sự xung đột...", "C. Thực hiện sứ mệnh lịch sử của giai cấp công nhân là sự nghiệp cách mạng của bản thân giai cấp công nhân cùng với đông đảo quần chúng...", "D. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ giải quyết mâu thuẫn..."] },
+        { q: "Chỉ ra đặc điểm sứ mệnh lịch sử của giai cấp công nhân?", a: "C", ops: ["A. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ xã hội hóa sản xuất...", "B. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ sự xung đột...", "C. Việc giai cấp công nhân giành lấy quyền lực thống trị xã hội là tiền đề để cải tạo toàn diện...", "D. Sứ mệnh lịch sử của giai cấp công nhân xuất phát từ giải quyết mâu thuẫn..."] },
+        { q: "Chọn cụm từ còn thiếu: Sự sụp đổ của giai cấp tư sản và thắng lợi của giai cấp vô sản đều là....?", a: "C", ops: ["A. Tất yếu", "B. Như nhau", "C. Tất yếu như nhau", "D. Tất yếu khách quan"] },
+        { q: "Chọn cụm từ còn thiếu: Cùng với sự phát triển của... chính cái nền tảng trên đó giai cấp tư sản đã sản xuất và chiếm hữu sản phẩm của nó đã bị phá sập dưới chân giai cấp tư sản.", a: "D", ops: ["A. Khoa học – kỹ thuật", "B. Phương thức sản xuất", "C. Nền kinh tế", "D. Đại công nghiệp"] },
+        { q: "Tìm ra đặc trưng đúng nhất về giai cấp công nhân:", a: "B", ops: ["A. Là giai cấp bị thống trị", "B. Là giai cấp lao động công nghiệp có trình độ kỹ thuật và công nghệ của xã hội", "C. Là giai cấp đông đảo trong dân cư", "D. Là giai cấp bị áp bức bóc lột nặng nề nhất"] },
+        { q: "So với giai cấp công nhân truyền thống ở thế kỷ XIX thì giai cấp công nhân hiện nay có những điểm biến đổi và khác biệt là:", a: "C", ops: ["A. Hạn chế đấu tranh vì dân sinh, dân chủ", "B. Không còn là chủ thể của quá trình sản xuất công nghiệp", "C. Hao phí lao động chủ yếu là hao phí về trí lực", "D. Không còn bị giai cấp tư sản và chủ nghĩa tư bản bóc lột giá trị thặng dư"] },
+        { q: "Ở các nước tư bản chủ nghĩa hiện nay, mục tiêu đấu tranh trực tiếp của giai cấp công nhân về nội dung chính trị - xã hội là:", a: "A", ops: ["A. Chống bất công và bất bình đẳng xã hội", "B. Vì dân sinh, dân chủ, tiến bộ xã hội", "C. Giành chính quyền về tay giai cấp công nhân và nhân dân lao động", "D. Đấu tranh xác lập một trật tự xã hội mới"] },
+        { q: "Hiện nay, đối với các nước xã hội chủ nghĩa, nội dung chính trị - xã hội của sứ mệnh lịch sử giai cấp công nhân là:", a: "B", ops: ["A. Giải quyết thành công các nhiệm vụ trong thời kỳ quá độ lên chủ nghĩa xã hội", "B. Xây dựng dân chủ, công bằng xã hội", "C. Giành chính quyền về tay giai cấp công nhân và nhân dân lao động", "D. Đấu tranh xác lập một trật tự xã hội mới"] },
+        { q: "Nội dung sứ mệnh lịch sử của giai cấp công nhân hiện nay về chính trị:", a: "A", ops: ["A. Chính trị: Đấu tranh bảo vệ nền tảng tư tưởng Đảng...", "B. Xã hội", "C. Kinh tế - xã hội", "D. Văn hóa tư tưởng"] },
+        { q: "Nội dung sứ mệnh lịch sử của giai cấp công nhân hiện nay về văn hóa tư tưởng:", a: "D", ops: ["A. Chính trị", "B. Xã hội", "C. Kinh tế - xã hội", "D. Văn hóa tư tưởng: Giáo dục nhận thức, củng cố niềm tin..."] },
+        { q: "Điểm then chốt để giúp giai cấp công nhân ở Việt Nam hiện nay thực hiện thành công sứ mệnh lịch sử là:", a: "D", ops: ["A. Trí thức hóa giai cấp công nhân", "B. Xây dựng khối liên minh công - nông", "C. Phát triển giai cấp công nhân về số lượng và chất lượng", "D. Coi trọng công tác xây dựng, chỉnh đốn Đảng"] },
+        { q: "Chỉ ra một trong các nội dung sứ mệnh lịch sử của giai cấp công nhân nước ta trong thời kỳ đổi mới:", a: "C", ops: ["A. Trí thức hóa giai cấp công nhân", "B. Xây dựng khối liên minh công - nông", "C. Lãnh đạo cách mạng thông qua đội tiên phong là Đảng Cộng sản Việt Nam", "D. Xây dựng, chỉnh đốn Đảng"] },
+        { q: "Vấn đề nổi bật nhất đối với việc thực hiện sứ mệnh lịch sử của giai cấp công nhân Việt Nam hiện nay là gì?", a: "D", ops: ["A. Tham gia phát triển nền kinh tế thị trường định hướng xã hội chủ nghĩa", "B. Lực lượng chủ đạo trong cơ cấu giai cấp công nhân...", "C. Nắm vững khoa học - công nghệ tiên tiến", "D. Phát huy vai trò và trách nhiệm của lực lượng đi đầu trong sự nghiệp đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước"] },
+        { q: "Những nội dung chính yếu, nổi bật, thể hiện sứ mệnh lịch sử giai cấp công nhân về phương diện chính trị - xã hội, là:", a: "D", ops: ["A. Nâng cao chất lượng, hiệu quả khối liên minh công - nông - trí thức", "B. Thực hiện hài hòa lợi ích cá nhân - tập thể và xã hội", "C. Thực hiện mục tiêu dân giàu, nước mạnh, xã hội công bằng, dân chủ, văn minh", "D. Tăng cường xây dựng, chỉnh đốn Đảng, ngăn chặn, đẩy lùi sự suy thoái..."] },
+        { q: "Nội dung trực tiếp về văn hóa tư tưởng thể hiện sứ mệnh lịch sử của giai cấp công nhân Việt Nam là:", a: "A", ops: ["A. Xây dựng và phát triển nền văn hóa Việt Nam tiên tiến, đậm đà bản sắc dân tộc", "B. Xây dựng nền giáo dục hiện đại", "C. Xây dựng con người mới xã hội chủ nghĩa", "D. Xây dựng hệ giá trị văn hóa và con người Việt Nam"] },
+        { q: "Hạn chế cơ bản mà giai cấp công nhân Việt Nam hiện nay cần khắc phục là gì?", a: "B", ops: ["A. Tâm lý tiểu nông", "B. Trình độ khoa học, kỹ thuật", "C. Số lượng còn ít", "D. Hiệu quả lao động chưa cao"] },
+        { q: "Hạn chế cơ bản nhất mà giai cấp công nhân Việt Nam hiện nay cần khắc phục là gì?", a: "A", ops: ["A. Thói quen, tập quán lạc hậu", "B. Trình độ khoa học, kỹ thuật", "C. Số lượng còn ít", "D. Hiệu quả lao động chưa cao"] },
+        { q: "Vì sao giai cấp công nhân Việt Nam sớm trở thành lực lượng chính trị độc lập và có vai trò lãnh đạo cách mạng Việt Nam?", a: "D", ops: ["A. Có mối quan hệ mật thiết với nhân dân lao động", "B. Có tinh thần yêu nước cao", "C. Có tinh thần đấu tranh cách mạng triệt để", "D. Sớm hình thành một chính đảng cách mạng với học thuyết khoa học tiên tiến"] },
+        { q: "Vì sao giai cấp nông dân không có tinh thần cách mạng triệt để?", a: "D", ops: ["A. Trình độ học vấn còn hạn chế", "B. Không có trình độ chính trị", "C. Không đại diện cho phương thức sản xuất tiên tiến", "D. Có sở hữu về tư liệu sản xuất"] },
+        { q: "Chọn phương án đúng theo quan điểm của Đảng ta thể hiện ở phương hướng xây dựng giai cấp công nhân Việt Nam?", a: "B", ops: ["A. Có chính sách ưu đãi nhà ở cho công nhân", "B. Có chính sách ưu đãi nhà ở đối với công nhân xa quê", "C. Có chính sách ưu đãi nhà ở đối với công nhân nghèo", "D. Có chính sách ưu đãi nhà ở đối với công nhân bậc cao"] },
+        { q: "Chọn phương án đúng theo quan điểm của Đảng ta thể hiện trong nghị quyết về “Tiếp tục xây dựng giai cấp công nhân Việt Nam...”?", a: "A", ops: ["A. Thực hiện sứ mệnh lịch sử của giai cấp lãnh đạo cách mạng thông qua đội tiên phong là Đảng Cộng sản Việt Nam", "B. Đảng Cộng sản Việt Nam lãnh đạo giai cấp công nhân thực hiện sứ mệnh lịch sử", "C. Đảng Cộng sản Việt Nam lãnh đạo giai cấp công nhân thực hiện sứ mệnh lịch sử...", "D. Thực hiện sứ mệnh lịch sử của giai cấp lãnh đạo cách mạng thông qua nền tảng là Đảng Cộng sản Việt Nam"] },
+        { q: "Chọn phương án đúng theo quan điểm của Đảng ta thể hiện trong nghị quyết về “Tiếp tục xây dựng giai cấp công nhân Việt Nam...”?", a: "D", ops: ["A. Xây dựng giai cấp công nhân lớn mạnh, có giác ngộ chính trị và bản lĩnh giai cấp", "B. Xây dựng giai cấp công nhân lớn mạnh, có giác ngộ tư tưởng và bản lĩnh giai cấp", "C. Xây dựng giai cấp công nhân lớn mạnh, có giác ngộ tư tưởng chính trị...", "D. Xây dựng giai cấp công nhân lớn mạnh, có giác ngộ giai cấp và bản lĩnh chính trị vững vàng"] },
+        { q: "Chọn phương án đúng theo quan điểm của Đảng ta thể hiện trong nghị quyết về “Tiếp tục xây dựng giai cấp công nhân Việt Nam...”?", a: "C", ops: ["A. Xây dựng giai cấp công nhân có trình độ học vấn, nghề nghiệp...", "B. Xây dựng giai cấp công nhân nhạy bén và sáng tạo, linh hoạt...", "C. Xây dựng giai cấp công nhân nhạy bén, sáng tạo, linh hoạt và vững vàng trước những diễn biến phức tạp...", "D. Xây dựng giai cấp công nhân nhạy bén và vững vàng..."] },
+        { q: "Chọn phương án đúng theo quan điểm của Đảng ta thể hiện trong nghị quyết về “Tiếp tục xây dựng giai cấp công nhân Việt Nam...”?", a: "C", ops: ["A. Xây dựng giai cấp công nhân có tinh thần đoàn kết dân tộc, hợp tác quốc tế...", "B. Xây dựng giai cấp công nhân có tinh thần đoàn kết dân tộc, bảo vệ lợi ích giai cấp...", "C. Xây dựng giai cấp công nhân có tinh thần đoàn kết dân tộc, bảo vệ lợi ích giai cấp, đoàn kết, hợp tác quốc tế, bảo vệ hòa bình thể giới", "D. Xây dựng giai cấp công nhân có tinh thần đoàn kết dân tộc, đoàn kết, hợp tác quốc tế"] },
+        { q: "Chọn phương án đúng theo quan điểm của Đảng ta thể hiện trong nghị quyết về “Tiếp tục xây dựng giai cấp công nhân Việt Nam...”?", a: "D", ops: ["A. Xây dựng giai cấp công nhân lớn mạnh, phát triển về số lượng...", "B. Xây dựng giai cấp công nhân phát triển nhanh về số lượng...", "C. Xây dựng giai cấp công nhân phát triển về số lượng, chất lượng...", "D. Xây dựng giai cấp công nhân lớn mạnh, phát triển nhanh về số lượng, nâng cao chất lượng, có cơ cấu đáp ứng yêu cầu phát triển đất nước"] },
+        { q: "Chọn phương án đúng theo quan điểm của Đảng ta thể hiện trong nghị quyết về “Tiếp tục xây dựng giai cấp công nhân Việt Nam...”?", a: "C", ops: ["A. Xây dựng giai cấp công nhân ngày càng được trí thức hóa để có kỹ năng nghề nghiệp", "B. Xây dựng giai cấp công nhân ngày càng được trí thức hóa để có chuyên môn sâu", "C. Xây dựng giai cấp công nhân ngày càng được trí thức hóa để có khả năng tiếp cận khoa học - công nghệ tiên tiến", "D. Xây dựng giai cấp công nhân ngày càng được trí thức hóa"] },
+        { q: "Chọn phương án đúng theo quan điểm của Đảng ta thể hiện trong nghị quyết về “Tiếp tục xây dựng giai cấp công nhân Việt Nam...”?", a: "B", ops: ["A. Xây dựng giai cấp công nhân có tác phong công nghiệp và kỷ luật cao", "B. Xây dựng giai cấp công nhân có tác phong công nghiệp hiện đại và kỷ luật lao động cao", "C. Xây dựng giai cấp công nhân có tác phong công nghiệp hiện đại, kỷ luật lao động cao và có sở hữu cá nhân", "D. Xây dựng giai cấp công nhân có văn hóa, tâm lý, tác phong công nghiệp..."] },
+        { q: "Chọn phương án đúng với quan điểm Đại hội XII của Đảng ta?", a: "D", ops: ["A. Giai cấp công nhân cần chú trọng xây dựng, phát huy vai trò của giai cấp nông nhân...", "B. Đảng cần phát huy vai trò của giai cấp công nhân, giai cấp nông nhân...", "C. Đảng cần xây dựng khối liên minh công – nông - trí thức...", "D. Chú trọng xây dựng, phát huy vai trò của giai cấp công nhân, giai cấp nông nhân, đội ngũ trí thức, đội ngũ doanh nhân đáp ứng yêu cầu phát triển đất nước trong thời kỳ mới"] },
+        { q: "Ban Chấp hành Tổng Liên đoàn Lao động Việt Nam khóa XI, đưa ra chủ trương xây dựng “Chất lượng bữa ăn ca của người lao động vào năm nào?", a: "A", ops: ["A. 2016", "B. 2017", "C. 2018", "D. 2019"] },
+        { q: "Ban Chấp hành Tổng Liên đoàn Lao động Việt Nam khóa XI đã ban hành Nghị quyết 07C/NQ-BCH về vấn đề gì?", a: "D", ops: ["A. Tháng công nhân", "B. Nhà ở cho công nhân", "C. Vì công nhân xa quê", "D. Chất lượng bữa ăn ca của người lao động"] },
+        { q: "Trong các nội dung sau đây, nội dung nào thuộc về giải pháp xây dựng giai cấp công nhân Việt Nam trong thời kỳ mới theo quan điểm của Đảng ta?", a: "D", ops: ["A. Coi trọng giữ vững bản chất giai cấp công nhân...", "B. Xây dựng giai cấp công nhân lớn mạnh...", "C. Thực hiện tốt chính sách và pháp luật...", "D. Xây dựng giai cấp công nhân lớn mạnh gắn với xây dựng và phát huy sức mạnh của liên minh giai cấp công nhân với giai cấp nông dân, đội ngũ trí thức và doanh nhân, dưới sự lãnh đạo của Đảng"] },
+        { q: "Trong các nội dung sau đây, nội dung nào thuộc về giải pháp xây dựng giai cấp công nhân Việt Nam trong thời kỳ mới theo quan điểm của Đảng ta?", a: "D", ops: ["A. Coi trọng giữ vững bản chất giai cấp công nhân...", "B. Xây dựng giai cấp công nhân lớn mạnh...", "C. Thực hiện tốt chính sách và pháp luật...", "D. Tăng cường quan hệ đoàn kết, hợp tác quốc tế với giai cấp công nhân trên toàn thế giới"] },
+        { q: "Trong các nội dung sau đây, nội dung nào thuộc về giải pháp xây dựng giai cấp công nhân Việt Nam trong thời kỳ mới theo quan điểm của Đảng ta?", a: "D", ops: ["A. Coi trọng giữ vững bản chất giai cấp công nhân...", "B. Xây dựng giai cấp công nhân lớn mạnh...", "C. Thực hiện tốt chính sách và pháp luật...", "D. Thực hiện chiến lược xây dựng giai cấp công nhân lớn mạnh, gắn kết chặt chẽ với chiến lược phát triển kinh tế - xã hội..."] },
+        { q: "Trong các nội dung sau đây, nội dung nào thuộc về giải pháp xây dựng giai cấp công nhân Việt Nam trong thời kỳ mới theo quan điểm của Đảng ta?", a: "D", ops: ["A. Coi trọng giữ vững bản chất giai cấp công nhân...", "B. Xây dựng giai cấp công nhân lớn mạnh...", "C. Thực hiện tốt chính sách và pháp luật...", "D. Đảm bảo hài hòa lợi ích giữa công nhân, người sử dụng lao động, Nhà nước và toàn xã hội"] },
+        { q: "Tính đến thời điểm 2020, Tổng Liên đoàn Lao động Việt Nam đã tổ chức chương trình “Tháng công nhân” lần thứ mấy?", a: "D", ops: ["A. 7", "B. 8", "C. 12", "D. 10"] },
+        { q: "Trong các nội dung sau đây, nội dung nào thuộc về giải pháp xây dựng giai cấp công nhân Việt Nam trong thời kỳ mới theo quan điểm của Đảng ta?", a: "D", ops: ["A. Coi trọng giữ vững bản chất giai cấp công nhân...", "B. Xây dựng giai cấp công nhân lớn mạnh...", "C. Thực hiện tốt chính sách và pháp luật...", "D. Xây dựng thế hệ công nhân trẻ, có học vấn, chuyên môn và kỹ năng nghề nghiệp cao..."] },
+        { q: "“Tháng công nhân” năm 2019 ở nước ta có chủ đề là:", a: "B", ops: ["A. “Chất lượng bữa ăn ca của người lao động”", "B. “Mỗi Công đoàn cơ sở - Một lợi ích đoàn viên”", "C. “Vì công nhân xa quê”", "D. “Nhà ở cho công nhân”"] },
+        { q: "Ban Chấp hành trung ương Đảng ta đã ra Thông báo số 77-TB/TW ngày 24/2/2012 về vấn đề gì?", a: "A", ops: ["A. Tổ chức \"Tháng công nhân\"", "B. Tết cho “công nhân xa quê”", "C. Nhà ở cho công nhân", "D. Chất lượng bữa ăn ca của người lao động"] }
+    ];
+
+    // DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN (30 CÂU)
+    const saData = [
+        { q: "1. Phạm trù nào được coi là cơ bản nhất, là xuất phát điểm của chủ nghĩa xã hội khoa học?", a: "Sứ mệnh lịch sử của giai cấp công nhân" },
+        { q: "2. Theo quan điểm C.Mác và Ph.Ăngghen, bộ phận tiêu biểu cho giai cấp công nhân hiện đại là ai?", a: "Công nhân công nghiệp công xưởng" },
+        { q: "3. Theo quan điểm C.Mác và Ph.Ăngghen, đứa con đầu lòng của nền công nghiệp hiện đại là ai?", a: "Công nhân Anh" },
+        { q: "4. Ở các nước tư bản chủ nghĩa, giai cấp nào không có hoặc về cơ bản không có tư liệu sản xuất phải làm thuê cho giai cấp tư sản và bị giai cấp tư sản bóc lột giá trị thặng dư?", a: "Giai cấp công nhân" },
+        { q: "5. Theo quan điểm của Chủ nghĩa Mác – Lênin, mục tiêu cao nhất của cuộc cách mạng vô sản là gì?", a: "Lật đổ giai cấp tư sản" },
+        { q: "6. Theo quan điểm của Chủ nghĩa Mác – Lênin, giai cấp nào là đại biểu cho lực lượng sản xuất trong phương thức sản xuất tư bản chủ nghĩa?", a: "Giai cấp công nhân" },
+        { q: "7. Điền từ còn thiếu vào chỗ trống: Đảng Cộng sản đại biểu trung thành cho lợi ích của..., của dân tộc và xã hội.", a: "Giai cấp công nhân" },
+        { q: "8. Theo C.Mác và Ph.Ăngghen, chủ thể của quá trình sản xuất vật chất hiện đại là giai cấp nào?", a: "Giai cấp công nhân" },
+        { q: "9. Theo quan điểm C.Mác và Ph.Ăngghen, đại biểu cho phương thức sản xuất tiên tiến, quyết định sự tồn tại và phát triển của xã hội hiện đại là giai cấp nào?", a: "Giai cấp công nhân" },
+        { q: "10. Đại diện cho lực lượng sản xuất tiên tiến trong xã hội tư bản là giai cấp nào?", a: "Giai cấp công nhân" },
+        { q: "11. Theo quan điểm của Chủ nghĩa Mác – Lênin, mục tiêu cao nhất trong việc thực hiện sứ mệnh lịch sử của giai cấp công nhân là gì?", a: "Giải phóng giai cấp công nhân và nhân dân lao động thoát khỏi áp bức bóc lột" },
+        { q: "12. Điền cụm từ còn thiếu vào dấu...... trong quan điểm của C. Mác: nền sản xuất hiện đại với xu thế xã hội hóa cao đã tạo ra ... cho sự nghiệp xây dựng xã hội mới của giai cấp công nhân.", a: "Tiền đề thực tiễn tuyệt đối cần thiết" },
+        { q: "13. Dấu hiệu về sự trưởng thành vượt bậc của giai cấp công nhân với tư cách là giai cấp cách mạng là gì?", a: "Đảng Cộng sản ra đời và lãnh đạo cách mạng" },
+        { q: "14. Điền từ còn thiếu vào chỗ trống: Giai cấp công nhân là cơ sở.....của Đảng cộng sản, là nguồn bổ sung lực lượng của Đảng cộng sản.", a: "Xã hội" },
+        { q: "15. Điền từ còn thiếu vào chỗ trống: Đảng Cộng sản............ của giai cấp công nhân ra đời và đảm nhận vai trò lãnh đạo cuộc cách mạng...", a: "Đội tiên phong" },
+        { q: "16. Điền từ còn thiếu vào chỗ trống: Đảng Cộng sản .... cho lợi ích của giai cấp công nhân, của dân tộc và xã hội.", a: "Đại biểu trung thành" },
+        { q: "17. Chọn cụm từ còn thiếu: Sự sụp đổ của giai cấp tư sản và thắng lợi của giai cấp vô sản đều là....?", a: "Tất yếu như nhau" },
+        { q: "18. Điền cụm từ còn thiếu: Năm 2008, Đảng ta đã ra nghị quyết về “Tiếp tục xây dựng giai cấp công nhân Việt Nam thời kỳ ... công nghiệp hóa, hiện đại hóa đất nước”.", a: "Đẩy mạnh" },
+        { q: "19. Điền cụm từ còn thiếu: Năm 2008, Đảng ta đã ra nghị quyết về “... xây dựng giai cấp công nhân Việt Nam thời kỳ đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước”.", a: "Tiếp tục" },
+        { q: "20. Điền cụm từ còn thiếu: Năm 2008, Đảng ta đã ra nghị quyết về “Tiếp tục xây dựng ... thời kỳ đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước”.", a: "Giai cấp công nhân Việt Nam" },
+        { q: "21. Điền cụm từ còn thiếu (Đại hội XII): “Coi trọng giữ vững ... giai cấp công nhân và các nguyên tắc sinh hoạt của Đảng”.", a: "Bản chất" },
+        { q: "22. Điền cụm từ còn thiếu (Đại hội XII): “Coi trọng giữ vững bản chất... và các nguyên tắc sinh hoạt của Đảng”.", a: "Giai cấp công nhân" },
+        { q: "23. Điền cụm từ còn thiếu (Đại hội XII): “Coi trọng ... bản chất giai cấp công nhân và các nguyên tắc sinh hoạt của Đảng”.", a: "Giữ vững" },
+        { q: "24. Điền cụm từ còn thiếu (Đại hội XII): “Coi trọng giữ vững bản chất giai cấp công nhân và các ... sinh hoạt của Đảng”.", a: "Nguyên tắc" },
+        { q: "25. Điền cụm từ còn thiếu (Đại hội XII): “Coi trọng giữ vững bản chất giai cấp công nhân và các nguyên tắc ... của Đảng”.", a: "Sinh hoạt" },
+        { q: "26. Ban Chấp hành Tổng Liên đoàn Lao động Việt Nam khóa XI, đưa ra chủ trương xây dựng “Chất lượng bữa ăn ca của người lao động vào năm nào?", a: "2016" },
+        { q: "27. Điền cụm từ còn thiếu (Đại hội XII): “Chú trọng xây dựng, phát huy vai trò của..., giai cấp nông nhân, đội ngũ trí thức, đội ngũ doanh nhân đáp ứng yêu cầu phát triển đất nước trong thời kỳ mới”", a: "Giai cấp công nhân" },
+        { q: "28. Điền cụm từ còn thiếu (Đại hội XII): “Chú trọng xây dựng, phát huy vai trò của giai cấp công nhân, ... , đội ngũ trí thức, đội ngũ doanh nhân đáp ứng yêu cầu phát triển đất nước trong thời kỳ mới”.", a: "Giai cấp nông nhân" },
+        { q: "29. Điền cụm từ còn thiếu (Đại hội XII): “Chú trọng xây dựng, phát huy vai trò của giai cấp công nhân, giai cấp nông nhân, đội ngũ trí thức, ... đáp ứng yêu cầu phát triển đất nước trong thời kỳ mới”.", a: "Đội ngũ doanh nhân" },
+        { q: "30. Điền cụm từ còn thiếu (Đại hội XII): “Chú trọng xây dựng, phát huy vai trò của giai cấp công nhân, giai cấp nông nhân, ..., đội ngũ doanh nhân đáp ứng yêu cầu phát triển đất nước trong thời kỳ mới”.", a: "Đội ngũ trí thức" }
+    ];
+
+    // KHỞI TẠO
+    const mcContainer = document.getElementById('mc-container');
+    const saContainer = document.getElementById('sa-container');
+    const totalEl = document.getElementById('total');
+    const progressEl = document.getElementById('progress');
+    const scoreEl = document.getElementById('score');
+
+    let answeredCount = 0;
+    let score = 0;
+
+    totalEl.innerText = mcData.length;
+
+    // RENDER TRẮC NGHIỆM
+    mcData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = `
+            <span class="q-number">Câu ${index + 1}</span>
+            <div class="q-text">${item.q}</div>
+            <div class="options-grid" id="ops-${index}">
+                ${item.ops.map(op => {
+                    const letter = op.charAt(0); // A, B, C, D
+                    return `<div class="option" onclick="checkAnswer(this, ${index}, '${item.a}', '${letter}')">${op}</div>`;
+                }).join('')}
+            </div>
+        `;
+        mcContainer.appendChild(card);
+    });
+
+    // RENDER TRẢ LỜI NGẮN
+    saData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.style.borderLeftColor = '#17a2b8';
+        card.innerHTML = `
+            <div class="q-text">${item.q}</div>
+            <button class="btn-toggle" onclick="toggleSa(${index})">Xem Đáp Án</button>
+            <div id="sa-ans-${index}" class="answer-box"><strong>Đáp án:</strong> ${item.a}</div>
+        `;
+        saContainer.appendChild(card);
+    });
+
+    // XỬ LÝ CLICK TRẮC NGHIỆM
+    function checkAnswer(el, index, correctLetter, selectedLetter) {
+        const parent = document.getElementById(`ops-${index}`);
+        
+        // Ngăn click lại
+        if (parent.classList.contains('answered')) return;
+        parent.classList.add('answered');
+
+        // Logic Đúng/Sai
+        if (selectedLetter === correctLetter) {
+            el.classList.add('correct');
+            score++;
+        } else {
+            el.classList.add('wrong');
+            // Tìm và hiện đáp án đúng
+            const options = parent.children;
+            for (let op of options) {
+                if (op.innerText.startsWith(correctLetter)) {
+                    op.classList.add('correct');
+                }
+            }
+        }
+
+        // Cập nhật thống kê
+        answeredCount++;
+        progressEl.innerText = answeredCount;
+        scoreEl.innerText = score;
+    }
+
+    // XỬ LÝ TRẢ LỜI NGẮN
+    function toggleSa(index) {
+        const box = document.getElementById(`sa-ans-${index}`);
+        box.classList.toggle('visible');
+    }
+
+</script>
+
+</body>
+</html>
