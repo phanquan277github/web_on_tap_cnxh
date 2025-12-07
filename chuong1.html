@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm Tương Tác: CNXH Khoa Học</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h1 { color: var(--primary-color); margin: 0; font-size: 2rem; }
+        h2 { color: #666; font-weight: 400; margin-top: 10px; font-size: 1.1rem; }
+
+        .stats-bar {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .section-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 30px 0 20px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid #ddd;
+        }
+
+        .q-number {
+            font-weight: bold;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Styles cho các lựa chọn trắc nghiệm */
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .option:hover {
+            background: #e2e6ea;
+            border-color: #ced4da;
+        }
+
+        /* Khi đã chọn đáp án (đúng/sai) */
+        .option.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: 600;
+        }
+
+        .option.correct::after {
+            content: "✓";
+            position: absolute;
+            right: 15px;
+            font-weight: bold;
+            color: #155724;
+        }
+
+        .option.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            opacity: 0.8;
+        }
+
+        .option.wrong::after {
+            content: "✕";
+            position: absolute;
+            right: 15px;
+            font-weight: bold;
+            color: #721c24;
+        }
+
+        /* Vô hiệu hóa click sau khi đã chọn */
+        .options-grid.answered {
+            pointer-events: none;
+        }
+
+        /* Nút cho phần tự luận */
+        .btn-toggle {
+            margin-top: 15px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #e3f2fd; 
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .answer-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 6px;
+            color: #856404;
+            display: none;
+        }
+        .answer-box.visible { display: block; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>TRẮC NGHIỆM TƯƠNG TÁC</h1>
+        <h2>Chương 1: Nhập môn Chủ nghĩa xã hội khoa học</h2>
+    </header>
+
+    <div class="stats-bar">
+        <div><strong>Tiến độ:</strong> <span id="progress">0</span> / <span id="total">0</span></div>
+        <div><strong>Điểm:</strong> <span id="score" style="color: var(--success-color); font-weight: bold;">0</span></div>
+    </div>
+
+    <div class="section-header">A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)</div>
+    <div id="mc-container"></div>
+
+    <div class="section-header" style="background: #17a2b8;">B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)</div>
+    <div id="sa-container"></div>
+</div>
+
+<script>
+    // --- DỮ LIỆU CÂU HỎI ---
+    const mcData = [
+        { q: "Theo nghĩa hẹp chủ nghĩa xã hội khoa học là:", a: "D", ops: ["A. Lý luận nghiên cứu chủ nghĩa xã hội", "B. Chủ nghĩa Mác", "C. Chủ nghĩa Mác - Lênin", "D. Một trong ba bộ phận hợp thành chủ nghĩa Mác – Lênin"] },
+        { q: "Quá trình phát triển của nền đại công nghiệp tư bản chủ nghĩa đã sản sinh ra giai cấp, tầng lớp nào sau đây?", a: "C", ops: ["A. Nông dân", "B. Tiểu tư sản", "C. Tư sản", "D. Trí thức"] },
+        { q: "Quá trình phát triển của nền đại công nghiệp tư bản chủ nghĩa đã sản sinh ra giai cấp, tầng lớp nào sau đây?", a: "C", ops: ["A. Nông dân", "B. Tiểu tư sản", "C. Công nhân", "D. Tư sản và công nhân"] },
+        { q: "Phong trào Hiến chương của những người lao động diễn ra trên 10 năm (1836 - 1848), ở đâu?", a: "C", ops: ["A. Pháp", "B. Đức", "C. Anh", "D. Bỉ"] },
+        { q: "Phong trào công nhân dệt thành phố Li-on, nước Pháp diễn ra vào những năm nào?", a: "C", ops: ["A. 1844 và 1848", "B. 1836 và 1848", "C. 1831 và 1834", "D. 1831 và 1832"] },
+        { q: "Năm 1834, phong trào đấu tranh của giai cấp công nhân Li-on đã giương cao khẩu hiệu là:", a: "B", ops: ["A. “Việc làm cho công nhân”", "B. “sống có việc làm hay là chết trong đấu tranh”", "C. “Cộng hòa hay là chết”", "D. “Tất cả vì cuộc sống”"] },
+        { q: "Đâu là tiền đề khoa học tự nhiên cho sự ra đời của Chủ nghĩa Mác nói chung và Chủ nghĩa xã hội khoa học nói riêng?", a: "D", ops: ["A. Thuyết tương đối", "B. Lý thuyết bất biến", "C. Thuyết lượng tử", "D. Học thuyết Tiến hóa"] },
+        { q: "Tiền đề nào là nguồn gốc lý luận trực tiếp của chủ nghĩa xã hội khoa học?", a: "A", ops: ["A. Triết học cổ điển Đức", "B. Triết học của L. Phoiơbắc", "C. Triết học của G.V.Ph.Hêghen", "D. Triết học của I. Kant"] },
+        { q: "Tiền đề nào là nguồn gốc lý luận trực tiếp của chủ nghĩa xã hội khoa học?", a: "D", ops: ["A. Chủ nghĩa xã hội không tưởng của Xanh Ximông", "B. Chủ nghĩa xã hội không tưởng của S.Phuriê", "C. Chủ nghĩa xã hội không tưởng của R.Ôoen", "D. Chủ nghĩa xã hội không tưởng - phê phán Pháp"] },
+        { q: "Những nhà tư tưởng tiêu biểu của chủ nghĩa xã hội không tưởng phê phán đầu thế kỷ XIX là:", a: "C", ops: ["A. Grắccơ Babớp, Xanh Ximông, Sáclơ Phuriê", "B. Xanh Ximông, Sáclơ Phuriê, G. Mably", "C. Xanh Ximông, Sáclơ Phuriê, Rôbớt Ooen", "D. Xanh Ximông, Giăng Mêliê, Rôbớt Ôoen"] },
+        { q: "Đâu là điều kiện cần cho sự ra đời của chủ nghĩa xã hội khoa học?", a: "C", ops: ["A. Phong trào đấu tranh của giai cấp công nhân...", "B. Các tiền đề khoa học tự nhiên...", "C. Những điều kiện kinh tế- xã hội và những tiền đề khoa học tự nhiên và tư tưởng lý luận", "D. Vai trò của C. Mác và Ph. Ăngghen"] },
+        { q: "Nhà sáng lập Chủ nghĩa xã hội khoa học là:", a: "A", ops: ["A. C. Mác và Ph. Ăngghen", "B. Sáclơ Phuriê", "C. Xanh Ximông", "D. V.I.Lênin"] },
+        { q: "Người đã phát triển Chủ nghĩa xã hội khoa học sau khi Ph. Ănghen qua đời?", a: "D", ops: ["A. C. Mác", "B. Hồ Chí Minh", "C. Stalin", "D. V.I.Lênin"] },
+        { q: "Đâu là phát kiến vĩ đại của C.Mác và Ph.Ăngghen?", a: "D", ops: ["A. Triết học Mác - Lênin", "B. Kinh tế chính trị Mác - Lênin", "C. Chủ nghĩa xã hội khoa học", "D. Học thuyết về giá trị thặng dư"] },
+        { q: "Đâu là phát kiến vĩ đại của C.Mác và Ph.Ăngghen?", a: "D", ops: ["A. Triết học Mác - Lênin", "B. Kinh tế chính trị Mác - Lênin", "C. Chủ nghĩa xã hội khoa học", "D. Học thuyết về sứ mệnh lịch sử toàn thế giới của giai cấp công nhân"] },
+        { q: "Tác phẩm “Chống Đuyrinh” là của ai?", a: "B", ops: ["A. C. Mác", "B. Ph. Ăngghen", "C. C. Mác và Ph. Ăngghen", "D. V.I. Lênin"] },
+        { q: "Tác phẩm “Ba nguồn gốc và ba bộ phận hợp thành chủ nghĩa Mác” là của ai?", a: "D", ops: ["A. C. Mác", "B. Ph. Ăngghen", "C. C. Mác và Ph. Ăngghen", "D. V.I. Lênin"] },
+        { q: "Câu nói: “Giai cấp tư sản... đã tạo ra một lực lượng sản xuất nhiều hơn và đồ sộ hơn...” là của ai?", a: "C", ops: ["A. C. Mác", "B. Ph. Ăngghen", "C. C. Mác và Ph. Ăngghen", "D. V.I. Lênin"] },
+        { q: "Sự phát triển nhanh chóng có tính chính trị công khai của phong trào công nhân nửa đầu thế kỷ XIX đã minh chứng điều gì?", a: "C", ops: ["A. Giai cấp công nhân đã trưởng thành", "B. Giai cấp công nhân đã phát triển về số lượng", "C. Lần đầu tiên, giai cấp công nhân đã trưởng thành trong đấu tranh với những yêu sách kinh tế, chính trị của mình", "D. Lần đầu tiên, giai cấp công nhân đã bắt đầu hướng thẳng mũi nhọn..."] },
+        { q: "Sự lớn mạnh của phong trào đấu tranh của giai cấp công nhân nửa đầu thế kỷ XIX đã nói lên điều gì?", a: "D", ops: ["A. Giai cấp công nhân đã trưởng thành", "B. Giai cấp công nhân đã phát triển về số lượng", "C. Lần đầu tiên, giai cấp công nhân đã trưởng thành...", "D. Nhu cầu bức thiết phải có một hệ thống lý luận soi đường..."] },
+        { q: "Tư tưởng xã hội chủ nghĩa không tưởng Pháp đã có những giá trị nhất định. Đó là:", a: "D", ops: ["A. Công kích kịch liệt chế độ tư bản...", "B. Đề ra tư tưởng về xây dựng nền sản xuất...", "C. Chủ trương giải phóng phụ nữ...", "D. Đưa ra nhiều luận điểm có giá trị về xã hội tương lai"] },
+        { q: "Tư tưởng xã hội chủ nghĩa không tưởng Pháp đã có những giá trị nhất định. Đó là:", a: "D", ops: ["A. Công kích kịch liệt chế độ tư bản...", "B. Đề ra tư tưởng về xây dựng nền sản xuất...", "C. Chủ trương giải phóng phụ nữ...", "D. Thức tỉnh giai cấp công nhân và người lao động..."] },
+        { q: "Tư tưởng xã hội chủ nghĩa không tưởng phê phán còn không ít những hạn chế. Một trong những hạn chế đó là:", a: "D", ops: ["A. Chưa thực sự đứng về phía người lao động", "B. Chưa thuyết phục được giai cấp tư sản", "C. Chưa có tầm nhìn đúng đắn về xã hội tương lai", "D. Không phát hiện ra vai trò và sứ mệnh lịch sử của giai cấp công nhân"] },
+        { q: "Tư tưởng xã hội chủ nghĩa không tưởng phê phán còn không ít những hạn chế. Một trong những hạn chế đó là:", a: "D", ops: ["A. Chưa thực sự đứng về phía người lao động", "B. Chưa thuyết phục được giai cấp tư sản", "C. Chưa có tầm nhìn đúng đắn về xã hội tương lai", "D. Không chỉ ra được những biện pháp hiện thực..."] },
+        { q: "Nguyên nhân chủ yếu dẫn đến những hạn chế của chủ nghĩa xã hội không tưởng là:", a: "C", ops: ["A. Do trình độ nhận thức của những nhà tư tưởng", "B. Do khoa học chưa phát triển", "C. Do những điều kiện lịch sử khách quan quy định", "D. Do thiếu sự ủng hộ của giai cấp cầm quyền"] },
+        { q: "Khi mới bước vào hoạt động khoa học, C.Mác và Ph.Ăngghen đứng trên lập trường triết học nào?", a: "A", ops: ["A. Duy tâm", "B. Duy vật", "C. Nhị nguyên", "D. Biện chứng"] },
+        { q: "Phát kiến nào khẳng định về phương diện kinh tế sự diệt vong của CNTB và sự ra đời tất yếu của CNXH?", a: "C", ops: ["A. CNDV biện chứng", "B. CNDV lịch sử", "C. Học thuyết về giá trị thặng dư", "D. Học thuyết về sứ mệnh lịch sử..."] },
+        { q: "Phát kiến nào khẳng định về phương diện chính trị - xã hội sự diệt vong của CNTB và thắng lợi của CNXH?", a: "D", ops: ["A. CNDV biện chứng", "B. CNDV lịch sử", "C. Học thuyết về giá trị thặng dư", "D. Học thuyết về sứ mệnh lịch sử toàn thế giới của giai cấp công nhân"] },
+        { q: "Tác phẩm “Tuyên ngôn của Đảng Cộng sản” được công bố khi nào?", a: "C", ops: ["A. Tháng 2 năm 1844", "B. Tháng 6 năm 1844", "C. Tháng 2 năm 1848", "D. Tháng 6 năm 1848"] },
+        { q: "Tác phẩm kinh điển chủ yếu của chủ nghĩa xã hội khoa học là:", a: "C", ops: ["A. Hệ tư tưởng Đức", "B. Tình cảnh giai cấp lao động ở Anh", "C. Tuyên ngôn của Đảng cộng sản", "D. Những nguyên lý của chủ nghĩa cộng sản"] },
+        { q: "Ai là người đầu tiên đưa chủ nghĩa xã hội từ khoa học thành thực tiễn sinh động?", a: "C", ops: ["A. C.Mác", "B. Ph.Ănghen", "C. V.I. Lênin", "D. Hồ Chí Minh"] },
+        { q: "Tác phẩm nào được Lênin đánh giá là “tác phẩm chủ yếu và cơ bản trình bày chủ nghĩa xã hội khoa học”?", a: "A", ops: ["A. Chống Đuyrinh", "B. Tư bản", "C. Hệ tư tưởng Đức", "D. Phê phán cương lĩnh Gôta"] },
+        { q: "Ai nhận xét: “CNXH lý luận Đức không bao giờ quên rằng nó dựa vào Xanhximông, Phuriê và Ôoen...?", a: "B", ops: ["A. C. Mác", "B. Ph. Ăngghen", "C. C. Mác và Ph. Ăngghen", "D. V.I. Lênin"] },
+        { q: "Nhận xét của Lênin về CNXH lý luận Đức thể hiện trong tác phẩm nào?", a: "C", ops: ["A. CNDV và Chủ nghĩa kinh nghiệm phê phán", "B. Một bước tiến, hai bước lùi", "C. Làm gì?", "D. Sáng kiến vĩ đại"] },
+        { q: "Khẳng định về CNXH đặc sắc Trung Quốc thời đại mới là chủ đề Đại hội nào?", a: "D", ops: ["A. Đại hội XVI", "B. Đại hội XVII", "C. Đại hội XVIII", "D. Đại hội XIX"] },
+        { q: "Đối tượng nghiên cứu của chủ nghĩa xã hội khoa học là gì?", a: "C", ops: ["A. Sứ mệnh lịch sử...", "B. Quy luật hình thành các hình thái KT-XH", "C. Những quy luật chính trị – xã hội của quá trình phát sinh, hình thành và phát triển hình thái KT-XH CSCN", "D. Quy luật vận động của thế giới"] },
+        { q: "Chức năng của chủ nghĩa xã hội khoa học là gì?", a: "A", ops: ["A. Giác ngộ và hướng dẫn giai cấp công nhân thực hiện sứ mệnh lịch sử của mình", "B. Hướng dẫn đấu tranh lật đổ...", "C. Hướng dẫn thiết lập sự thống trị...", "D. Hướng dẫn phát triển lên CNCS"] },
+        { q: "Nhiệm vụ cơ bản của chủ nghĩa xã hội khoa học là gì?", a: "A", ops: ["A. Luận chứng một cách khoa học tính tất yếu về mặt lịch sử sự thay thế của CNTB bằng CNXH", "B. Luận chứng về vai trò quần chúng...", "C. Luận giải quan hệ phong trào...", "D. Luận giải con đường đấu tranh..."] },
+        { q: "Phương pháp luận chung nhất mà Chủ nghĩa xã hội khoa học sử dụng là:", a: "D", ops: ["A. Phương pháp logic", "B. Phương pháp lịch sử", "C. Kết hợp logic và lịch sử", "D. Chủ nghĩa duy vật biện chứng và chủ nghĩa duy vật lịch sử"] },
+        { q: "Phương pháp có tính đặc thù của chủ nghĩa xã hội khoa học là:", a: "D", ops: ["A. Phương pháp logic", "B. Phương pháp lịch sử", "C. Kết hợp logic và lịch sử", "D. Phương pháp khảo sát và phân tích về mặt chính trị - xã hội..."] },
+        { q: "Ý nghĩa về mặt lý luận của việc nghiên cứu CNXHKH?", a: "A", ops: ["A. Trang bị nhận thức chính trị - xã hội và phương pháp luận khoa học về quá trình tất yếu lịch sử...", "B. Trang bị nhận thức về giải phóng...", "C. Trang bị vũ khí lý luận...", "D. Trang bị nhận thức để thực hiện sứ mệnh..."] },
+        { q: "Ý nghĩa thực tiễn (căn cứ nhận thức) của việc nghiên cứu CNXHKH?", a: "A", ops: ["A. Giúp có căn cứ nhận thức khoa học để luôn cảnh giác, đấu tranh chống lại nhận thức sai lệch...", "B. Trang bị nhận thức về giải phóng...", "C. Trang bị vũ khí lý luận...", "D. Trang bị nhận thức để thực hiện sứ mệnh..."] },
+        { q: "Những điều kiện và tiền đề khách quan nào dẫn đến sự ra đời của CNXHKH?", a: "C", ops: ["A. Phong trào công nhân...", "B. Tiền đề KHTN và vai trò Mác-Ăngghen", "C. Những điều kiện kinh tế - xã hội, những tiền đề khoa học tự nhiên và tư tưởng lý luận", "D. Vai trò của C. Mác và Ph. Ăngghen"] },
+        { q: "Tác phẩm nào được xem là ngọn cờ dẫn dắt giai cấp công nhân?", a: "C", ops: ["A. Hệ tư tưởng Đức", "B. Tình cảnh GCCN ở Anh", "C. Tuyên ngôn của Đảng cộng sản", "D. Những nguyên lý của CNCS"] },
+        { q: "Đóng góp của Đảng ta vào kho tàng lý luận Mác – Lênin?", a: "D", ops: ["A. Cầm quyền khoa học...", "B. 5 nguyên tắc...", "C. Cách mạng, xây dựng...", "D. Xây dựng và phát triển nền kinh tế thị trường định hướng XHCN..."] },
+        { q: "Đóng góp khác của Đảng ta vào lý luận?", a: "D", ops: ["A. Cầm quyền khoa học...", "B. 5 nguyên tắc...", "C. Cách mạng...", "D. Kinh tế đi đôi với văn hóa, môi trường"] },
+        { q: "Bài học lớn từ 30 năm đổi mới của Đảng ta?", a: "C", ops: ["A. Kinh tế thị trường...", "B. Kinh tế đi đôi văn hóa...", "C. Mở rộng và phát huy khối đại đoàn kết toàn dân tộc...", "D. Dân là gốc..."] },
+        { q: "Bài học lớn khác từ 30 năm đổi mới?", a: "D", ops: ["A. Kinh tế thị trường...", "B. Kinh tế đi đôi văn hóa...", "C. Đại đoàn kết...", "D. Phải đặt lợi ích quốc gia - dân tộc lên trên hết..."] },
+        { q: "Bài học lớn về Đảng từ 30 năm đổi mới?", a: "D", ops: ["A. Kinh tế thị trường...", "B. Kinh tế đi đôi văn hóa...", "C. Đại đoàn kết...", "D. Phải thường xuyên tự đổi mới, tự chỉnh đốn, nâng cao năng lực lãnh đạo..."] },
+        { q: "Hai phát kiến vĩ đại đưa CNXH thành khoa học?", a: "C", ops: ["A. CNDV biện chứng và CNDV lịch sử", "B. Sứ mệnh lịch sử và Giá trị thặng dư", "C. Học thuyết giá trị thặng dư và Chủ nghĩa duy vật lịch sử", "D. Sứ mệnh lịch sử và CNDV lịch sử"] },
+        { q: "Câu nói: “Giai cấp tư sản... đã tạo ra một lực lượng sản xuất nhiều hơn và đồ sộ hơn...” là của ai?", a: "C", ops: ["A. C. Mác", "B. Ph. Ăngghen", "C. C. Mác và Ph. Ăngghen", "D. V.I. Lênin"] },
+        { q: "Luận điểm: “Lịch sử tất cả các xã hội tồn tại từ trước đến nay chỉ là lịch sử đấu tranh giai cấp”, là của ai?", a: "C", ops: ["A. C. Mác", "B. Ph. Ăngghen", "C. C. Mác và Ph. Ăngghen", "D. V.I. Lênin"] },
+        { q: "Luận điểm về lịch sử đấu tranh giai cấp thể hiện trong tác phẩm nào?", a: "C", ops: ["A. Sự phát triển của CNXH...", "B. Tình cảnh GCCN Anh", "C. Tuyên ngôn của Đảng cộng sản", "D. Chống Đuyrinh"] },
+        { q: "Điền vào chỗ trống: “Lịch sử tất cả các xã hội tồn tại từ trước đến nay chỉ là lịch sử ...”", a: "C", ops: ["A. Sản xuất vật chất", "B. Đấu tranh sinh tồn", "C. Đấu tranh giai cấp", "D. Đấu tranh chống áp bức"] },
+        { q: "Tác phẩm năm 1844 thể hiện sự chuyển biến của Mác?", a: "A", ops: ["A. Góp phần phê phán triết học pháp quyền của Hêghen", "B. Gia đình thần thánh", "C. Hệ tư tưởng Đức", "D. Tư bản luận"] },
+        { q: "C. Mác và Ph. Ăngghen kế thừa “hạt nhân hợp lý” nào trong triết học cổ điển Đức?", a: "A", ops: ["A. Phép biện chứng trong triết học của V.Ph. Hêghen", "B. Chủ nghĩa duy tâm...", "C. Quan điểm tự nhiên...", "D. CNDV tâm chủ quan..."] },
+        { q: "C. Mác và Ph. Ăngghen phê phán hạn chế nào trong triết học cổ điển Đức?", a: "A", ops: ["A. Quan điểm duy tâm trong triết học của V.Ph. Hêghen", "B. Chủ nghĩa duy vật...", "C. Quan điểm tự nhiên...", "D. Phép biện chứng..."] },
+        { q: "C. Mác và Ph. Ăngghen phê phán hạn chế nào (tiếp theo)?", a: "A", ops: ["A. Quan điểm siêu hình của Triết học L. Phoiơbắc", "B. Phép biện chứng...", "C. Quan điểm tự nhiên...", "D. Quan điểm về nhà nước..."] },
+        { q: "Chọn câu trả lời đúng về các phát kiến vĩ đại:", a: "C", ops: ["A. CNDV lịch sử khẳng định kinh tế...", "B. Sứ mệnh lịch sử khẳng định kinh tế...", "C. Phát kiến vĩ đại về Học thuyết giá trị thặng dư... khẳng định về phương diện kinh tế...", "D. Cả hai khẳng định kinh tế..."] },
+        { q: "Tổng kết 1848-1852, Mác-Ăngghen phát triển tư tưởng đập tan bộ máy nhà nước tư sản và thiết lập:", a: "C", ops: ["A. Nhà nước vô sản", "B. Nhà nước GCCN", "C. Chuyên chính vô sản", "D. Chuyên chính tư sản"] },
+        { q: "Tổng kết 1848-1852, tư tưởng cách mạng không ngừng là sự kết hợp đấu tranh giữa vô sản và:", a: "B", ops: ["A. Giai cấp công nhân", "B. Giai cấp nông dân", "C. Thành phần tiến bộ...", "D. Giai cấp tiểu tư sản"] },
+        { q: "Nhận xét của Lênin về CNXH lý luận Đức nằm trong tác phẩm nào?", a: "D", ops: ["A. Bút ký triết học", "B. Một bước tiến...", "C. Chủ nghĩa dân túy", "D. Làm gì?"] },
+        { q: "Ai nêu nhiệm vụ nghiên cứu: “Nghiên cứu những điều kiện lịch sử... và bản chất của sự biến đổi ấy...?", a: "B", ops: ["A. C. Mác", "B. Ph. Ăngghen", "C. C. Mác và Ph. Ăngghen", "D. V.I. Lênin"] },
+        { q: "Ai khẳng định: “Học thuyết của Mác là học thuyết vạn năng vì nó là một học thuyết chính xác”?", a: "D", ops: ["A. C. Mác", "B. Ph. Ăngghen", "C. C. Mác và Ph. Ăngghen", "D. V.I. Lênin"] },
+        { q: "Tư tưởng nào là sự vận dụng sáng tạo của Lênin?", a: "C", ops: ["A. Đập tan bộ máy...", "B. Cách mạng không ngừng...", "C. Tư tưởng về xây dựng khối liên minh giữa giai cấp công nhân và giai cấp nông dân...", "D. CM dân chủ tư sản..."] },
+        { q: "Tư tưởng nào là sự vận dụng sáng tạo của Lênin (tiếp)?", a: "D", ops: ["A. Đập tan bộ máy...", "B. Cách mạng không ngừng...", "C. Liên minh công nông...", "D. Tư tưởng về vấn đề dân tộc và cương lĩnh dân tộc..."] },
+        { q: "Sau CM T10 Nga, Lênin viết về nội dung gì?", a: "C", ops: ["A. Đập tan bộ máy...", "B. Cách mạng không ngừng...", "C. Về xây dựng khối liên minh giữa giai cấp công nhân và giai cấp nông dân...", "D. Chuyên chính vô sản"] },
+        { q: "Sau CM T10 Nga, Lênin viết về nội dung gì (tiếp)?", a: "D", ops: ["A. Đập tan bộ máy...", "B. Cách mạng không ngừng...", "C. Liên minh công nông...", "D. Về thời kỳ quá độ chính trị từ chủ nghĩa tư bản chủ nghĩa lên chủ nghĩa cộng sản"] },
+        { q: "Sau CM T10 Nga, Lênin viết về nội dung gì (tiếp)?", a: "D", ops: ["A. Đập tan bộ máy...", "B. Cách mạng không ngừng...", "C. Liên minh công nông...", "D. Về cải cách hành chính bộ máy nhà nước..."] },
+        { q: "Nội dung phản ánh sự phát triển CNXHKH sau thời Lênin?", a: "D", ops: ["A. Đập tan bộ máy...", "B. Cách mạng không ngừng...", "C. Liên minh công nông...", "D. Về 9 qui luật chung..."] },
+        { q: "Nội dung phản ánh sự phát triển CNXHKH sau thời Lênin (tiếp)?", a: "D", ops: ["A. Đập tan bộ máy...", "B. Cách mạng không ngừng...", "C. Liên minh công nông...", "D. Xác định nhiệm vụ hàng đầu là bảo vệ hòa bình..."] },
+        { q: "Vì sao CNXHKH theo nghĩa rộng là chủ nghĩa Mác - Lênin?", a: "C", ops: ["A. Vì phác thảo mô hình...", "B. Vì luận chứng sứ mệnh...", "C. Vì CNXHKH dựa vào triết học, kinh tế chính trị để lý giải tính tất yếu...", "D. Vì luận chứng quy luật..."] },
+        { q: "Ai mở đầu các trào lưu xã hội chủ nghĩa và cộng sản chủ nghĩa thời cận đại?", a: "A", ops: ["A. Tômát Moro", "B. Arítxtốt", "C. Platôn", "D. Tômađô Campanenla"] },
+        { q: "Ai chủ trương thiết lập nền “Chuyên chính cách mạng của những người lao động”?", a: "C", ops: ["A. Tômát Moro", "B. Xanh Ximông", "C. Grắccơ Babớp", "D. Morenly"] },
+        { q: "Tác phẩm “Thành phố mặt trời” là của ai?", a: "B", ops: ["A. Giêrăcdo Uyxntenli", "B. Tômađô Campanenla", "C. Giăng Mêliê", "D. Sáclơ Phuriê"] },
+        { q: "Nhà tư tưởng nào nói đến vấn đề giai cấp và xung đột giai cấp?", a: "A", ops: ["A. Xanh Ximông", "B. Sáclơ Phuriê", "C. Rôbớt Ôoen", "D. Grắccơ Babớp"] },
+        { q: "Ai nêu luận điểm: “sự nghèo khổ được sinh ra từ chính sự thừa thãi”?", a: "B", ops: ["A. Xanh Ximông", "B. Sáclơ Phuriê", "C. Rôbớt Ôoen", "D. Tômát Moro"] },
+        { q: "Ai chia lịch sử thành: mông muội, dã man, gia trưởng và văn minh?", a: "B", ops: ["A. Xanh Ximông", "B. Sáclơ Phuriê", "C. Grắccơ Babớp", "D. Tômát Moro"] },
+        { q: "Ai nêu tư tưởng: trình độ giải phóng xã hội đo bằng giải phóng phụ nữ?", a: "B", ops: ["A. Xanh Ximông", "B. Sáclơ Phuriê", "C. Grắcco Babớp", "D. Rôbớt Ôoen"] },
+        { q: "Nhà tư tưởng nào bị phá sản khi thực nghiệm cộng sản?", a: "C", ops: ["A. Xanh Ximông", "B. Sáclơ Phuriê", "C. Rôbớt Ôoen", "D. Tômát Moro"] },
+        { q: "Chọn tác giả đúng với tác phẩm?", a: "C", ops: ["A. Tômát Morơ: Thành phố mặt trời", "B. Campanenla: Không tưởng", "C. Grắccơ Babớp: Tuyên ngôn của những người bình dân", "D. Tômát Morơ: Đào đất"] },
+        { q: "Ai được Ăngghen đánh giá là “nắm phép biện chứng tài tình như Hêghen”?", a: "C", ops: ["A. Giêrắcdo Uynxteli", "B. Xanh Ximông", "C. Sáclơ Phuriê", "D. Rôbớt Ôoen"] },
+        { q: "Chọn tác giả đúng với tác phẩm?", a: "D", ops: ["A. Tômát Morơ: Thành phố mặt trời", "B. Campanenla: Không tưởng", "C. Babớp: Bộ luật tự nhiên", "D. Giăng Mêliê: Những di chúc của tôi"] },
+        { q: "Điền vào chỗ trống: “...đã tạo ra một ... nhiều hơn và đồ sộ hơn...”", a: "D", ops: ["A. Khối tài sản", "B. Khối của cải", "C. Phương thức sản xuất", "D. Lực lượng sản xuất"] }
+    ];
+
+    // DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN (28 CÂU)
+    const saData = [
+        { q: "1. Phong trào công nhân dệt diễn ra năm 1844 ở thành phố Xi-lê-di thuộc nước nào?", a: "Đức" },
+        { q: "2. Phong trào công nhân dệt thành phố Li-on, nước Pháp diễn ra vào năm nào?", a: "1831" },
+        { q: "3. Năm 1834, phong trào đấu tranh của giai cấp công nhân Li-on đã giương cao khẩu hiệu gì?", a: "“Sống có việc làm hay là chết trong đấu tranh”" },
+        { q: "4. Tác phẩm “Chống Đuyrinh” là của ai?", a: "Ph.Ăngghen" },
+        { q: "5. Tác phẩm “Ba nguồn gốc và ba bộ phận hợp thành chủ nghĩa Mác” là của ai?", a: "V.I.L.Lênin" },
+        { q: "6. Khi mới bước vào hoạt động khoa học, C.Mác và Ph.Ăngghen đứng trên lập trường triết học nào?", a: "Duy vật" },
+        { q: "7. Phát kiến nào khẳng định về kinh tế sự diệt vong của CNTB và sự ra đời của CNXH?", a: "Học thuyết về giá trị thặng dư" },
+        { q: "8. “Tuyên ngôn của Đảng Cộng sản” được công bố khi nào?", a: "Tháng 2 năm 1848" },
+        { q: "9. Tác phẩm kinh điển chủ yếu của chủ nghĩa xã hội khoa học là gì?", a: "Tuyên ngôn của Đảng Cộng sản" },
+        { q: "10. Ai nhận xét: “CNXH lý luận Đức không bao giờ quên rằng nó dựa vào Xanhximông...?", a: "V.I.Lênin" },
+        { q: "11. Ai đưa ra quan điểm cách mạng vô sản có thể nổ ra ở khâu yếu nhất của CNTB?", a: "V.I. Lênin" },
+        { q: "12. Ai phát hiện ra quy luật phát triển không đều của CNTB?", a: "V.I. Lênin" },
+        { q: "13. Tiền đề nào là nguồn gốc lý luận trực tiếp của chủ nghĩa xã hội khoa học?", a: "Chủ nghĩa xã hội không tưởng – phê phán" },
+        { q: "14. Tác phẩm nào là ngọn cờ dẫn dắt giai cấp công nhân?", a: "Tuyên ngôn của Đảng Cộng sản" },
+        { q: "15. Tác phẩm nào là cương lĩnh chính trị đầu tiên?", a: "Tuyên ngôn của Đảng Cộng sản" },
+        { q: "16. Luận điểm “Lịch sử tất cả các xã hội... là lịch sử đấu tranh giai cấp” ở đâu?", a: "Tuyên ngôn của Đảng Cộng sản" },
+        { q: "17. Ai tố cáo tích lũy tư bản bằng hình ảnh “Cừu ăn thịt người”?", a: "Tômát Moro" },
+        { q: "18. Ai nói “sự nghèo khổ được sinh ra từ chính sự thừa thãi”?", a: "Sáclơ Phuriê" },
+        { q: "19. Ai nói trình độ giải phóng xã hội đo bằng giải phóng phụ nữ?", a: "Sáclơ Phuriê" },
+        { q: "20. Ai mơ ước xây dựng “Thành phố mặt trời”?", a: "Tômađô Cămpanela" },
+        { q: "21. Ai thực nghiệm xã hội cộng sản trong lòng CNTB?", a: "Rôbớt Ôoen" },
+        { q: "22. Nhà tư tưởng nào bị phá sản khi thực nghiệm?", a: "Rôbớt Ôoen" },
+        { q: "23. Ai được đánh giá là “nắm phép biện chứng tài tình như Hêghen”?", a: "Sáclơ Phuriê" },
+        { q: "24. Ai gắn liền với mọi phong trào xã hội vì lợi ích công nhân ở Anh?", a: "Rôbớt Ôoen" },
+        { q: "25. Lần đầu tiên Ph.Ăngghen nói chủ nghĩa Mác cấu thành bởi 3 bộ phận trong tác phẩm nào?", a: "Chống Đuyrinh" },
+        { q: "26. Ai chủ trương “Chuyên chính cách mạng của những người lao động”?", a: "Grắccơ Babớp" },
+        { q: "27. Tư tưởng “Giang sơn ngàn năm của Chúa” xuất hiện thời đại nào?", a: "Thời cổ đại" },
+        { q: "28. Tác phẩm “Thành phố mặt trời” là của ai?", a: "Tômađô Campanenla" }
+    ];
+
+    // KHỞI TẠO
+    const mcContainer = document.getElementById('mc-container');
+    const saContainer = document.getElementById('sa-container');
+    const totalEl = document.getElementById('total');
+    const progressEl = document.getElementById('progress');
+    const scoreEl = document.getElementById('score');
+
+    let answeredCount = 0;
+    let score = 0;
+
+    totalEl.innerText = mcData.length;
+
+    // RENDER TRẮC NGHIỆM
+    mcData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = `
+            <span class="q-number">Câu ${index + 1}</span>
+            <div class="q-text">${item.q}</div>
+            <div class="options-grid" id="ops-${index}">
+                ${item.ops.map(op => {
+                    const letter = op.charAt(0); // A, B, C, D
+                    return `<div class="option" onclick="checkAnswer(this, ${index}, '${item.a}', '${letter}')">${op}</div>`;
+                }).join('')}
+            </div>
+        `;
+        mcContainer.appendChild(card);
+    });
+
+    // RENDER TRẢ LỜI NGẮN
+    saData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.style.borderLeftColor = '#17a2b8';
+        card.innerHTML = `
+            <div class="q-text">${item.q}</div>
+            <button class="btn-toggle" onclick="toggleSa(${index})">Xem Đáp Án</button>
+            <div id="sa-ans-${index}" class="answer-box"><strong>Đáp án:</strong> ${item.a}</div>
+        `;
+        saContainer.appendChild(card);
+    });
+
+    // XỬ LÝ CLICK TRẮC NGHIỆM
+    function checkAnswer(el, index, correctLetter, selectedLetter) {
+        const parent = document.getElementById(`ops-${index}`);
+        
+        // Ngăn click lại
+        if (parent.classList.contains('answered')) return;
+        parent.classList.add('answered');
+
+        // Logic Đúng/Sai
+        if (selectedLetter === correctLetter) {
+            el.classList.add('correct');
+            score++;
+        } else {
+            el.classList.add('wrong');
+            // Tìm và hiện đáp án đúng
+            const options = parent.children;
+            for (let op of options) {
+                if (op.innerText.startsWith(correctLetter)) {
+                    op.classList.add('correct');
+                }
+            }
+        }
+
+        // Cập nhật thống kê
+        answeredCount++;
+        progressEl.innerText = answeredCount;
+        scoreEl.innerText = score;
+    }
+
+    // XỬ LÝ TRẢ LỜI NGẮN
+    function toggleSa(index) {
+        const box = document.getElementById(`sa-ans-${index}`);
+        box.classList.toggle('visible');
+    }
+
+</script>
+
+</body>
+</html>
