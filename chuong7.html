@@ -195,456 +195,1040 @@
 
 <script>
     // --- DỮ LIỆU TỪ FILE CHUONG7.DOCX ---
-    // Đáp án (a) được xác định dựa trên kiến thức chuẩn Giáo trình CNXH KH
+    // --- DỮ LIỆU CÂU HỎI TỪ FILE CHUONG7.DOCX ---
 
-    const mcData = [
-        {
-            q: "Khái niệm dùng để chỉ một cộng đồng người đặc biệt, có vai trò quyết định đến sự tồn tại và phát triển của xã hội?",
-            a: "D",
-            ops: ["A. Dân tộc", "B. Bộ tộc", "C. Bộ lạc", "D. Gia đình"]
-        },
-        {
-            q: "Trong gia đình quan hệ nào là cơ sở, nền tảng hình thành nên các mối quan hệ khác?",
-            a: "A",
-            ops: ["A. Quan hệ hôn nhân", "B. Quan hệ huyết thống", "C. Quan hệ kinh tế", "D. Quan hệ nuôi dưỡng"]
-        },
-        {
-            q: "Trong gia đình, mối quan hệ nào là quan hệ tự nhiên, là yếu tố mạnh mẽ nhất gắn kết các thành viên trong gia đình với nhau?",
-            a: "B",
-            ops: ["A. Quan hệ hôn nhân", "B. Quan hệ huyết thống", "C. Quan hệ kinh tế", "D. Quan hệ nuôi dưỡng"]
-        },
-        {
-            q: "Cộng đồng nào được ví như tế bào của xã hội?",
-            a: "C",
-            ops: ["A. Nhà nước", "B. Dân tộc", "C. Gia đình", "D. Dân cư"]
-        },
-        {
-            q: "Cộng đồng xã hội đầu tiên mà mỗi cá nhân sinh sống, có ảnh hưởng rất lớn đến sự hình thành và phát triển nhân cách của từng con người, đó là:",
-            a: "D",
-            ops: ["A. Dân tộc", "B. Bộ tộc", "C. Bộ lạc", "D. Gia đình"]
-        },
-        {
-            q: "Một trong những cộng đồng để xã hội tác động đến cá nhân, là:",
-            a: "B",
-            ops: ["A. Văn hóa", "B. Gia đình", "C. Giáo dục", "D. Nơi sinh sống"]
-        },
-        {
-            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: tái sản xuất ra con người để duy trì nòi giống, là:",
-            a: "D",
-            ops: ["A. Nhiệm vụ cơ bản của gia đình", "B. Vị trí cơ bản của gia đình", "C. Tính chất cơ bản của gia đình", "D. Chức năng cơ bản của gia đình"]
-        },
-        {
-            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: nuôi dưỡng và giáo dục con cái trở thành người có ích cho xã hội, là:",
-            a: "D",
-            ops: ["A. Nhiệm vụ cơ bản của gia đình", "B. Vị trí cơ bản của gia đình", "C. Tính chất cơ bản của gia đình", "D. Chức năng cơ bản của gia đình"]
-        },
-        {
-            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: thỏa mãn nhu cầu tâm sinh lý, duy trì tình cảm cho các thành viên trong gia đình, là:",
-            a: "D",
-            ops: ["A. Nhiệm vụ cơ bản của gia đình", "B. Vị trí cơ bản của gia đình", "C. Tính chất cơ bản của gia đình", "D. Chức năng cơ bản của gia đình"]
-        },
-        {
-            q: "Chủ nghĩa Mác – Lênin khẳng định: Gia đình là cầu nối giữa cá nhân với xã hội, tức là muốn đề cập đến:",
-            a: "B",
-            ops: ["A. Nhiệm vụ của gia đình với xã hội", "B. Vị trí của gia đình trong xã hội", "C. Tính chất của gia đình trong xã hội", "D. Chức năng của gia đình trong xã hội"]
-        },
-        {
-            q: "Theo quan điểm Chủ nghĩa Mác – Lênin, gia đình có mấy chức năng cơ bản?",
-            a: "B",
-            ops: ["A. 3", "B. 4", "C. 5", "D. 6"]
-        },
-        {
-            q: "Theo quan điểm Chủ nghĩa Mác – Lênin, chức năng nào là chức năng thường xuyên của gia đình?",
-            a: "D",
-            ops: ["A. Tái sản xuất ra con người", "B. Nuôi dưỡng và giáo dục con cái", "C. Phát triển kinh tế", "D. Thỏa mãn nhu cầu tâm sinh lý, duy trì tình cảm"]
-        },
-        {
-            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: gia đình là nơi lưu giữ truyền thống văn hóa của dân tộc. Điều này đề cập đến:",
-            a: "D",
-            ops: ["A. Nhiệm vụ của gia đình", "B. Vị trí của gia đình", "C. Tính chất của gia đình", "D. Chức năng của gia đình (văn hóa)"]
-        },
-        {
-            q: "Gia đình là nơi tổ chức thực hiện chính sách, pháp luật của nhà nước. Điều này đề cập đến:",
-            a: "B",
-            ops: ["A. Nhiệm vụ của gia đình", "B. Vị trí của gia đình (Cầu nối)", "C. Tính chất của gia đình", "D. Chức năng của gia đình"]
-        },
-        {
-            q: "Cơ sở chính trị để xây dựng gia đình trong thời kỳ quá độ lên chủ nghĩa xã hội là:",
-            a: "B",
-            ops: ["A. Đấu tranh giành chính quyền", "B. Thiết lập nhà nước xã hội chủ nghĩa", "C. Đấu tranh giải phóng phụ nữ", "D. Xây dựng Luật Hôn nhân và Gia đình"]
-        },
-        {
-            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, hôn nhân tiến bộ là:",
-            a: "B",
-            ops: ["A. Hôn nhân tự nguyện", "B. Hôn nhân xuất phát từ tình yêu; một vợ một chồng; đúng pháp luật", "C. Hôn nhân đúng pháp luật", "D. Hôn nhân tự do kết hôn/ly hôn"]
-        },
-        {
-            q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, bản chất của tình yêu là:",
-            a: "D",
-            ops: ["A. Mù quáng", "B. Say đắm", "C. Không chia sẻ", "D. Hy sinh (Sự hiến dâng/Không vụ lợi)"]
-        },
-        {
-            q: "Cộng đồng nào được ví như một tế bào tự nhiên, là một đơn vị cơ sở để tạo nên cơ thể - xã hội?",
-            a: "C",
-            ops: ["A. Nhà nước", "B. Dân tộc", "C. Gia đình", "D. Dân cư"]
-        },
-        {
-            q: "Mức độ tác động của gia đình đối với xã hội phụ thuộc vào yếu tố nào sau đây?",
-            a: "C",
-            ops: ["A. Chế độ giáo dục", "B. Bản chất văn hóa", "C. Bản chất của từng chế độ xã hội", "D. Truyền thống gia đình"]
-        },
-        {
-            q: "Yếu tố nào đã hạn chế rất lớn đến sự tác động của gia đình đối với xã hội?",
-            a: "A",
-            ops: ["A. Chế độ tư hữu về tư liệu sản xuất", "B. Chế độ giáo dục", "C. Bản chất văn hóa", "D. Truyền thống gia đình"]
-        },
-        {
-            q: "Yếu tố nào đã hạn chế rất lớn đến sự tác động của gia đình đối với xã hội? (Câu hỏi tương tự)",
-            a: "A",
-            ops: ["A. Sự bất bình đẳng trong quan hệ xã hội và gia đình", "B. Chế độ giáo dục", "C. Bản chất văn hóa", "D. Truyền thống gia đình"]
-        },
-        {
-            q: "Giai cấp cầm quyền muốn quản lý xã hội theo yêu cầu của mình, đều coi trọng:",
-            a: "A",
-            ops: ["A. Xây dựng và củng cố gia đình", "B. Phát triển giáo dục", "C. Phát triển văn hóa", "D. Xây dựng chính sách"]
-        },
-        {
-            q: "Khẳng định: “Nếu không giải phóng phụ nữ là xây dựng chủ nghĩa xã hội chỉ một nửa”, là của ai?",
-            a: "A",
-            ops: ["A. Hồ Chí Minh", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
-        },
-        {
-            q: "Nội dung nào sau đây xác định vị trí của gia đình?",
-            a: "D",
-            ops: ["A. Tái sản xuất ra con người", "B. Nuôi dưỡng giáo dục", "C. Tổ chức kinh tế", "D. Cầu nối giữa cá nhân và xã hội (Tổ ấm)"]
-        },
-        {
-            q: "Nội dung nào sau đây xác định chức năng của gia đình?",
-            a: "B",
-            ops: ["A. Tế bào của xã hội", "B. Tái sản xuất con người", "C. Tổ ấm hạnh phúc", "D. Cầu nối cá nhân - xã hội"]
-        },
-        {
-            q: "Đâu là chức năng đặc thù của gia đình mà không một cộng đồng nào có thể thay thế?",
-            a: "B",
-            ops: ["A. Tổ chức kinh tế", "B. Tái sản xuất ra con người", "C. Nuôi dưỡng, giáo dục", "D. Duy trì tình cảm"]
-        },
-        {
-            q: "Chức năng nào thể hiện tình cảm thiêng liêng, trách nhiệm của cha mẹ với con cái?",
-            a: "C",
-            ops: ["A. Tổ chức kinh tế", "B. Tái sản xuất ra con người", "C. Nuôi dưỡng, giáo dục", "D. Duy trì tình cảm"]
-        },
-        {
-            q: "Chức năng nào có ý nghĩa quan trọng đối với sự hình thành nhân cách, đạo đức, lối sống?",
-            a: "C",
-            ops: ["A. Tổ chức kinh tế", "B. Tái sản xuất ra con người", "C. Nuôi dưỡng, giáo dục", "D. Duy trì tình cảm"]
-        },
-        {
-            q: "Chức năng nào góp phần cung cấp nguồn lao động chất lượng cao cho xã hội?",
-            a: "C",
-            ops: ["A. Tổ chức kinh tế", "B. Tái sản xuất ra con người", "C. Nuôi dưỡng, giáo dục", "D. Duy trì tình cảm"]
-        },
-        {
-            q: "Chỉ ra một thiết chế văn hóa - xã hội đặc thù có chức năng mà bất cứ thiết chế nào cũng không thể thay thế:",
-            a: "D",
-            ops: ["A. Nhà trường", "B. Đoàn Thanh niên", "C. Hội sinh viên", "D. Gia đình"]
-        },
-        {
-            q: "Chức năng nào đóng góp vào quá trình sản xuất và tái sản xuất ra của cải?",
-            a: "A",
-            ops: ["A. Chức năng tổ chức kinh tế", "B. Chức năng tổ chức tiêu dùng", "C. Chức năng kinh tế và tiêu dùng", "D. Chức năng tái sản xuất con người"]
-        },
-        {
-            q: "Chức năng nào được coi là chức năng cơ bản và riêng có của gia đình?",
-            a: "A",
-            ops: ["A. Tái sản xuất ra con người", "B. Tổ chức kinh tế", "C. Nuôi dưỡng, giáo dục", "D. Thoả mãn nhu cầu tâm sinh lý"]
-        },
-        {
-            q: "Câu khẳng định về việc chính quyền Xô viết thủ tiêu pháp luật cũ kỹ đối với phụ nữ là của ai?",
-            a: "D",
-            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
-        },
-        {
-            q: "Chủ thể nào có tính cách là cơ sở của việc xây dựng gia đình trong thời kỳ quá độ?",
-            a: "A",
-            ops: ["A. Nhà nước xã hội chủ nghĩa", "B. Đảng Cộng sản", "C. Các đoàn thể", "D. Tổ chức chính quyền địa phương"]
-        },
-        {
-            q: "Ai đã đưa ra luận điểm về việc ly hôn khi tình yêu phai nhạt?",
-            a: "C",
-            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
-        },
-        {
-            q: "Ai đưa ra luận điểm: 'Nếu chỉ riêng hôn nhân dựa trên cơ sở tình yêu mới hợp đạo đức...'?",
-            a: "C",
-            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
-        },
-        {
-            q: "Sự bình đẳng trong quan hệ giữa cha mẹ với con cái và anh chị em có cơ sở từ mối quan hệ nào?",
-            a: "B",
-            ops: ["A. Quan hệ hôn nhân", "B. Quan hệ huyết thống", "C. Quan hệ vợ chồng bình đẳng", "D. Quan hệ cá nhân với gia đình"]
-        },
-        {
-            q: "Cụm từ dùng để chỉ gia đình Việt Nam ngày nay trong bước chuyển biến?",
-            a: "C",
-            ops: ["A. Gia đình truyền thống", "B. Gia đình hiện đại", "C. Gia đình quá độ (Gia đình trong thời kỳ quá độ)", "D. Gia đình hạt nhân"]
-        },
-        {
-            q: "Gia đình Việt Nam hiện nay biến đổi về chức năng tái sản xuất ra con người như thế nào?",
-            a: "B",
-            ops: ["A. Tuân thủ quy định Nhà nước", "B. Chủ động, tự giác (Kế hoạch hóa gia đình)", "C. Bắt buộc", "D. Theo kế hoạch địa phương"]
-        },
-        {
-            q: "Biến đổi về chức năng kinh tế của gia đình ở Việt Nam hiện nay là:",
-            a: "A",
-            ops: ["A. Từ kinh tế tự cấp tự túc thành kinh tế hàng hóa", "B. Thành kinh tế thị trường", "C. Thành kinh tế TBCN", "D. Thành kinh tế XHCN"]
-        },
-        {
-            q: "Giáo dục gia đình ở Việt Nam hiện nay phát triển theo xu hướng nào?",
-            a: "D",
-            ops: ["A. Ưu tiên đầu tư tài chính", "B. Đầu tư toàn bộ", "C. Đầu tư du học", "D. Sự đầu tư tài chính tăng lên"]
-        },
-        {
-            q: "Ngoài biến đổi về quy mô, kết cấu, gia đình VN còn biến đổi về:",
-            a: "B",
-            ops: ["A. Vị trí", "B. Quan hệ gia đình", "C. Vai trò", "D. Quan hệ cộng đồng"]
-        },
-        {
-            q: "Trong gia đình Việt Nam hiện nay, ngoài đàn ông làm chủ, còn mô hình nào?",
-            a: "B",
-            ops: ["A. Phụ nữ làm chủ", "B. Cả gia đình cùng làm chủ (Vợ chồng bình đẳng)", "C. Đàn ông cùng làm chủ", "D. Độc lập"]
-        },
-        {
-            q: "Đâu là phương hướng cơ bản xây dựng gia đình VN hiện nay? (Lãnh đạo)",
-            a: "D",
-            ops: ["A. Biến đổi quy mô", "B. Biến đổi chức năng", "C. Biến đổi quan hệ", "D. Tăng cường sự lãnh đạo của Đảng..."]
-        },
-        {
-            q: "Đâu là phương hướng cơ bản xây dựng gia đình VN hiện nay? (Kinh tế)",
-            a: "D",
-            ops: ["A. Biến đổi quy mô", "B. Biến đổi chức năng", "C. Biến đổi quan hệ", "D. Đẩy mạnh phát triển kinh tế - xã hội..."]
-        },
-        {
-            q: "Đâu là phương hướng cơ bản xây dựng gia đình VN hiện nay? (Phong trào)",
-            a: "D",
-            ops: ["A. Biến đổi quy mô", "B. Biến đổi chức năng", "C. Biến đổi quan hệ", "D. Tiếp tục phát triển phong trào gia đình văn hóa"]
-        },
-        {
-            q: "Luận điểm 'Quan hệ thứ ba... là gia đình' là của ai?",
-            a: "A",
-            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
-        },
-        {
-            q: "Điền từ vào câu nói của V.I.Lênin: '...do trình độ phát triển của lao động và... trình độ phát triển của ...'",
-            a: "D",
-            ops: ["A. Lực lượng sản xuất", "B. Xã hội", "C. Phương thức sản xuất", "D. Gia đình"]
-        },
-        {
-            q: "Điền từ vào câu nói của HCM: 'Nếu không ... là xây dựng chủ nghĩa xã hội chỉ một nửa'",
-            a: "C",
-            ops: ["A. Xây dựng chế độ công hữu", "B. Bình đẳng", "C. Giải phóng phụ nữ", "D. Xóa bỏ gia trưởng"]
-        },
-        {
-            q: "Cơ sở kinh tế - xã hội để xây dựng gia đình trong thời kỳ quá độ là:",
-            a: "B",
-            ops: ["A. Phương thức sản xuất", "B. Chế độ sở hữu xã hội chủ nghĩa (công hữu) đối với tư liệu sản xuất", "C. Khoa học kỹ thuật", "D. Kiến trúc thượng tầng"]
-        },
-        {
-            q: "Luận điểm 'Tư liệu sản xuất chuyển thành tài sản chung... Việc nuôi dạy con cái trở thành công việc của xã hội' là của ai?",
-            a: "C",
-            ops: ["A. C.Mác và Ph.Ăngghen", "B. C.Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"]
-        },
-        {
-            q: "Điền từ vào câu nói của Lênin: 'thủ tiêu tất cả ... pháp luật cũ kỹ...'",
-            a: "C",
-            ops: ["A. Hủ tục", "B. Hủ tục cũ kỹ", "C. Pháp luật cũ kỹ", "D. Pháp luật lạc hậu"]
-        },
-        {
-            q: "Điền từ vào câu nói của Lênin: 'hủy bỏ tất cả những đặc quyền gắn liền với ...'",
-            a: "D",
-            ops: ["A. Lợi ích kinh tế", "B. Lợi ích xã hội", "C. Chế độ tư hữu", "D. Chế độ tư hữu tư nhân về tư liệu sản xuất"]
-        },
-        {
-            q: "Hôn nhân tiến bộ có khuyến khích việc ly hôn hay không? Vì sao?",
-            a: "D",
-            ops: ["A. Có, vì là điều hay", "B. Có, vì tự nguyện", "C. Không, vì không cho phép", "D. Không, vì ly hôn để lại hậu quả cho xã hội, vợ chồng và con cái"]
-        },
-        {
-            q: "Theo Ph.Ăngghen, hôn nhân như thế nào mới hợp đạo đức?",
-            a: "D",
-            ops: ["A. Dựa trên tình yêu", "B. Cha mẹ cho phép", "C. Pháp luật công nhận", "D. Dựa trên tình yêu và tình yêu được duy trì"]
-        },
-        {
-            q: "Những trường hợp ly hôn cần ngăn chặn?",
-            a: "C",
-            ops: ["A. Tình yêu không còn", "B. Người thứ ba", "C. Lợi dụng quyền ly hôn (Vụ lợi/Thiếu trách nhiệm)", "D. Mất hòa hợp"]
-        },
-        {
-            q: "Thực hiện chức năng nào là yếu tố quan trọng tác động đến hạnh phúc gia đình?",
-            a: "D",
-            ops: ["A. Tái sản xuất con người", "B. Kinh tế", "C. Nuôi dưỡng", "D. Thỏa mãn nhu cầu tâm sinh lý, tình cảm"]
-        },
-        {
-            q: "Để khắc phục khoảng cách giàu nghèo trong gia đình VN, Nhà nước cần làm gì?",
-            a: "C",
-            ops: ["A. Kinh tế nhiều thành phần", "B. Kinh tế thị trường", "C. Có chính sách hỗ trợ các hộ nghèo", "D. Xã hội hóa từ thiện"]
-        },
-        {
-            q: "Trong xã hội nguyên thủy, hình thức gia đình là:",
-            a: "A",
-            ops: ["A. Gia đình cộng đồng (Quần hôn)", "B. Gia đình tập thể", "C. Gia đình cùng dòng máu", "D. Gia đình punaluna"]
-        },
-        {
-            q: "Hình thức gia đình Punaluna tồn tại ở giai đoạn nào?",
-            a: "C",
-            ops: ["A. Sơ khai", "B. Đầu nguyên thủy", "C. Giai đoạn giữa của xã hội nguyên thủy", "D. Cuối nguyên thủy"]
-        },
-        {
-            q: "Hình thức gia đình cặp đôi (đối ngẫu) tồn tại ở giai đoạn nào?",
-            a: "D",
-            ops: ["A. Sơ khai", "B. Đầu nguyên thủy", "C. Giữa nguyên thủy", "D. Giai đoạn cuối của xã hội nguyên thủy"]
-        },
-        {
-            q: "Hình thức gia đình cá thể (một vợ một chồng) tồn tại ở giai đoạn nào?",
-            a: "C",
-            ops: ["A. Đầu nguyên thủy", "B. Giữa nguyên thủy", "C. Giai đoạn cuối nguyên thủy (chuyển sang văn minh)", "D. Chiếm hữu nô lệ"]
-        },
-        {
-            q: "Nội dung cơ bản và trực tiếp để xây dựng gia đình ở Việt Nam hiện nay là gì?",
-            a: "C",
-            ops: ["A. Phát triển kinh tế", "B. Nâng cao dân trí", "C. Xây dựng gia đình no ấm, tiến bộ, hạnh phúc, văn minh", "D. Giải phóng phụ nữ"]
-        },
-        {
-            q: "Theo Ph.Ăngghen, tình yêu lành mạnh là phải:",
-            a: "C",
-            ops: ["A. Trong sáng", "B. Tôn trọng", "C. Hợp đạo đức (tức là có tình yêu nam nữ)", "D. Tiến tới hôn nhân"]
-        },
-        {
-            q: "Theo Luật Hôn nhân và Gia đình VN, con bao nhiêu tuổi được xem xét nguyện vọng khi cha mẹ ly hôn?",
-            a: "C",
-            ops: ["A. 7 tuổi", "B. Trên 7 tuổi", "C. Từ đủ 7 tuổi", "D. 8 tuổi"]
-        },
-        {
-            q: "Điền từ vào luận điểm của Mác-Ăngghen: '...đó là quan hệ giữa chồng và vợ, cha mẹ và con cái, đó là...'",
-            a: "A",
-            ops: ["A. Gia đình", "B. Huyết thống", "C. Tình cảm", "D. Tình yêu"]
-        },
-        {
-            q: "Muốn xóa bỏ nguồn gốc áp bức trong gia đình cần phải:",
-            a: "B",
-            ops: ["A. Phát triển LLSX", "B. Xây dựng chế độ sở hữu XHCN (công hữu)", "C. Giải phóng phụ nữ", "D. Công bằng xã hội"]
-        },
-        {
-            q: "Để tạo cơ sở kinh tế cho phụ nữ bình đẳng, cần phải:",
-            a: "B",
-            ops: ["A. Phát triển PTSX", "B. Xây dựng chế độ sở hữu XHCN (Xóa bỏ tư hữu)", "C. Giải phóng phụ nữ", "D. Công bằng xã hội"]
-        },
-        {
-            q: "Ai đưa ra luận điểm: 'Chế độ một vợ một chồng sinh ra từ sự tập trung nhiều của cải...'?",
-            a: "C",
-            ops: ["A. C.Mác", "B. Mác & Ăngghen", "C. Ph.Ăngghen", "D. V.I.Lênin"]
-        },
-        {
-            q: "'Giữ gìn và phát huy truyền thống văn hóa ứng xử...' là chủ đề năm nào?",
-            a: "D",
-            ops: ["A. 2016", "B. 2017", "C. 2018", "D. 2019"]
-        },
-        {
-            q: "'Bữa cơm gia đình ấm áp yêu thương' là chủ đề năm nào?",
-            a: "A",
-            ops: ["A. 2016 (và các năm sau đó duy trì)", "B. 2017", "C. 2018", "D. 2019"]
-        },
-        {
-            q: "Quan điểm 'Xây dựng đời sống văn hóa lành mạnh...' nằm trong Văn kiện nào?",
-            a: "D",
-            ops: ["A. Cương lĩnh 1991", "B. Cương lĩnh 2011", "C. Đại hội X", "D. Đại hội XII"]
-        },
-        {
-            q: "Thủ tướng phê duyệt Đề án phát huy giá trị gia đình năm nào (QĐ 279)?",
-            a: "A",
-            ops: ["A. 20.02.2014", "B. 24.02.2014", "C. 20.02.2015", "D. 24.02.2015"]
-        },
-        {
-            q: "Đề án phát huy giá trị gia đình có bao nhiêu Dự án thành phần?",
-            a: "C",
-            ops: ["A. 2", "B. 3", "C. 4 (hoặc 5 tùy văn bản cụ thể, thường là 4 dự án lớn)", "D. 5"]
-        },
-        {
-            q: "Dự án nào nằm trong Đề án này? (Giáo dục)",
-            a: "B",
-            ops: ["A. Hỗ trợ tài chính", "B. Giáo dục Quốc gia về đời sống gia đình (Đúng)", "C. Xây dựng nhân cách", "D. Cơ sở dữ liệu"]
-        },
-        {
-            q: "Dự án nào nằm trong Đề án này? (Truyền thông)",
-            a: "D",
-            ops: ["A. Hỗ trợ tài chính", "B. Giáo dục", "C. Xây dựng nhân cách", "D. Truyền thông về các giá trị tốt đẹp..."]
-        },
-        {
-            q: "Dự án nào nằm trong Đề án này? (Hỗ trợ)",
-            a: "D",
-            ops: ["A. Hỗ trợ tài chính", "B. Giáo dục", "C. Xây dựng nhân cách", "D. Hỗ trợ xây dựng gia đình hạnh phúc, bền vững"]
-        },
-        {
-            q: "Câu nói: 'Nhiều gia đình cộng lại mới thành xã hội...' là của ai?",
-            a: "C",
-            ops: ["A. C. Mác", "B. Ph. Ăng ghen", "C. Hồ Chí Minh", "D. V.I. Lênin"]
-        },
-        {
-            q: "Thủ tướng phê duyệt 'Chương trình hành động quốc gia phòng chống bạo lực gia đình' năm nào?",
-            a: "A",
-            ops: ["A. 2014", "B. 2015", "C. 2016", "D. 2017"]
-        },
-        {
-            q: "Ngày Quốc tế nam giới hàng năm là ngày:",
-            a: "C",
-            ops: ["A. 15/5", "B. 20/3", "C. 19/11", "D. 05/6"]
-        },
-        {
-            q: "Ngày Quốc tế hạnh phúc hàng năm là ngày:",
-            a: "B",
-            ops: ["A. 15/5", "B. 20/3", "C. 19/11", "D. 05/6"]
-        },
-        {
-            q: "Ngày 19 tháng 11 hàng năm là ngày gì?",
-            a: "B",
-            ops: ["A. Quốc tế hạnh phúc", "B. Quốc tế nam giới", "C. Quốc tế gia đình", "D. Chống bạo lực gia đình"]
-        }
-    ];
+const mcData = [
+    {
+        q: "Khái niệm dùng để chỉ một cộng đồng người đặc biệt, có vai trò quyết định đến sự tồn tại và phát triển của xã hội?",
+        a: "D",
+        ops: [
+            "A. Dân tộc",
+            "B. Bộ tộc",
+            "C. Bộ lạc",
+            "D. Gia đình"
+        ]
+    },
+    {
+        q: "Trong gia đình quan hệ nào là cơ sở, nền tảng hình thành nên các mối quan hệ khác?",
+        a: "A",
+        ops: [
+            "A. Quan hệ hôn nhân",
+            "B. Quan hệ huyết thống",
+            "C. Quan hệ kinh tế",
+            "D. Quan hệ nuôi dưỡng"
+        ]
+    },
+    {
+        q: "Trong gia đình, mối quan hệ nào là quan hệ tự nhiên, là yếu tố mạnh mẽ nhất gắn kết các thành viên trong gia đình với nhau?",
+        a: "B",
+        ops: [
+            "A. Quan hệ hôn nhân",
+            "B. Quan hệ huyết thống",
+            "C. Quan hệ kinh tế",
+            "D. Quan hệ nuôi dưỡng"
+        ]
+    },
+    {
+        q: "Cộng đồng nào được ví như tế bào của xã hội?",
+        a: "C",
+        ops: [
+            "A. Nhà nước",
+            "B. Dân tộc",
+            "C. Gia đình",
+            "D. Dân cư"
+        ]
+    },
+    {
+        q: "Cộng đồng xã hội đầu tiên mà mỗi cá nhân sinh sống, có ảnh hưởng rất lớn đến sự hình thành và phát triển nhân cách của từng con người, đó là:",
+        a: "D",
+        ops: [
+            "A. Dân tộc",
+            "B. Bộ tộc",
+            "C. Bộ lạc",
+            "D. Gia đình"
+        ]
+    },
+    {
+        q: "Một trong những cộng đồng để xã hội tác động đến cá nhân, là:",
+        a: "B",
+        ops: [
+            "A. Văn hóa",
+            "B. Gia đình",
+            "C. Giáo dục",
+            "D. Nơi sinh sống"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: tái sản xuất ra con người để duy trì nòi giống, là:",
+        a: "D",
+        ops: [
+            "A. Nhiệm vụ cơ bản của gia đình",
+            "B. Vị trí cơ bản của gia đình",
+            "C. Tính chất cơ bản của gia đình",
+            "D. Chức năng cơ bản của gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: nuôi dưỡng và giáo dục con cái trở thành người có ích cho xã hội, là:",
+        a: "D",
+        ops: [
+            "A. Nhiệm vụ cơ bản của gia đình",
+            "B. Vị trí cơ bản của gia đình",
+            "C. Tính chất cơ bản của gia đình",
+            "D. Chức năng cơ bản của gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: thỏa mãn nhu cầu tâm sinh lý, duy trì tình cảm cho các thành viên trong gia đình, là:",
+        a: "D",
+        ops: [
+            "A. Nhiệm vụ cơ bản của gia đình",
+            "B. Vị trí cơ bản của gia đình",
+            "C. Tính chất cơ bản của gia đình",
+            "D. Chức năng cơ bản của gia đình"
+        ]
+    },
+    {
+        q: "Chủ nghĩa Mác – Lênin khẳng định: Gia đình là cầu nối giữa cá nhân với xã hội, tức là muốn đề cập đến:",
+        a: "B",
+        ops: [
+            "A. Nhiệm vụ của gia đình với xã hội",
+            "B. Vị trí của gia đình trong xã hội",
+            "C. Tính chất của gia đình trong xã hội",
+            "D. Chức năng của gia đình trong xã hội"
+        ]
+    },
+    {
+        q: "Theo quan điểm Chủ nghĩa Mác – Lênin, gia đình có mấy chức năng cơ bản?",
+        a: "B",
+        ops: [
+            "A. 3",
+            "B. 4",
+            "C. 5",
+            "D. 6"
+        ]
+    },
+    {
+        q: "Theo quan điểm Chủ nghĩa Mác – Lênin, chức năng nào là chức năng thường xuyên của gia đình?",
+        a: "D",
+        ops: [
+            "A. Tái sản xuất ra con người",
+            "B. Nuôi dưỡng và giáo dục con cái trở thành người có ích cho xã hội",
+            "C. Phát triển kinh tế và tổ chức tiêu dng",
+            "D. Thỏa mãn nhu cầu tâm sinh lý, duy trì tình cảm cho các thành viên trong gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: gia đình là nơi lưu giữ trưyền thống văn hóa của dân tộc cũng như tộc người. Điều này đề cập đến:",
+        a: "D", // (Chức năng văn hóa/giáo dục - hoặc nằm trong nhóm chức năng của gia đình)
+        ops: [
+            "A. Nhiệm vụ của gia đình",
+            "B. Vị trí của gia đình",
+            "C. Tính chất của gia đình",
+            "D. Chức năng của gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: gia đình là một tổ chức chính trị của xã hội... Điều này đề cập đến:",
+        a: "D", // (Chức năng chính trị của gia đình)
+        ops: [
+            "A. Nhiệm vụ của gia đình",
+            "B. Vị trí của gia đình",
+            "C. Tính chất của gia đình",
+            "D. Chức năng của gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, cơ sở chính trị để xây dựng gia đình trong thời kỳ quá độ lên chủ nghĩa xã hội là:",
+        a: "B",
+        ops: [
+            "A. Đấu tranh giành chính quyền",
+            "B. Thiết lập nhà nước xã hội chủ nghĩa",
+            "C. Đấu tranh giải phóng phụ nữ",
+            "D. Xây dựng Luật Hôn nhân và Gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, hôn nhân tiến bộ là:",
+        a: "B",
+        ops: [
+            "A. Hôn nhân tự nguyện",
+            "B. Hôn nhân xuất phát từ tình yêu giữa nam và nữ; hôn nhân một vợ, một chồng; đúng pháp luật", // Đáp án đầy đủ nhất
+            "C. Hôn nhân đúng pháp luật",
+            "D. Hôn nhân đảm bảo cho nam và nữ có quyền tự do kết hôn và tự do ly hôn"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, bản chất của tình yêu là:",
+        a: "D", // (Hy sinh/Vị tha)
+        ops: [
+            "A. Mù quáng",
+            "B. Say đắm",
+            "C. Không chia sẽ",
+            "D. Hy sinh"
+        ]
+    },
+    {
+        q: "Trong xã hội, cộng đồng nào được ví như một tế bào tự nhiên, là một đơn vị cơ sở để tạo nên cơ thể - xã hội?",
+        a: "C",
+        ops: [
+            "A. Nhà nước",
+            "B. Dân tộc",
+            "C. Gia đình",
+            "D. Dân cư"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, mức độ tác động của gia đình đối với xã hội phụ thuộc vào yếu tố nào sau đây? (1)",
+        a: "C",
+        ops: [
+            "A. Chế độ giáo dục của xã hội",
+            "B. Bản chất nền văn hóa của xã hội",
+            "C. Bản chất của từng chế độ xã hội",
+            "D. Truyền thống văn hóa của gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, mức độ tác động của gia đình đối với xã hội phụ thuộc vào yếu tố nào sau đây? (2)",
+        a: "C", // (Đường lối, chính sách)
+        ops: [
+            "A. Chế độ giáo dục của xã hội",
+            "B. Bản chất nền văn hóa của xã hội",
+            "C. Đường lối, chính sách của giai cấp cầm quyền",
+            "D. Truyền thống văn hóa của gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, yếu tố nào đã hạn chế rất lớn đến sự tác động của gia đình đối với xã hội? (1)",
+        a: "A",
+        ops: [
+            "A. Chế độ tư hữu về tư liệu sản xuất",
+            "B. Chế độ giáo dục của xã hội",
+            "C. Bản chất nền văn hóa của xã hội",
+            "D. Truyền thống văn hóa của gia đình"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, yếu tố nào đã hạn chế rất lớn đến sự tác động của gia đình đối với xã hội? (2)",
+        a: "A",
+        ops: [
+            "A. Sự bất bình đẳng trong quan hệ xã hội và quan hệ gia đình",
+            "B. Chế độ giáo dục của xã hội",
+            "C. Bản chất nền văn hóa của xã hội",
+            "D. Truyền thống văn hóa của gia đình"
+        ]
+    },
+    {
+        q: "Trong bất cứ mọi chế độ xã hội, giai cấp cầm quyền muốn quản lý xã hội theo yêu cầu của mình, đều coi trọng yếu tố nào sau đây?",
+        a: "A",
+        ops: [
+            "A. Xây dựng và củng cố gia đình.",
+            "B. Phát triển giáo dục",
+            "C. Phát triển văn hóa",
+            "D. Xây dựng chính sách phù hợp"
+        ]
+    },
+    {
+        q: "Khẳng định: “Nếu không giải phóng phụ nữ là xây dựng chủ nghĩa xã hội chỉ một nửa”, là của ai?",
+        a: "A",
+        ops: [
+            "A. Hồ Chí Minh",
+            "B. C.Mác",
+            "C. Ph.Ăngghen",
+            "D. V.I.Lênin"
+        ]
+    },
+    {
+        q: "Nội dung nào sao đây xác định vị trí của gia đình? (1)",
+        a: "D", // (Tổ ấm) - Đây thường được xem là chức năng/vị trí. Nhưng trong đáp án này, Tổ ấm là đặc trưng nhất về vị trí so với các chức năng cụ thể kia.
+        ops: [
+            "A. Tái sản xuất ra con người",
+            "B. Nuôi dưỡng giáo dục con người",
+            "C. Tổ chức đời sống kinh tế",
+            "D. Tổ ấm mang lại các giá trị hạnh phúc"
+        ]
+    },
+    {
+        q: "Nội dung nào sao đây xác định vị trí của gia đình? (2)",
+        a: "D",
+        ops: [
+            "A. Tái sản xuất ra con người",
+            "B. Nuôi dưỡng giáo dục con người",
+            "C. Tổ chức đời sống kinh tế",
+            "D. Cầu nối giữa cá nhân và xã hội"
+        ]
+    },
+    {
+        q: "Nội dung nào sao đây xác định chức năng của gia đình? (1)",
+        a: "B",
+        ops: [
+            "A. Tế bào của xã hội",
+            "B. Tái sản xuất con người",
+            "C. Tổ ấm mang lại các giá trị hạnh phúc",
+            "D. Cầu nối giữa cá nhân và xã hội"
+        ]
+    },
+    {
+        q: "Nội dung nào sao đây xác định chức năng của gia đình? (2)",
+        a: "B",
+        ops: [
+            "A. Tế bào của xã hội",
+            "B. Thỏa mãn nhu cầu tâm sinh lý, duy trì tình cảm gia đình",
+            "C. Tổ ấm mang lại các giá trị hạnh phúc",
+            "D. Cầu nối giữa cá nhân và xã hội"
+        ]
+    },
+    {
+        q: "Đâu là chức năng đặc thù của gia đình mà không một cộng đồng nào có thể thay thế?",
+        a: "B",
+        ops: [
+            "A. Tổ chức kinh tế",
+            "B. Tái sản xuất ra con người",
+            "C. Nuôi dưỡng, giáo dục",
+            "D. Duy trì tình cảm"
+        ]
+    },
+    {
+        q: "Trong các chức năng của gia đình, chức năng nào thể hiện tình cảm thiêng liêng, trách nhiệm của cha mẹ với con cái, đồng thời thể hiện trách nhiệm của gia đình với xã hội?",
+        a: "C",
+        ops: [
+            "A. Tổ chức kinh tế",
+            "B. Tái sản xuất ra con người",
+            "C. Nuôi dưỡng, giáo dục",
+            "D. Duy trì tình cảm"
+        ]
+    },
+    {
+        q: "Trong các chức năng của gia đình, chức năng nào khi thực hiện có ý nghĩa rất quan trọng đối với sự hình thành nhân cách, đạo đức, lối sống của mỗi người?",
+        a: "C",
+        ops: [
+            "A. Tổ chức kinh tế",
+            "B. Tái sản xuất ra con người",
+            "C. Nuôi dưỡng, giáo dục",
+            "D. Duy trì tình cảm"
+        ]
+    },
+    {
+        q: "Trong các chức năng của gia đình, chức năng nào góp phần to lớn vào việc đào tạo thế hệ tương lai của xã hội...?",
+        a: "C",
+        ops: [
+            "A. Tổ chức kinh tế",
+            "B. Tái sản xuất ra con người",
+            "C. Nuôi dưỡng, giáo dục",
+            "D. Duy trì tình cảm"
+        ]
+    },
+    {
+        q: "Trong các chức năng của gia đình, chức năng nào góp phần to lớn vào việc cung cấp nguồn lao động chất lượng cao cho xã hội?",
+        a: "C", // (Nuôi dưỡng, giáo dục tạo ra chất lượng lao động)
+        ops: [
+            "A. Tổ chức kinh tế",
+            "B. Tái sản xuất ra con người",
+            "C. Nuôi dưỡng, giáo dục",
+            "D. Duy trì tình cảm"
+        ]
+    },
+    {
+        q: "Chỉ ra một thiết chế văn hóa - xã hội đặc thù có những chức năng mà bất cứ thiết chế nào cũng không thể thay thế:",
+        a: "D",
+        ops: [
+            "A. Nhà trường",
+            "B. Tổ chức Đoàn Thanh niên",
+            "C. Hội sinh viên",
+            "D. Gia đình"
+        ]
+    },
+    {
+        q: "Trong các chức năng của gia đình, chức năng nào đóng góp vào quá trình sản xuất và tái sản xuất ra của cải, sự giàu có của xã hội?",
+        a: "A",
+        ops: [
+            "A. Chức năng tổ chức kinh tế",
+            "B. Chức năng tổ chức tiêu dùng",
+            "C. Chức năng kinh tế và tổ chức tiêu dùng",
+            "D. Chức năng tái sản xuất ra con người"
+        ]
+    },
+    {
+        q: "Chức năng nào được coi là chức năng cơ bản và riêng có của gia đình?",
+        a: "A",
+        ops: [
+            "A. Tái sản xuất ra con người",
+            "B. Tổ chức kinh tế",
+            "C. Nuôi dưỡng, giáo dục",
+            "D. Thoả mãn nhu cầu tâm sinh lý"
+        ]
+    },
+    {
+        q: "Câu khẳng định: “Chính quyền xô viết là chính quyền đầu tiên và duy nhất trên thế giới đã hoàn toàn thủ tiêu tất cả pháp luật cũ kỹ...”, là của ai?",
+        a: "D",
+        ops: [
+            "A. C.Mác và Ph.Ăngghen",
+            "B. C.Mác",
+            "C. Ph.Ăngghen",
+            "D. V.I.Lênin"
+        ]
+    },
+    {
+        q: "Xét về cơ sở chính trị - xã hội thì chủ thể nào có tính cách là cơ sở của việc xây dựng gia đình trong thời kỳ quá độ lên chủ nghĩa xã hội?",
+        a: "A",
+        ops: [
+            "A. Nhà nước xã hội chủ nghĩa",
+            "B. Đảng Cộng sản",
+            "C. Các đoàn thể",
+            "D. Tổ chức chính quyền địa phương"
+        ]
+    },
+    {
+        q: "Ai đã đưa ra luận điểm: “Nếu tình yêu đã hoàn toàn phai nhạt hoặc bị một tình yêu say đắm mới át đi, thì ly hôn sẽ là điều hay cho cả đôi bên cũng như cho xã hội”",
+        a: "C",
+        ops: [
+            "A. C.Mác và Ph.Ăngghen",
+            "B. C.Mác",
+            "C. Ph.Ăngghen",
+            "D. V.I.Lênin"
+        ]
+    },
+    {
+        q: "Ai đã đưa ra luận điểm: “Nếu chỉ riêng hôn nhân dựa trên cơ sở tình yêu mới hợp đạo đức thì cũng chi riêng hôn nhân trong đó tình yêu được duy trì, mới là hợp đạo đức mà thôi...”",
+        a: "C",
+        ops: [
+            "A. C.Mác và Ph.Ăngghen",
+            "B. C.Mác",
+            "C. Ph.Ăngghen",
+            "D. V.I.Lênin"
+        ]
+    },
+    {
+        q: "Sự bình đẳng trong quan hệ giữa cha mẹ với con cái và quan hệ giữa anh chị em với nhau có cơ sở từ mối quan hệ nào trong gia đình?",
+        a: "C",
+        ops: [
+            "A. Quan hệ hôn nhân",
+            "B. Quan hệ huyết thống",
+            "C. Quan hệ vợ chồng bình đẳng",
+            "D. Quan hệ giữa mỗi cá nhân với gia đình"
+        ]
+    },
+    {
+        q: "Cụm từ dùng để chỉ gia đình Việt Nam ngày nay trong bước chuyển biến từ xã hội nông nghiệp cổ truyền sang xã hội công nghiệp hiện đại.",
+        a: "D",
+        ops: [
+            "A. Gia đình truyền thống",
+            "B. Gia đình hiện đại",
+            "C. Gia đình nữa truyền thống, nữa hiện đại",
+            "D. Gia đình quá độ"
+        ]
+    },
+    {
+        q: "Gia đình Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội Biến đổi về chức năng tái sản xuất ra con người như thế nào?",
+        a: "B",
+        ops: [
+            "A. Việc sinh con tuân thủ theo quy định của Nhà nước",
+            "B. Việc sinh con được các gia đình tiến hành một cách chủ động, tự giác",
+            "C. Việc sinh con bắt buộc theo quy định của Nhà nước",
+            "D. Việc sinh con theo kế hoạch của địa phương"
+        ]
+    },
+    {
+        q: "Một trong những biến đổi về chức năng kinh tế của gia đình ở Việt Nam hiện nay là:",
+        a: "B",
+        ops: [
+            "A. Từ kinh tế tự cấp tự túc thành kinh tế hàng hóa",
+            "B. Từ kinh tế hàng hóa thành kinh tế thị trường", // (Gia đình tiêu dùng -> gia đình làm kinh tế hàng hóa/thị trường)
+            "C. Từ kinh tế hàng hóa giản đơn đến kinh tế hàng hóa tư bản chủ nghĩa",
+            "D. Từ kinh tế hàng hóa tư bản chủ nghĩa đến kinh tế hàng hóa xã hội chủ nghĩa"
+        ]
+    },
+    {
+        q: "Trong gia đình Việt Nam hiện nay, giáo dục gia đình phát triển theo xu hướng như thế nào?",
+        a: "D",
+        ops: [
+            "A. Ưu tiên đầu tư tài chính của gia đình cho giáo dục con cái",
+            "B. Đầu tư toàn bộ tài chính của gia đình cho giáo dục con cái",
+            "C. Đầu tư tài chính của gia đình cho con cái du học",
+            "D. Sự đầu tư tài chính của gia đình cho giáo dục con cái tăng lên"
+        ]
+    },
+    {
+        q: "Gia đình Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội, ngoài biến đổi về quy mô, kết cấu còn có:",
+        a: "B", // (Biến đổi quan hệ gia đình)
+        ops: [
+            "A. Biến đổi về vị trí của gia đình đối với xã hội",
+            "B. Biến đổi về quan hệ gia đình",
+            "C. Biến đổi về vai trò của gia đình đối với xã hội Biến đổi về các mối quan hệ xã hội cả",
+            "D. Biến đổi về các mối quan hệ cộng đồng"
+        ]
+    },
+    {
+        q: "Trong gia đình Việt Nam hiện nay, không còn một loại hình duy nhất là đàn ông làm chủ gia đình, mà còn mô hình khác cùng tồn tại. Đó là:",
+        a: "B", // (Cả gia đình cùng làm chủ/vợ chồng bình đẳng)
+        ops: [
+            "A. Người phụ nữ - người vợ làm chủ gia đình",
+            "B. Cả gia đình cùng làm chủ",
+            "C. Những người đàn ông trong gia đình cùng làm chủ",
+            "D. Mỗi người đều độc lập, không ai giữ vai trò làm chủ"
+        ]
+    },
+    {
+        q: "Đâu là phương hướng cơ bản xây dựng và phát triển gia đình Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội? (1)",
+        a: "D",
+        ops: [
+            "A. Tăng cường biến đổi quy mô, kết cấu của gia đình",
+            "B. Tăng cương biến đổi các chức năng của gìa đình",
+            "C. Tăng cường biển đổi quan hệ giữa các thế hệ, các giá trị, chuẩn mực văn hóa của gia đình",
+            "D. Tăng cường sự lãnh đạo của Đảng, nâng cao nhận thức của xã hội về xây dựng và phát triển gia đình Việt Nam"
+        ]
+    },
+    {
+        q: "Đâu là phương hướng cơ bản xây dựng và phát triển gia đình Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội? (2)",
+        a: "D",
+        ops: [
+            "A. Tăng cường biến đổi quy mô, kết cấu của gia đình",
+            "B. Tăng cương biến đổi các chức năng của gìa đình",
+            "C. Tăng cường biển đổi quan hệ giữa các thế hệ, các giá trị, chuẩn mực văn hóa của gia đình",
+            "D. Đẩy mạnh phát triển kinh tế -xă hội, nâng cao đời sống vật chất, kinh tế hộ gia đình"
+        ]
+    },
+    {
+        q: "Đâu là phương hướng cơ bản xây dựng và phát triển gia đình Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội? (3)",
+        a: "D",
+        ops: [
+            "A. Tăng cường biến đổi quy mô, kết cấu của gia đình",
+            "B. Tăng cương biến đổi các chức năng của gia đình",
+            "C. Tăng cường biển đổi quan hệ giữa các thế hệ, các giá trị, chuẩn mực văn hóa của gia đình",
+            "D. Tiếp tục phát triển và nâng cao chất lượng phong trào xây dựng gia đình văn hóa"
+        ]
+    },
+    {
+        q: "Luận điểm “Quan hệ thứ ba tham dự ngay từ đầu vào quá trình phát triển lịch sử... đó là gia đình” là của ai?",
+        a: "A",
+        ops: [
+            "A. C.Mác và Ph.Ăngghen",
+            "B. C.Mác",
+            "C. Ph.Ăngghen",
+            "D. V.I.Lênin"
+        ]
+    },
+    {
+        q: "Chọn cụm từ còn thiếu điền vào dấu … để hoàn thiện điều khẳng định của V.I.Lênin: “...mặt khác là do trình độ phát triển của …”.",
+        a: "D",
+        ops: [
+            "A. Lực lượng sản xuất",
+            "B. Xã hội",
+            "C. Phương thức sản xuất",
+            "D. Gia đình"
+        ]
+    },
+    {
+        q: "Chọn cụm từ còn thiếu điền vào dấu … để hoàn thiện điều khẳng định của Chủ tịch Hồ Chí Minh: “Nếu không …. là xây dựng chủ nghĩa xã hội chỉ một nửa”",
+        a: "C",
+        ops: [
+            "A. Xây dựng chế độ công hữu",
+            "B. Thực hiện bình đẵng cho phụ nữ",
+            "C. Giải phóng phụ nữ",
+            "D. Xóa bỏ quan hệ gia trưởng"
+        ]
+    },
+    {
+        q: "Chỉ ra một thiết chế văn hóa - xã hội đặc thù có chức năng mà bất cứ thiết chế nào cũng không thể thay thế:",
+        a: "D",
+        ops: [
+            "A. Nhà trường",
+            "B. Tổ chức Đoàn Thanh niên",
+            "C. Hội sinh viên",
+            "D. Gia đình"
+        ]
+    },
+    {
+        q: "Cơ sở kinh tế - xã hội để xây dựng gia đình trong thời kỳ quá độ lên chủ nghĩa xã hội là:",
+        a: "B",
+        ops: [
+            "A. Sự phát triển của phương thức sản xuất",
+            "B. Chế độ sở hữu xã hội chủ nghĩa đối với tư liệu sản xuất từng bước hình thành và củng cố",
+            "C. Sự phát triển của khoa học – kỹ thuật",
+            "D. Sự phát triển của kiến trúc thương tầng xã hội chủ nghĩa"
+        ]
+    },
+    {
+        q: "Luận điểm: “Tư liệu sản xuất chuyển thành tài sản chung, thì gia đình cá thể sẽ không còn là đơn vị kinh tế của xã hội nữa...”, là của ai?",
+        a: "C",
+        ops: [
+            "A. C.Mác và Ph.Ăngghen",
+            "B. C.Mác",
+            "C. Ph.Ăngghen",
+            "D. V.I.Lênin"
+        ]
+    },
+    {
+        q: "Chọn cụm từ còn thiếu điền vào dấu....trong câu khẳng định của V.I.Lênin: “Chính quyền xô viết ... đã hoàn toàn thủ tiêu tất cả …., tư sản, đê tiện...?",
+        a: "D",
+        ops: [
+            "A. Hũ tục lạc hậu",
+            "B. Hũ tục cũ kỹ, lạc hậu",
+            "C. Pháp luật cũ kỹ",
+            "D. Pháp luật cũ kỹ, lạc hậu"
+        ]
+    },
+    {
+        q: "Chọn cụm từ còn thiếu điền vào dấu....trong câu khẳng định của V.I.Lênin: “...đã hủy bỏ tất cả những đặc quyền gắn liền với …., những đặc quyền của người đàn ông trong gia đình...” ?",
+        a: "D",
+        ops: [
+            "A. Lợi ích kinh tế",
+            "B. Lợi ích xã hội",
+            "C. Chế độ tư hữu",
+            "D. Chế độ tư hữu tư nhân về tư liệu sản xuất"
+        ]
+    },
+    {
+        q: "Hôn nhân tiến bộ có khuyến khích việc ly hôn hay không? Vì sao?",
+        a: "D", // (Không khuyến khích, nhưng đảm bảo quyền tự do ly hôn) - Chọn D là hợp lý nhất về mặt xã hội học và quan điểm Mác - Lênin.
+        ops: [
+            "A. Có, vì tình yêu giữa vợ và chồng không còn thì ly hôn sẽ là điều hay cho cả đôi bên cũng như cho xã hội",
+            "B. Có, vì đó là hôn nhân tự nguyên.",
+            "C. Không, vì chế độ xã hội chủ nghĩa không cho phép vợ chồng ly hôn",
+            "D. Không, vì ly hôn để lại hậu quả nhất định cho xã hội, cho cả vợ, chồng và đặc biệt là con cái"
+        ]
+    },
+    {
+        q: "Theo Ph.Ăngghen, hôn nhân như thế nào mới hợp đạo đức?",
+        a: "D",
+        ops: [
+            "A. Hôn nhân dựa trên cơ sở tình yêu",
+            "B. Hôn nhân được cha mẹ cho phép",
+            "C. Hôn nhân được pháp luật công nhận",
+            "D. Hôn nhân dựa trên cơ sở tình yêu và tình yêu được duy trì mãi sau hôn nhân"
+        ]
+    },
+    {
+        q: "Dựa vào quan điểm của Chủ nghĩa Mác – Lênin, hãy chỉ ra những trường hợp ly hôn cần ngăn chặn? (1)",
+        a: "C",
+        ops: [
+            "A. Tình yêu giữa vợ và chồng không còn",
+            "B. Hôn nhân có người thứ ba xen vào",
+            "C. Lợi dụng quyền ly hôn",
+            "D. Vì mất sự hòa hợp"
+        ]
+    },
+    {
+        q: "Dựa vào quan điểm của Chủ nghĩa Mác – Lênin, hãy chỉ ra những trường hợp ly hôn cần ngăn chặn? (2)",
+        a: "C",
+        ops: [
+            "A. Tình yêu giữa vợ và chồng không còn",
+            "B. Hôn nhân có người thứ ba xen vào",
+            "C. Vì mục đích vụ lợi",
+            "D. Vì mất sự hòa hợp"
+        ]
+    },
+    {
+        q: "Nghiên cứu về sự biến đổi của gia đình Việt Nam trong thời kỳ quá độ... thực hiện chức năng nào là một yếu tố rất quan trọng tác động đến sự tồn tại, bền vững của hôn nhân và hạnh phúc gia đình?",
+        a: "D",
+        ops: [
+            "A. Tái sản xuất ra con người",
+            "B. Phát triển kinh tế và tổ chức tiêu dung",
+            "C. Chức năng nuôi, giáo dục",
+            "D. Chức năng thỏa mãn nhu cầu tâm sinh lý, thỏa mãn tình cảm"
+        ]
+    },
+    {
+        q: "Để góp phần khắc phục khoảng cách giàu nghèo đang có xu hướng ngày càng gia tăng trong các gia đình Việt Nam hiện nay, Nhà nước cần làm gì?",
+        a: "C",
+        ops: [
+            "A. Phát triển kinh tế nhiều thành phần",
+            "B. Phát triển kinh tế thị trường",
+            "C. Có chính sách hỗ trợ các hộ nghèo",
+            "D. Xã hội hóa công tác từ thiện"
+        ]
+    },
+    {
+        q: "Theo Ph. Ăngghen, trong xã hội cộng sản nguyên thủy... nó đã tạo nên hình thức gia đình như thế nào?",
+        a: "B",
+        ops: [
+            "A. Gia đình cộng đồng",
+            "B. Gia đình tập thể",
+            "C. Gia đình cùng dòng máu",
+            "D. Gia đình punaluna"
+        ]
+    },
+    {
+        q: "Trong sự phát triển của lịch sử xã hội loài người, hình thức gia đình punaluna tồn tại ở giai đoạn nào?",
+        a: "B",
+        ops: [
+            "A. Giai đoạn sơ khai của xã hội nguyên thủy",
+            "B. Giai đoạn đầu của xã hội nguyên thủy",
+            "C. Giai đoạn giữa của xã hội nguyên thủy",
+            "D. Giai đoạn cuối của xã hội nguyên thủy"
+        ]
+    },
+    {
+        q: "Trong sự phát triển của lịch sử xã hội loài người, hình thức gia đình cặp đôi (đối ngẫu) tồn tại ở giai đoạn nào?",
+        a: "C",
+        ops: [
+            "A. Giai đoạn sơ khai của xã hội nguyên thủy",
+            "B. Giai đoạn đầu của xã hội nguyên thủy",
+            "C. Giai đoạn giữa của xã hội nguyên thủy",
+            "D. Giai đoạn cuối của xã hội nguyên thủy"
+        ]
+    },
+    {
+        q: "Trong sự phát triển của lịch sử xã hội loài người, hình thức gia đình cá thể tồn tại ở giai đoạn nào?",
+        a: "D",
+        ops: [
+            "A. Giai đoạn đầu của xã hội nguyên thủy",
+            "B. Giai đoạn giữa của xã hội nguyên thủy",
+            "C. Giai đoạn cuối của xã hội nguyên thủy",
+            "D. Giai đoạn chiếm hữu nô lệ"
+        ]
+    },
+    {
+        q: "Nội dung cơ bản và trực tiếp để xây dựng gia đình ở Việt Nam hiện nay là gì?",
+        a: "C",
+        ops: [
+            "A. Phát triển kinh tế - xã hội",
+            "B. Nâng cao trình độ dân trí cho nhân dân lao động",
+            "C. Xây dựng gia đình no ấm, tiến bộ, hạnh phúc, văn minh",
+            "D. Giải phóng người phụ nữ"
+        ]
+    },
+    {
+        q: "Trong tác phẩm “Nguồn gốc của gia đình...”, Ph.Ăngghen cho rằng: tình yêu lành mạnh là phải:",
+        a: "D", // (Dựa vào nội dung câu hỏi trước, "tình yêu được duy trì", và hôn nhân tự nguyện tiến tới hôn nhân) - Câu hỏi này hơi chung chung, nhưng dựa vào bối cảnh thường là kết hôn.
+        ops: [
+            "A. Trong sáng",
+            "B. Tôn trọng nhau",
+            "C. Hợp đạo đức",
+            "D. Tiến tới hôn nhân"
+        ]
+    },
+    {
+        q: "Theo Luật Hôn nhân và Gia đình mới nhất của Việt Nam thì con bao nhiêu tuổi được xem xét nguyện vọng khi cha mẹ ly hôn",
+        a: "C",
+        ops: [
+            "A. 7 tuổi",
+            "B. Trên 7 tuổi",
+            "C. Từ đủ 7 tuồi",
+            "D. 8 tuổi"
+        ]
+    },
+    {
+        q: "Chọn cụm từ còn thiếu điền vào dấu…, trong luận điểm của C.Mác và Ph.Ăngghen: “...đó là quan hệ giữa chồng và vợ, cha mẹ và con cái, đó là….”",
+        a: "A",
+        ops: [
+            "A. Gia đình",
+            "B. Huyết thống",
+            "C. Tình cảm",
+            "D. Tình yêu"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: Muốn xóa bỏ nguồn gốc của sự áp bức bóc lột và bất bình đẳng trong xã hội và gia đình cần phải:",
+        a: "B",
+        ops: [
+            "A. Phát triển lực lượng sản xuất",
+            "B. Xây dựng chế độ sở hữu xã hội chủ nghĩa đối với tư liệu sản xuất",
+            "C. Đấu tranh giải phóng phụ nữ",
+            "D. Thực hiện tiến bộ và công bằng xã hội"
+        ]
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: để tạo cơ sở kinh tế cho phụ nữ có địa vị bình đẳng với đàn ông trong xã hội, cần phải:",
+        a: "B",
+        ops: [
+            "A. Phát triển phương thức sản xuất",
+            "B. Xây dựng chế độ sở hữu xã hội chủ nghĩa đối với tư liệu sản xuất", // Hoặc tham gia lao động xã hội. Trong các đáp án này, B là nền tảng kinh tế.
+            "C. Đấu tranh giải phóng phụ nữ",
+            "D. Thực hiện tiến bộ và công bằng xã hội"
+        ]
+    },
+    {
+        q: "Ai đã đưa ra luận điểm: “Chế độ một vợ một chồng sinh ra từ sự tập trung nhiều của cải vào tay một người...”",
+        a: "C",
+        ops: [
+            "A. C.Mác",
+            "B. C.Mác & Ph.Ăng ghen",
+            "C. Ph.Ăng ghen",
+            "D. V.I. Lênin"
+        ]
+    },
+    {
+        q: "\"Giữ gìn và phát huy truyền thống văn hóa ứng xử tốt đẹp trong gia đình\". Đó là chủ đề ngày gia đình Việt Nam, năm:",
+        a: "D", // (Năm 2019)
+        ops: [
+            "A. 2016",
+            "B. 2017",
+            "C. 2018",
+            "D. 2019"
+        ]
+    },
+    {
+        q: "“Bữa cơm gia đình ấm áp yêu thương”. Đó là chủ đề ngày Gia đình Việt Nam, năm:",
+        a: "A", // (Các năm 2014, 2015, 2016 đều có chủ đề này)
+        ops: [
+            "A. 2016",
+            "B. 2017",
+            "C. 2018",
+            "D. 2019"
+        ]
+    },
+    {
+        q: "“Xây dựng đời sống văn hóa lành mạnh trong mỗi gia đình...”. Đây là quan điểm được khẳng định trong Văn kiện nào của Đảng ta?",
+        a: "D",
+        ops: [
+            "A. Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội",
+            "B. Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung phát triển năm 2011)",
+            "C. Nghị quyết Đại hội X của Đảng",
+            "D. Nghị quyết Đại hội XII của Đảng"
+        ]
+    },
+    {
+        q: "Chủ đề ngày Gia đình Việt Nam, năm 2016:",
+        a: "B",
+        ops: [
+            "A. “Bài ca Hạnh phúc”.",
+            "B. “Bữa cơm gia đình ấm áp yêu thương”.",
+            "C. Giữ gìn và phát huy truyền thống văn hóa ứng xử tốt đẹp trong gia đình\".",
+            "D. Bữa cơm gia đình”."
+        ]
+    },
+    {
+        q: "Thủ tướng Chinh phủ đã phê duyêt “ Đề án phát huy giá trị tốt đẹp các mối quan hệ trong gia đình và hỗ trợ xây dựng gia đình hạnh phúc, bền vững đến năm 2020”, vào thời gian nào?",
+        a: "B", // (2014)
+        ops: [
+            "A. 20.02.2014",
+            "B. 24.02.2014", // Quyết định 279/QĐ-TTg ngày 20/02/2014. File ghi 24.02.2014 có thể là ngày ban hành/ký. Tuy nhiên thường lấy ngày ký là 20. Chọn đáp án gần nhất theo file.
+            "C. 20.02.2015",
+            "D. 24.02.2015"
+        ]
+    },
+    {
+        q: "Thủ tướng Chính phủ đã phê duyệt “ Đề án phát huy giá trị tốt đẹp các mối quan hệ trong gia đình...”, với bao nhiêu Dự án?",
+        a: "C", // (4 dự án thành phần)
+        ops: [
+            "A. 2",
+            "B. 3",
+            "C. 4",
+            "D. 5"
+        ]
+    },
+    {
+        q: "Dự án nào sau đây nằm trong “Đề án phát huy giá trị tốt đẹp các mối quan hệ trong gia đình...” đươc Thủ tướng Chính phủ phê duyêt? (1)",
+        a: "D",
+        ops: [
+            "A. Hỗ trợ tài chính xây dựng gia đình no ấm, bền vững.",
+            "B. Giáo dục Quốc gia về đời sống gia đình.",
+            "C. Xây dựng nhân cách người Việt Nam từ giáo dục đạo đức, lối sống trong gia đình",
+            "D. Xây dựng cơ sở dữ liệu và nghiên cứu về giá trị tốt đẹp các mối quan hệ trong gia đình" // Dự án 4
+        ]
+    },
+    {
+        q: "Dự án nào sau đây nằm trong “Đề án phát huy giá trị tốt đẹp các mối quan hệ trong gia đình...” đươc Thủ tướng Chính phủ phê duyêt? (2)",
+        a: "D",
+        ops: [
+            "A. Hỗ trợ tài chính xây dựng gia đình no ấm, bền vững.",
+            "B. Giáo dục Quốc gia về đời sống gia đình.",
+            "C. Xây dựng nhân cách người Việt Nam từ giáo dục đạo đức, lối sống trong gia đình",
+            "D. Truyền thông về các giá trị tốt đẹp của các mối quan hệ trong gia đình." // Dự án 1
+        ]
+    },
+    {
+        q: "Dự án nào sau đây nằm trong \"Đề án phát huy giá trị tốt đẹp các mối quan hệ trong gia đình...\" đươc Thủ tướng Chính phủ phê duyêt? (3)",
+        a: "D",
+        ops: [
+            "A. Hỗ trợ tài chính xây dựng gia đình no ấm, bền vững.",
+            "B. Giáo dục Quốc gia về đời sống gia đình.",
+            "C. Xây dựng nhân cách người Việt Nam từ giáo dục đạo đức, lối sống trong gia đình",
+            "D. Hỗ trợ xây dựng gia đình hạnh phúc, bền vững." // Dự án 3
+        ]
+    },
+    {
+        q: "Ngày Gia đình Việt Nam 28/6/2019 có chủ đề như thế nào?",
+        a: "A",
+        ops: [
+            "A. \"Giữ gìn và phát huy truyền thống văn hóa ứng xử tốt đẹp trong gia đình\".",
+            "B. “Bữa cơm gia đình ấm áp yêu thương”",
+            "C. “Bài ca Hạnh phúc”",
+            "D. “Bữa cơm ấm áp yêu thương”"
+        ]
+    },
+    {
+        q: "Câu nói: “Nhiều gia đình cộng lại mới thành xã hội, xã hội tốt thì gia đình càng tốt...\" là của ai?",
+        a: "C",
+        ops: [
+            "A. C. Mác",
+            "B. Ph. Ăng ghen",
+            "C. Hồ Chí Minh",
+            "D. V.I. Lênin"
+        ]
+    },
+    {
+        q: "Thủ tướng Chính phủ đã phê duyêt” Chương trình hành động quốc gia về phòng, chống bạo lực gia đình đến năm 2020”, vào năm nào?",
+        a: "A",
+        ops: [
+            "A. 2014",
+            "B. 2015",
+            "C. 2016",
+            "D. 2017"
+        ]
+    },
+    {
+        q: "Đại Hội đồng Liên Hiệp Quốc đã thông qua Nghị quyết chọn ngày Quốc tế nam giới hàng năm là ngày:",
+        a: "C",
+        ops: [
+            "A. Ngày 15 tháng 5",
+            "B. Ngày 20 tháng 3",
+            "C. Ngày 19 tháng 11",
+            "D. Ngày 05 tháng 6"
+        ]
+    },
+    {
+        q: "Đại Hội đồng Liên Hiệp Quốc đã thông qua Nghị quyết chọn ngày Quốc tế hạnh phúc hàng năm là ngày:",
+        a: "B",
+        ops: [
+            "A. Ngày 15 tháng 5",
+            "B. Ngày 20 tháng 3",
+            "C. Ngày 19 tháng 11",
+            "D. Ngày 05 tháng 6"
+        ]
+    },
+    {
+        q: "Ngày 19 tháng 11 hàng năm được Đại Hội đồng Liên Hiệp Quốc chọn là ngày gì?",
+        a: "B",
+        ops: [
+            "A. Ngày Quốc tế hạnh phúc",
+            "B. Ngày Quốc tế nam giới",
+            "C. Ngày Quốc tế gia đình",
+            "D. Ngày Quốc tế chống bạo lực gia đình"
+        ]
+    }
+];
 
-    const saData = [
-        { q: "1. Trong gia đình quan hệ nào là cơ sở, nền tảng hình thành nên các mối quan hệ khác?", a: "Quan hệ hôn nhân" },
-        { q: "2. Trong gia đình, mối quan hệ nào là quan hệ tự nhiên, là yếu tố mạnh mẽ nhất?", a: "Quan hệ huyết thống" },
-        { q: "3. Cộng đồng nào là môi trường tốt nhất để cá nhân trưởng thành?", a: "Gia đình" },
-        { q: "4. Chức năng nào là chức năng đặc thù của gia đình?", a: "Chức năng tái sản xuất ra con người" },
-        { q: "5. Công cụ để xóa bỏ luật lệ cũ kỹ và giải phóng phụ nữ là gì?", a: "Nhà nước (Nhà nước XHCN)" },
-        { q: "6. Gia đình có mấy chức năng cơ bản?", a: "4 chức năng" },
-        { q: "7. Cộng đồng nào được ví như một tế bào tự nhiên của xã hội?", a: "Gia đình" },
-        { q: "8. Câu nói: '...nhiều gia đình cộng lại mới thành xã hội...' là của ai?", a: "Hồ Chí Minh" },
-        { q: "9. Chức năng nào đáp ứng nhu cầu sức lao động và duy trì nòi giống?", a: "Chức năng tái sản xuất ra con người" },
-        { q: "10. Câu khẳng định về Chính quyền Xô viết hủy bỏ đặc quyền của đàn ông là của ai?", a: "V.I.Lênin" },
-        { q: "11. Luận điểm về nghĩa vụ yêu thương và kết hôn là của ai?", a: "Ph.Ăngghen" },
-        { q: "12. Luận điểm 'chỉ riêng hôn nhân dựa trên tình yêu mới hợp đạo đức' là của ai?", a: "Ph.Ăngghen" },
-        { q: "13. Trong mối quan hệ với xã hội, gia đình được ví như?", a: "Tế bào của xã hội" },
-        { q: "14. Điền từ (Ăngghen): 'Nếu chỉ riêng hôn nhân dựa trên cơ sở tình yêu mới ... thì cũng chỉ riêng hôn nhân trong đó tình yêu được duy trì, mới là ... mà thôi'", a: "hợp đạo đức" },
-        { q: "15. Điền từ (Lênin): 'nghĩa vụ của những kẻ yêu nhau há chẳng phải là ... với nhau'", a: "kết hôn" },
-        { q: "16. Luận điểm 'do hai loại sản xuất quyết định...' là của ai?", a: "Ph.Ăngghen" },
-        { q: "17. Điền từ (Lênin): 'mặt khác là do trình độ phát triển của ...'", a: "gia đình" },
-        { q: "18. Thiết chế văn hóa - xã hội đặc thù không thể thay thế là gì?", a: "Gia đình" },
-        { q: "19. Luận điểm 'Việc nuôi dạy con cái trở thành công việc của xã hội' là của ai?", a: "Ph.Ăngghen" },
-        { q: "20. Điền từ (Ăngghen): 'Việc nuôi dạy con cái trở thành công việc của...'", a: "xã hội" },
-        { q: "21. Điền từ (Lênin): 'thủ tiêu tất cả ... tư sản, đê tiện...'", a: "pháp luật cũ kỹ" },
-        { q: "22. Trong xã hội VN hiện nay, nhu cầu thỏa mãn tâm lý – tình cảm có xu hướng thế nào?", a: "Đang tăng lên" },
-        { q: "23. Gia đình mà quan hệ tính giao giữa anh em trai với chị em gái bị hủy bỏ gọi là gì?", a: "Gia đình Punaluna" },
-        { q: "24. Nội dung cơ bản và trực tiếp để xây dựng gia đình ở Việt Nam hiện nay là gì?", a: "Xây dựng gia đình no ấm, bình đẳng, tiến bộ và hạnh phúc" },
-        { q: "25. Theo Luật Hôn nhân Gia đình, con bao nhiêu tuổi được xem xét nguyện vọng khi cha mẹ ly hôn?", a: "Từ đủ 7 tuổi" },
-        { q: "26. Ai đưa ra luận điểm về nguồn gốc của chế độ một vợ một chồng từ tài sản?", a: "Ph.Ăngghen" },
-        { q: "27. Thủ tướng phê duyệt Đề án phát huy giá trị gia đình năm nào?", a: "2014" },
-        { q: "28. Đề án phát huy giá trị gia đình có bao nhiêu Dự án?", a: "4 (hoặc 5 tùy phân loại chi tiết)" },
-        { q: "29. Ngày Quốc tế nam giới là ngày nào?", a: "19 tháng 11" },
-        { q: "30. Chương trình hành động quốc gia phòng chống bạo lực gia đình phê duyệt năm nào?", a: "2014" },
-        { q: "31. Quá độ lên CNXH bỏ qua chế độ TBCN là con đường cách mạng ...", a: "tất yếu khách quan" },
-        { q: "32. Theo Mác-Lênin, từ CNTB lên CNXH tất yếu phải trải qua thời kỳ ...", a: "quá độ chính trị" },
-        { q: "33. Quá độ gián tiếp đối với những nước ... chủ nghĩa tư bản phát triển.", a: "chưa trải qua" }
-    ];
+// --- DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN ---
+
+const saData = [
+    {
+        q: "Trong gia đình quan hệ nào là cơ sở, nền tảng hình thành nên các mối quan hệ khác?",
+        a: "Quan hệ hôn nhân"
+    },
+    {
+        q: "Trong gia đình, mối quan hệ nào là quan hệ tự nhiên, là yếu tố mạnh mẽ nhất gắn kết các thành viên trong gia đình với nhau?",
+        a: "Quan hệ hôn nhân" // Lưu ý: Câu trắc nghiệm phía trên có đáp án là "Huyết thống" cho câu hỏi "tự nhiên". Ở đây đáp án file ghi "Hôn nhân". Cần lưu ý sự khác biệt. Tuy nhiên theo yêu cầu lấy đúng file, đáp án là Quan hệ hôn nhân.
+    },
+    {
+        q: "Cộng đồng nào được xem là môi trường tốt nhất để mỗi cá nhân được yêu thương, nuôi dưỡng, chăm sóc, trưởng thành, phát triển?",
+        a: "Gia đình"
+    },
+    {
+        q: "Theo quan điểm Chủ nghĩa Mác – Lênin, chức năng nào là chức năng đặc thù của gia đình?",
+        a: "Chức năng tái sản xuất ra con người"
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, công để cụ xóa bỏ những luật lệ cũ kỹ, lạc hậu, đè nặng lên vai người phụ nữ đồng thời thực hiện việc giải phóng phụ nữ và bảo vệ hạnh phúc gia đình trong chủ nghĩa xã hội là gì?",
+        a: "Nhà nước"
+    },
+    {
+        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, gia đình có mấy chức năng cơ bản?",
+        a: "3"
+    },
+    {
+        q: "Trong xã hội, cộng đồng nào được ví như một tế bào tự nhiên, là một đơn vị cơ sở để tạo nên cơ thể - xã hội?",
+        a: "Gia đình"
+    },
+    {
+        q: "Câu nói: \"... nhiều gia đình cộng lại mới thành xã hội, xã hội tốt thì gia đình càng tốt, gia đình tốt thì xã hội mới tốt. Hạt nhân của xã hội chính là gia đình”, là của ai?",
+        a: "Hồ Chí Minh"
+    },
+    {
+        q: "Trong các chức năng của gia đình, chức năng nào đáp ứng nhu cầu về sức lao động và duy trì sự trường tồn của xã hội?",
+        a: "Chức năng tái sản xuất ra con người"
+    },
+    {
+        q: "Câu khẳng định: “Chính quyền xô viết... đã hủy bỏ tất cả những đặc quyền gắn liền với chế độ tư hữu, những đặc quyền của người đàn ông trong gia đình...” là của ai?",
+        a: "V.I.Lênin"
+    },
+    {
+        q: "Ai đã đưa ra luận điểm: “...nếu nghĩa vụ của vợ và chồng là phải thương yêu nhau thì nghĩa vụ của những kẻ yêu nhau há chẳng phải là kết hôn với nhau và không được kết hôn với người khác”?",
+        a: "Ph.Ăngghen"
+    },
+    {
+        q: "Ai đã đưa ra luận điểm: “Nếu chỉ riêng hôn nhân dựa trên cơ sở tình yêu mới hợp đạo đức thì cũng chi riêng hôn nhân trong đó tình yêu được duy trì, mới là hợp đạo đức mà thôi...”?",
+        a: "Ph.Ăngghen"
+    },
+    {
+        q: "Trong mối quan hệ với xã hội, gia đình được ví như?",
+        a: "tế bào của xã hội"
+    },
+    {
+        q: "Điền cụm từ còn thiếu vào dấu… trong câu nói của Ph.Ănghen: “Nếu chỉ riêng hôn nhân dựa trên cơ sở tình yêu mới … thì cũng chi riêng hôn nhân trong đó tình yêu được duy trì, mới là … mà thôi”.",
+        a: "Hợp đạo đức"
+    },
+    {
+        q: "Điền cụm từ còn thiếu vào dấu… trong câu nói của V.I.Lênin: “nếu nghĩa vụ của vợ và chồng là phải thương yêu nhau thì nghĩa vụ của những kẻ yêu nhau há chẳng phải là ….với nhau và không được kết hôn với người khác”.",
+        a: "kết hôn"
+    },
+    {
+        q: "“Những trật tự xã hội... là do hai loạỉ sản xuất quyết định: một mặt là do trình độ phát triển của lao động và mặt khác là do trình độ phát triển của gia đình”. Luận điểm của ai?",
+        a: "Ph.Ăngghen"
+    },
+    {
+        q: "Điền cụm từ còn thiếu vào dấu … để hoàn thiện điều khẳng định của V.I.Lênin: “Những trật tự xã hội... là do hai loại sản xuất quyết định: một mặt là do trình độ phát triển của lao động và mặt khác là do trình độ phát triển của ….”.",
+        a: "gia đình"
+    },
+    {
+        q: "Chỉ ra một thiết chế văn hóa - xã hội đặc thù có chức năng mà bất cứ thiết chế nào cũng không thể thay thế?",
+        a: "Gia Đình"
+    },
+    {
+        q: "Luận điểm: “Tư liệu sản xuất chuyển thành tài sản chung, thì gia đình cá thể sẽ không còn là đơn vị kinh tế của xã hội nữa...”, là của ai?",
+        a: "Ph.Ăngghen"
+    },
+    {
+        q: "Điền cụm từ còn thiếu vào dấu....trong câu khẳng định của Ph.Ăngghen: “Tư liệu sản xuất chuyển thành tài sản chung... Việc nuôi dạy con cái trở thành công việc của….”.",
+        a: "xã hội"
+    },
+    {
+        q: "Điền cụm từ còn thiếu vào dấu....trong câu khẳng định của V.I.Lênin: “Chính quyền xô viết ... đã hoàn toàn thủ tiêu tất cả …., tư sản, đê tiện...",
+        a: "pháp luật cũ kỹ"
+    },
+    {
+        q: "Trong xã hội Việt Nam hiện nay, gia đình có xu hướng chuyển đổi từ chủ yếu là đơn vị kinh tế sang chủ yếu là đơn vị tình cảm. Như vậy, nhu cầu thỏa mãn tâm lý – tình cảm có xu hướng thế nào?",
+        a: "đang tăng lên"
+    },
+    {
+        q: "Nội dung cơ bản và trực tiếp để xây dựng gia đình ở Việt Nam hiện nay là gì?",
+        a: "xây dựng gia đình no ấm, bình đẳng, tiến bộ và hạnh phúc"
+    },
+    {
+        q: "Theo Luật Hôn nhân và Gia đình mới nhất của Việt Nam thì con bao nhiêu tuổi được xem xét nguyện vọng khi cha mẹ ly hôn?",
+        a: "Từ đủ 7 tuổi"
+    },
+    {
+        q: "Ai đã đưa ra luận điểm: “Chế độ một vợ một chồng sinh ra từ sự tập trung nhiều của cải vào tay một người...?",
+        a: "Ph.Ăng ghen"
+    },
+    {
+        q: "Thủ tướng Chính phủ đã phê duyêt” Đề án phát huy giá trị tốt đẹp các mối quan hệ trong gia đình và hỗ trợ xây dựng gia đình hạnh phúc, bền vững đến năm 2020”, với bao nhiêu Dự án?",
+        a: "3" // Lưu ý: Trong trắc nghiệm chọn 4, ở đây đáp án file ghi 3.
+    },
+    {
+        q: "Đại Hội đồng Liên Hiệp Quốc đã thông qua Nghị quyết chọn ngày Quốc tế nam giới hàng năm là ngày?",
+        a: "Ngày 19 tháng 11"
+    },
+    {
+        q: "Thủ tướng Chính phủ đã phê duyêt” Chương trình hành động quốc gia về phòng, chống bạo lực gia đình đến năm 2020”, vào năm nào?",
+        a: "2014"
+    },
+    {
+        q: "Quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa là con đường cách mạng…, con đường xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta.",
+        a: "tất yếu khách quan"
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác - Lênin, từ chủ nghĩa tư bản lên chủ nghĩa xã hội tất yếu phải trải qua thời kỳ.",
+        a: "quá độ chính trị"
+    },
+    {
+        q: "Quá độ gián tiếp từ chủ nghĩa tư bản lên chủ nghĩa cộng sản đối với những nước…chủ nghĩa tư bản phát triển.",
+        a: "chưa trải qua"
+    }
+];
+
 
     // KHỞI TẠO
     const mcContainer = document.getElementById('mc-container');

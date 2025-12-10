@@ -195,443 +195,931 @@
 
 <script>
     // --- DỮ LIỆU TỪ FILE CHUONG4.DOCX ---
-    // Đáp án (Key) được xác định dựa trên giáo trình chuẩn CNXH KH
+    // --- DỮ LIỆU CÂU HỎI TỪ FILE CHUONG4.DOCX ---
 
-    const mcData = [
-        {
-            q: "Dân chủ mà Ph.Ăngghen gọi là “dân chủ nguyên thủy” hay còn gọi là “dân chủ quân sự” xuất hiện trong xã hội nào?",
-            a: "A",
-            ops: ["A. Công xã nguyên thuỷ", "B. Chiếm hữu nô lệ", "C. Tư bản chủ nghĩa", "D. Cộng sản chủ nghĩa"]
-        },
-        {
-            q: "Trong lịch sử nhân loại, hình thức “dân chủ nguyên thủy” tan rã, được thay thế bằng nền dân chủ nào?",
-            a: "A",
-            ops: ["A. Nền dân chủ chủ nô", "B. Nền dân chủ tư sản", "C. Nền dân chủ xã hội chủ nghĩa", "D. Nền dân chủ Cộng sản chủ nghĩa"]
-        },
-        {
-            q: "Nền dân chủ vô sản hay còn gọi là nền dân chủ xã hội chủ nghĩa đã thay thế cho nền dân chủ nào?",
-            a: "C",
-            ops: ["A. Dân chủ nguyên thuỷ", "B. Dân chủ chủ nô", "C. Dân chủ tư sản", "D. Dân chủ cộng sản chủ nghĩa"]
-        },
-        {
-            q: "Phương diện nào dưới đây thể hiện nền dân chủ xã hội chủ nghĩa lấy hệ tư tưởng Mác -Lênin làm chủ đạo đối với mọi hình thái ý thức xã hội trong xã hội mới?",
-            a: "C",
-            ops: ["A. Bản chất kinh tế", "B. Bản chất chính trị", "C. Bản chất tư tưởng – văn hoá – xã hội", "D. Bản chất giáo dục"]
-        },
-        {
-            q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong lịch sử nhân loại, nền dân chủ nào có sự kết hợp hài hòa về lợi ích giữa cá nhân, tập thể và lợi ích của toàn xã hội?",
-            a: "D",
-            ops: ["A. Dân chủ nguyên thuỷ", "B. Dân chủ chủ nô", "C. Dân chủ tư sản", "D. Dân chủ xã hội chủ nghĩa"]
-        },
-        {
-            q: "Nhà nước xã hội chủ nghĩa mang bản chất của giai cấp nào?",
-            a: "A",
-            ops: ["A. Giai cấp công nhân", "B. Giai cấp nông dân", "C. Giai cấp thống trị", "D. Tầng lớp trí thức"]
-        },
-        {
-            q: "Trong xã hội xã hội chủ nghĩa, giai cấp giữ địa vị thống trị về chính trị là:",
-            a: "B",
-            ops: ["A. Giai cấp tư sản", "B. Giai cấp vô sản", "C. Giai cấp nông dân", "D. Tầng lớp trí thức"]
-        },
-        {
-            q: "Sự thống trị về chính trị của giai cấp vô sản là sự thống trị của đa số đối với ... giai cấp bóc lột.",
-            a: "B",
-            ops: ["A. Đa số", "B. Thiểu số", "C. Số đông", "D. Số ít"]
-        },
-        {
-            q: "Nhà nước pháp quyền xã hội chủ nghĩa Việt Nam mang bản chất của giai cấp nào?",
-            a: "A",
-            ops: ["A. Giai cấp công nhân", "B. Giai cấp công nhân và giai cấp nông dân", "C. Giai cấp công nhân, giai cấp nông dân và đội ngũ trí thức", "D. Tất cả các giai cấp trong xã hội"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân chủ là quyền lực thuộc về…",
-            a: "A",
-            ops: ["A. Nhân dân", "B. Công nhân", "C. Nông dân", "D. Xã hội"]
-        },
-        {
-            q: "Hình thức dân chủ trực tiếp là hình thức thông qua đó, nhân dân bằng hành động ... của mình thực hiện quyền làm chủ nhà nước và xã hội.",
-            a: "A",
-            ops: ["A. Trực tiếp", "B. Can thiệp", "C. Đại diện", "D. Uỷ quyền"]
-        },
-        {
-            q: "Nhà nước pháp quyền được hiểu là nhà nước mà ở đó, tất cả mọi công dân đều được giáo dục ..., và phải hiểu biết, tuân thủ pháp luật.",
-            a: "C",
-            ops: ["A. Chính sách", "B. Đường lối", "C. Pháp luật", "D. Đạo đức"]
-        },
-        {
-            q: "Chủ trương của nước ta hiện nay là: “Xây dựng Nhà nước pháp quyền Việt Nam…….”",
-            a: "B",
-            ops: ["A. Dân chủ, công bằng, văn minh", "B. Của dân, do dân, vì dân", "C. Độc lập - Tự do - Hạnh phúc", "D. Phát triển toàn diện"]
-        },
-        {
-            q: "Hoạt động của Nhà nước ta được giám sát bởi nhân dân với phương châm: “……” thông qua các tổ chức, các cá nhân được nhân dân ủy nhiệm.",
-            a: "A",
-            ops: ["A. Dân biết, dân bàn, dân làm, dân kiểm tra", "B. Dân bàn, dân biết, dân làm, dân kiểm tra", "C. Dân làm, dân bàn, dân biết, dân kiểm tra", "D. Dân kiểm tra, dân làm, dân bàn, dân biết"]
-        },
-        {
-            q: "Tổ chức quyền lực của Nhà nước pháp quyền XHCN đảm bảo quyền lực nhà nước là thống nhất, có sự phân công và phối hợp giữa các cơ quan nhà nước trong việc thực hiện các quyền...",
-            a: "C",
-            ops: ["A. Dân chủ", "B. Dân sinh", "C. Lập pháp, hành pháp, tư pháp", "D. Con người"]
-        },
-        {
-            q: "Nội dung nào KHÔNG phải là nội dung cơ bản trong việc tiếp tục xây dựng và hoàn thiện Nhà nước pháp quyền XHCN ở nước ta?",
-            a: "C",
-            ops: ["A. Xây dựng Nhà nước pháp quyền XHCN dưới sự lãnh đạo của Đảng", "B. Xây dựng đội ngũ cán bộ, công chức trong sạch", "C. Xây dựng khối liên minh công nông vững chắc (Đây là cơ sở xã hội, không phải nội dung xây dựng bộ máy)", "D. Đấu tranh phòng, chống tham nhũng"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, trong một nền dân chủ, hai lĩnh vực quan trọng hàng đầu và nổi bật nhất là:",
-            a: "A",
-            ops: ["A. Dân chủ trong kinh tế và dân chủ trong chính trị", "B. Dân chủ trong xã hội và văn hóa", "C. Kinh tế và văn hóa", "D. Chính trị và xã hội"]
-        },
-        {
-            q: "Dân chủ trong lĩnh vực nào thể hiện trực tiếp quyền con người và quyền công dân?",
-            a: "D",
-            ops: ["A. Dân chủ kinh tế", "B. Dân chủ văn hóa", "C. Dân chủ xã hội", "D. Dân chủ trong chính trị"]
-        },
-        {
-            q: "Theo quan điểm chủ nghĩa Mác – Lênin, dân chủ xã hội chủ nghĩa là nền dân chủ cao hơn về ... so với nền dân chủ tư sản.",
-            a: "C",
-            ops: ["A. Sự tự do", "B. Sự bình đẳng", "C. Chất", "D. Lượng"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nền dân chủ vô sản là nền dân chủ vì lợi ích của ai?",
-            a: "D",
-            ops: ["A. Nông dân", "B. Công nhân", "C. Trí thức", "D. Đa số nhân dân"]
-        },
-        {
-            q: "Phương diện nào dưới đây thể hiện nền dân chủ xã hội chủ nghĩa dựa trên chế độ sở hữu xã hội vê những tư liệu sản xuất chủ yếu?",
-            a: "A",
-            ops: ["A. Bản chất kinh tế", "B. Bản chất chính trị", "C. Bản chất tư tưởng", "D. Bản chất văn hoá – xã hội"]
-        },
-        {
-            q: "Nhà nước xã hội chủ nghĩa là kiểu nhà nước mới, khác về ... so với các kiểu nhà nước bóc lột trong lịch sử.",
-            a: "C",
-            ops: ["A. Sự lãnh đạo của Đảng", "B. Lợi ích", "C. Bản chất", "D. Tổ chức chính quyền"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, sự thống trị của giai cấp bóc lột là sự thống trị của ... đối với tất cả các giai cấp.",
-            a: "B",
-            ops: ["A. Đa số", "B. Thiểu số", "C. Số đông", "D. Số ít"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, mục tiêu hàng đầu của nhà nước xã hội chủ nghĩa là:",
-            a: "D",
-            ops: ["A. Kinh tế phát triển", "B. Chính trị ổn định", "C. Giáo dục phát triển", "D. Chăm lo cho lợi ích của đại đa số nhân dân lao động"]
-        },
-        {
-            q: "Căn cứ vào phạm vi tác động của quyền lực nhà nước, Nhà nước xã hội chủ nghĩa có mấy chức năng?",
-            a: "A",
-            ops: ["A. 2 (Đối nội và Đối ngoại)", "B. 3", "C. 4", "D. 5"]
-        },
-        {
-            q: "Ở Việt Nam, bản chất dân chủ xã hội chủ nghĩa là dựa vào:",
-            a: "D",
-            ops: ["A. Nhân dân", "B. Giai cấp công nhân", "C. Sự quản lý của Nhà nước", "D. Nhà nước xã hội chủ nghĩa và sự ủng hộ, giúp đỡ của nhân dân"]
-        },
-        {
-            q: "Đảng ta khẳng định: “Dân giàu, nước mạnh, dân chủ, công bằng, văn minh”, là muốn nói đến nội dung nào của dân chủ?",
-            a: "A",
-            ops: ["A. Dân chủ là mục tiêu của chế độ xã hội chủ nghĩa", "B. Dân chủ là bản chất", "C. Dân chủ là động lực", "D. Dân chủ gắn với pháp luật"]
-        },
-        {
-            q: "Đảng ta khẳng định: “Phát huy sức mạnh của nhân dân, của toàn dân tộc”, là muốn nói đến nội dung nào của dân chủ?",
-            a: "C",
-            ops: ["A. Dân chủ là mục tiêu", "B. Dân chủ là bản chất", "C. Dân chủ là động lực để xây dựng chủ nghĩa xã hội", "D. Dân chủ gắn với pháp luật"]
-        },
-        {
-            q: "Quốc hội ở nước ta hoạt động theo nhiệm kỳ mấy năm?",
-            a: "C",
-            ops: ["A. 3", "B. 4", "C. 5", "D. 6"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nhà nước pháp quyền là nhà nước ...",
-            a: "C",
-            ops: ["A. Thượng tôn nhà nước", "B. Thượng tôn đạo đức", "C. Thượng tôn pháp luật", "D. Thượng tôn giáo dục"]
-        },
-        {
-            q: "Nhà nước pháp quyền xã hội chủ nghĩa ở nước ta có mấy đặc điểm cơ bản (theo Cương lĩnh 2011)?",
-            a: "B",
-            ops: ["A. 5", "B. 6", "C. 7", "D. 8"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nguyên nhân cơ bản dẫn đến cách mạng xã hội chủ nghĩa là:",
-            a: "C",
-            ops: ["A. Do có Đảng cộng sản", "B. Do giai cấp công nhân lớn mạnh", "C. Do sự phát triển của lực lượng sản xuất (Mâu thuẫn LLSX và QHSX)", "D. Do mong muốn của giai cấp thống trị"]
-        },
-        {
-            q: "Chọn quan điểm đúng nhất về dân chủ theo quan điểm của chủ nghĩa Mác – Lênin.",
-            a: "A",
-            ops: ["A. Dân chủ là quyền lực thuộc về nhân dân", "B. Dân chủ là quyền của con người", "C. Dân chủ là quyền tự do của mỗi người", "D. Dân chủ là trật tự xã hội"]
-        },
-        {
-            q: "Nhà nước xã hội chủ nghĩa vừa có bản chất giai cấp công nhân, vừa có tính nhân dân rộng rãi và tính ... sâu sắc.",
-            a: "C",
-            ops: ["A. Giai cấp", "B. Nhân đạo", "C. Dân tộc", "D. Cộng đồng"]
-        },
-        {
-            q: "Giai cấp nào chi phối vấn đề dân chủ trong xã hội?",
-            a: "C",
-            ops: ["A. Giai cấp có số lượng đông", "B. Giai cấp có trình độ cao", "C. Giai cấp nắm giữ tư liệu sản xuất", "D. Các giai cấp trong xã hội"]
-        },
-        {
-            q: "Trong các kiểu nhà nước dưới đây, nhà nước nào khác về chất so với các nhà nước còn lại?",
-            a: "D",
-            ops: ["A. Chiếm hữu nô lệ", "B. Phong kiến", "C. Tư bản", "D. Xã hội chủ nghĩa"]
-        },
-        {
-            q: "Nhà nước pháp quyền xã hội chủ nghĩa Việt Nam mang bản chất giai cấp công nhân vì:",
-            a: "D",
-            ops: ["A. Nhà nước là thành quả của nhân dân", "B. Nhà nước là thành quả của GCCN", "C. Nhà nước là thành quả dưới sự lãnh đạo của Đảng", "D. Nhà nước có được là thành quả cách mạng của quần chúng nhân dân lao động do giai cấp công nhân thông qua chính đảng là Đảng Cộng sản lãnh đạo"]
-        },
-        {
-            q: "Bản chất giai cấp của nhà nước pháp quyền xã hội chủ nghĩa Việt Nam được thể hiện tập trung nhất là:",
-            a: "B",
-            ops: ["A. Phục vụ lợi ích của nhân dân", "B. Sự lãnh đạo của Đảng Cộng sản Việt Nam đối với nhà nước", "C. Thể hiện ý chí của nhân dân", "D. Do nhân dân xây dựng nên"]
-        },
-        {
-            q: "Theo các nhà tư tưởng Hy Lạp cổ đại, từ “Demos” dùng để nói về:",
-            a: "D",
-            ops: ["A. Những kẻ thống trị", "B. Những người bị trị", "C. Những người cùng khổ", "D. Nhân dân"]
-        },
-        {
-            q: "Dân chủ sau này được các nhà chính trị gọi giản lược là: ….của nhân dân hay…… thuộc về nhân dân.",
-            a: "B",
-            ops: ["A. Toàn quyền", "B. Quyền lực", "C. Quyền hạn", "D. Quyền uy"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nhân dân là ... của đất nước.",
-            a: "D",
-            ops: ["A. Người lãnh đạo", "B. Người thống trị", "C. Người cai trị", "D. Chủ nhân"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân chủ là một hình thái hay hình thức nhà nước, được xét trên phương diện nào?",
-            a: "C",
-            ops: ["A. Quyền lực", "B. Tổ chức và quản lý", "C. Chế độ xã hội và lĩnh vực chính trị (Phạm trù chính trị)", "D. Xã hội"]
-        },
-        {
-            q: "Theo quan điểm của chủ nghĩa Mác – Lênin, phương diện nào dưới đây thể hiện dân chủ là một nguyên tắc – nguyên tắc dân chủ?",
-            a: "B",
-            ops: ["A. Quyền lực", "B. Tổ chức và quản lý", "C. Chế độ xã hội và lĩnh vực chính trị", "D. Xã hội"]
-        },
-        {
-            q: "Thực tiễn cho thấy, bản chất tốt đẹp và tính ưu việt của nền dân chủ xã hội chủ nghĩa ở Việt Nam càng ngày càng thể hiện giá trị ...",
-            a: "C",
-            ops: ["A. Mọi người làm chủ", "B. Tập thể làm chủ", "C. Lấy dân làm gốc", "D. Bình đẳng xã hội"]
-        },
-        {
-            q: "Tổ chức và hoạt động của bộ máy quản lý nhà nước theo nguyên tắc..., thống nhất quyền lực, có phân công, phân cấp.",
-            a: "B",
-            ops: ["A. Phân quyền", "B. Tập trung dân chủ", "C. Tự nguyên", "D. Bắt buộc"]
-        },
-        {
-            q: "Đối với nhà nước pháp quyền Việt Nam, trong tất cả các hoạt động của xã hội, ... được đặt ở vị trí tối thượng để điều chỉnh các quan hệ xã hội.",
-            a: "B",
-            ops: ["A. Đạo đức", "B. Pháp luật", "C. Dư luận xã hội", "D. Nhà nước"]
-        },
-        {
-            q: "Theo quan điểm chủ nghĩa Mác – Lênin, dân chủ là một giá trị xã hội khi:",
-            a: "A",
-            ops: ["A. Phản ánh những quyền cơ bản của con người", "B. Gắn với các hình thức tổ chức nhà nước", "C. Gắn với quá trình ra đời của lịch sử", "D. Phản ánh xã hội nói chung"]
-        },
-        {
-            q: "Theo quan điểm chủ nghĩa Mác – Lênin, dân chủ là một phạm trù lịch sử khi:",
-            a: "C",
-            ops: ["A. Phản ánh quyền cơ bản con người", "B. Gắn với hình thức tổ chức nhà nước", "C. Gắn với quá trình ra đời, phát triển của lịch sử xã hội nhân loại (và sự tồn vong của nhà nước)", "D. Phản ánh xã hội nói chung"]
-        },
-        {
-            q: "Theo quan điểm chủ nghĩa Mác – Lênin, tính chính trị của dân chủ sẽ mất đi khi nào?",
-            a: "A",
-            ops: ["A. Dân chủ trở thành một thói quen, một tập quán trong sinh hoạt xã hội", "B. Tăng cường dân chủ trong lĩnh vực kinh tế", "C. Tăng cường dân chủ trong lĩnh vực xã hội", "D. Tăng cường dân chủ trong lĩnh vực văn hoá"]
-        },
-        {
-            q: "Theo quan điểm chủ nghĩa Mác – Lênin, khi nào dân chủ xã hội chủ nghĩa với tư cách là một chế độ nhà nước cũng tiêu vong?",
-            a: "D",
-            ops: ["A. Xã hội đạt trình độ rất cao, làm theo năng lực hưởng theo lao động", "B. Mọi người đều bình đẳng trước pháp luật", "C. Xã hội vẫn còn sự phân chia giai cấp", "D. Xã hội đã đạt trình độ phát triển rất cao, xã hội không còn sự phân chia giai cấp"]
-        },
-        {
-            q: "Cuộc Tổng tuyển cử đầu tiên của nước Việt Nam dân chủ cộng hòa diễn ra vào năm nào?",
-            a: "B",
-            ops: ["A. 1945", "B. 1946 (06/01/1946)", "C. 1954", "D. 1975"]
-        },
-        {
-            q: "Dân chủ đã được đưa vào mục tiêu ... của cách mạng Việt Nam: Dân giàu, nước mạnh, dân chủ, công bằng, văn minh.",
-            a: "A",
-            ops: ["A. Tổng quát", "B. Dài hạn", "C. Ngắn hạn", "D. Từng giai đoạn"]
-        },
-        {
-            q: "Hình thức nhà nước xã hội chủ nghĩa đầu tiên trong lịch sử là:",
-            a: "A",
-            ops: ["A. Công xã Pari (1871)", "B. Nhà nước Xô viết", "C. Nhà nước dân chủ nhân dân", "D. Nhà nước xã hội chủ nghĩa"]
-        },
-        {
-            q: "Hồ Chí Minh nói: “Nước ta là nước dân chủ... Nhân dân có quyền lợi làm chủ, thì phải có ... làm tròn bổn phận công dân”",
-            a: "C",
-            ops: ["A. Trách nhiệm", "B. Nghĩa vụ", "C. Nghĩa vụ", "D. Khả năng"]
-        },
-        {
-            q: "Xây dựng Nhà nước pháp quyền của dân, do dân và vì dân là chủ trương của ai?",
-            a: "D",
-            ops: ["A. C.Mác", "B. Ph.Ăngghen", "C. V.I.Lênin", "D. Hồ Chí Minh và Đảng Cộng sản Việt Nam"]
-        },
-        {
-            q: "Bản chất giai cấp của nhà nước được thể hiện ở chỗ:",
-            a: "A",
-            ops: ["A. Nhà nước là bộ máy dùng để duy trì phát triển xã hội, trấn áp của giai cấp này đối với giai cấp khác", "B. Nhà nước là một tố chức văn hóa", "C. Nhà nước là một công cụ xã hội", "D. Nhà nước là một thiết chế xã hội"]
-        },
-        {
-            q: "Thuật ngữ dân chủ ra đời vào khoảng thế kỷ mấy trước công nguyên?",
-            a: "A",
-            ops: ["A. VII – VI", "B. VII – VIII", "C. VII – IX", "D. VII – X"]
-        },
-        {
-            q: "Theo quan điểm chủ nghĩa Mác – Lênin, quyền lợi căn bản nhất của ... chính là quyền lực nhà nước thuộc sở hữu của nhân dân.",
-            a: "C",
-            ops: ["A. Công nhân", "B. Nông dân", "C. Nhân dân", "D. Trí thức"]
-        },
-        {
-            q: "Hình thức dân chủ gián tiếp là hình thức dân chủ đại diện, được thực hiện do nhân dân “ủy quyền”, giao quyền lực của mình cho tổ chức mà nhân dân ... bầu ra.",
-            a: "C",
-            ops: ["A. Trực tiếp", "B. Gián tiếp", "C. Đại diện (hoặc bầu ra người đại diện)", "D. Uỷ quyền"]
-        },
-        {
-            q: "Dân chủ xã hội chủ nghĩa được thể hiện ở việc bảo đảm và phát huy quyền làm chủ của nhân dân theo hướng ngày càng ... và hoạt động có hiệu quả.",
-            a: "B",
-            ops: ["A. Phát triển", "B. Mở rộng", "C. Đa dạng", "D. Tích cực"]
-        },
-        {
-            q: "Kể từ khi khai sinh ra nước ... cho đến nay, nhân dân thực sự trở thành người làm chủ, tự xây dựng, tổ chức quản lý xã hội.",
-            a: "C",
-            ops: ["A. Việt Nam", "B. Cộng Hoà Xã hội Chủ nghĩa Việt Nam", "C. Việt Nam Dân chủ cộng hòa (1945)", "D. Việt Nam Thanh niên Cách mạng đồng chí hội"]
-        },
-        {
-            q: "Điều mấy trong Hiến pháp năm 2013, Đảng ta khẳng định Nhà nước pháp quyền xã hội chủ nghĩa ở Việt Nam phải do Đảng Cộng sản Việt Nam lãnh đạo?",
-            a: "C",
-            ops: ["A. Điều 2", "B. Điều 3", "C. Điều 4", "D. Điều 5"]
-        },
-        {
-            q: "Ai là chủ thể, là trung tâm của sự phát triển trong Nhà nước pháp quyền xã hội chủ nghĩa ở Việt Nam?",
-            a: "D",
-            ops: ["A. Công nhân", "B. Nông dân", "C. Trí thức", "D. Con người"]
-        },
-        {
-            q: "Điều kiện tiên quyết để xây dựng nền dân chủ xã hội chủ nghĩa Việt Nam là:",
-            a: "D",
-            ops: ["A. Ổn định chính trị", "B. Phát triển kinh tế", "C. Liên minh công nông vững chắc", "D. Xây dựng Đảng Cộng sản Việt Nam trong sạch, vững mạnh"]
-        },
-        {
-            q: "Các tổ chức chính trị - xã hội ở nước ta cần phải đổi mới mạnh mẽ ... để nâng cao vị trí, vai trò của mình.",
-            a: "D",
-            ops: ["A. Cách làm mới", "B. Bước đi vững chắc", "C. Phương pháp cơ bản", "D. Phương thức hoạt động"]
-        },
-        {
-            q: "Nhà nước pháp quyền xã hội chủ nghĩa ở Vỉệt Nam mang bản chất giai cấp công nhân, đồng thời cũng gắn bó chặt chẽ...",
-            a: "A",
-            ops: ["A. Với dân tộc, với nhân dân", "B. Với xã hội", "C. Với mọi người", "D. Với nhân nhân loại"]
-        },
-        {
-            q: "Phòng, chống tham nhũng, lãng phí và thực hành tiết kiệm là nhiệm vụ ... của quá trình xây dựng Nhà nước pháp quyền xã hội chủ nghĩa ở nước ta.",
-            a: "D",
-            ops: ["A. Trọng tâm", "B. Quan trọng hàng đầu", "C. Quyết định", "D. Cấp bách, lâu dài"]
-        },
-        {
-            q: "Việc chăm lo cho lợi ích của đại đa số nhân dân lao động trở thành mục tiêu ... của nhà nước xã hội chủ nghĩa.",
-            a: "B",
-            ops: ["A. Lâu dài", "B. Hàng đầu", "C. Quan trọng", "D. Chủ yếu"]
-        },
-        {
-            q: "Dựa vào căn cứ nào dưới đây để phân chia chức năng nhà nước thành chức năng giai cấp (trấn áp) và chức năng xã hội (tổ chức và xây dựng)?",
-            a: "B",
-            ops: ["A. Phạm vi tác động của quyền lực nhà nước", "B. Tính chất của quyền lực nhà nước", "C. Lĩnh vực tác động của quyền lực nhà nước", "D. Bản chất của nhà nước xã hội chủ nghĩa"]
-        },
-        {
-            q: "Dân chủ vẫn còn tồn tại với tư cách một giá trị nhân loại chung khi:",
-            a: "C",
-            ops: ["A. Xã hội công xã nguyên thuỷ ra đời", "B. Xã hội chiếm hữu nô lệ ra đời", "C. Xã hội loài người còn tồn tại", "D. Xã hội tư bản chủ nghĩa ra đời"]
-        },
-        {
-            q: "Theo quan điểm chủ nghĩa Mác – Lênin, muốn biết một nhà nước dân chủ có thực sự hay không thì phải xem trong nhà nước đó:",
-            a: "A",
-            ops: ["A. Dân là ai và bản chất của chế độ xã hội ấy như thế nào", "B. Nền kinh tế như thế nào", "C. Xã hội như thế nào", "D. Con người như thế nào"]
-        },
-        {
-            q: "Câu nói: “Bất cứ một nhà nước nào cũng đều có nghĩa là dùng bạo lực...” là của ai?",
-            a: "C",
-            ops: ["A. C.Mác", "B. Ph.Ăngghen", "C. V.I.Lênin", "D. Hồ Chí Minh"]
-        },
-        {
-            q: "Đại hội mấy Đảng ta đã khẳng định: “Trong toàn bộ hoạt động của mình, Đảng phải quán triệt tư tưởng “lấy dân làm gốc”...?",
-            a: "C",
-            ops: ["A. IV", "B. V", "C. VI (1986)", "D. VII"]
-        },
-        {
-            q: "Đại hội mấy Đảng ta đã khẳng định: “Ở đâu, nhân dân lao động có ý thức làm chủ... thì ở đấy xuất hiện phong trào cách mạng”?",
-            a: "C",
-            ops: ["A. IV", "B. V", "C. VI", "D. VII"]
-        },
-        {
-            q: "Đại hội mấy Đảng ta đã khẳng định: “Mọi đường lối, chính sách... đều vì lợi ích của nhân dân, có sự tham gia ý kiến của nhân dân\"?",
-            a: "A",
-            ops: ["A. VI", "B. VIII", "C. IX", "D. X"]
-        },
-        {
-            q: "Trong Tuyên ngôn Đảng cộng sản, đại từ nhân xưng 'các ông' trong câu 'Pháp luật của các ông chỉ là ý chí giai cấp của các ông...' là muốn nói đến:",
-            a: "D",
-            ops: ["A. Các nhà làm luật", "B. Quốc hội, nghị viện", "C. Nhà nước", "D. Giai cấp thống trị (Giai cấp tư sản)"]
-        },
-        {
-            q: "Tư tưởng cho rằng: Dân chủ là sản phẩm... quá trình đấu tranh giai cấp... là của ai?",
-            a: "D",
-            ops: ["A. Các nhà tư tưởng cổ đại", "B. Các nhà tư tưởng trung đại", "C. Các nhà tư tưởng cận đại", "D. Các nhà sáng lập chủ nghĩa Mác – Lênin"]
-        },
-        {
-            q: "Trong hệ thống chính trị xã hội chủ nghĩa, Đảng ta xem ... là “trụ cột”, “một công cụ chủ yếu, vững mạnh” của nhân dân.",
-            a: "B",
-            ops: ["A. Nhân dân", "B. Nhà nước", "C. Quốc hội", "D. Xã hội"]
-        },
-        {
-            q: "Đại hội mấy Đảng ta đã khẳng định: “Quyền lực nhà nước là thống nhất, có sự phân công, phối hợp, kiểm soát giữa các cơ quan nhà nước...”?",
-            a: "D",
-            ops: ["A. VI", "B. VIII", "C. X", "D. XII (Bổ sung thêm vấn đề 'kiểm soát')"]
-        },
-        {
-            q: "Câu nói: “Thực hành dân chủ là cái chìa khoá vạn năng có thể giải quyết mọi khó khăn” là của ai?",
-            a: "C",
-            ops: ["A. V.I.Lênin", "B. Mao Trạch Đông", "C. Hồ Chí Minh", "D. Lê Duẩn"]
-        }
-    ];
+const mcData = [
+    {
+        q: "Dân chủ mà Ph.Ăngghen gọi là “dân chủ nguyên thủy” hay còn gọi là “dân chủ quân sự” xuất hiện trong xã hội nào?",
+        a: "A",
+        ops: [
+            "A. Công xã nguyên thuỷ",
+            "B. Chiếm hữu nô lệ",
+            "C. Tư bản chủ nghĩa",
+            "D. Cộng sản chủ nghĩa"
+        ]
+    },
+    {
+        q: "Trong lịch sử nhân loại, hình thức “dân chủ nguyên thủy” tan rã, được thay thế bằng nền dân chủ nào?",
+        a: "A",
+        ops: [
+            "A. Nền dân chủ chủ nô",
+            "B. Nền dân chủ tư sản",
+            "C. Nền dân chủ xã hội chủ nghĩa",
+            "D. Nền dân chủ Cộng sản chủ nghĩa"
+        ]
+    },
+    {
+        q: "Nền dân chủ vô sản hay còn gọi là nền dân chủ xã hội chủ nghĩa đã thay thế cho nền dân chủ nào?",
+        a: "C",
+        ops: [
+            "A. Dân chủ nguyên thuỷ",
+            "B. Dân chủ chủ nô",
+            "C. Dân chủ tư sản",
+            "D. Dân chủ cộng sản chủ nghĩa"
+        ]
+    },
+    {
+        q: "Phương diện nào dưới đây thể hiện nền dân chủ xã hội chủ nghĩa lấy hệ tư tưởng Mác -Lênin làm chủ đạo đối với mọi hình thái ý thức xã hội trong xã hội mới?",
+        a: "C",
+        ops: [
+            "A. Bản chất kinh tế",
+            "B. Bản chất chính trị",
+            "C. Bản chất tư tưởng – văn hoá – xã hội",
+            "D. Bản chất giáo dục"
+        ]
+    },
+    {
+        q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong lịch sử nhân loại, nền dân chủ nào có sự kết hợp hài hòa về lợi ích giữa cá nhân, tập thể và lợi ích của toàn xã hội.",
+        a: "D",
+        ops: [
+            "A. Dân chủ nguyên thuỷ",
+            "B. Dân chủ chủ nô",
+            "C. Dân chủ tư sản",
+            "D. Dân chủ xã hội chủ nghĩa"
+        ]
+    },
+    {
+        q: "Nhà nước xã hội chủ nghĩa mang bản chất của giai cấp nào?",
+        a: "A",
+        ops: [
+            "A. Giai cấp công nhân",
+            "B. Giai cấp nông dân",
+            "C. Giai cấp thống trị",
+            "D. Tầng lớp trí thức"
+        ]
+    },
+    {
+        q: "Trong xã hội xã hội chủ nghĩa, giai cấp giữ địa vị thống trị về chính trị là:",
+        a: "B",
+        ops: [
+            "A. Giai cấp tư sản",
+            "B. Giai cấp vô sản",
+            "C. Giai cấp nông dân",
+            "D. Tầng lớp trí thức"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Sự thống trị về chính trị của giai cấp vô sản là sự thống trị của đa số đối với … giai cấp bóc lột...",
+        a: "A", // (Đa số)
+        ops: [
+            "A. Đa số",
+            "B. Thiểu số",
+            "C. Số đông",
+            "D. Số ít"
+        ]
+    },
+    {
+        q: "Nhà nước pháp quyền xã hội chủ nghĩa Việt Nam mang bản chất của giai cấp nào?",
+        a: "A",
+        ops: [
+            "A. Giai cấp công nhân",
+            "B. Giai cấp công nhân và giai cấp nông dân",
+            "C. Giai cấp công nhân, giai cấp nông dân và đội ngũ trí thức",
+            "D. Tất cả các giai cấp trong xã hội"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, dân chủ là quyền lực thuộc về….",
+        a: "A",
+        ops: [
+            "A. Nhân dân",
+            "B. Công nhân",
+            "C. Nông dân",
+            "D. Xã hội"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Hình thức dân chủ trực tiếp là hình thức thông qua đó, nhân dân bằng hành động …… của mình thực hiện quyền làm chủ nhà nước và xã hội.",
+        a: "A",
+        ops: [
+            "A. Trực tiếp",
+            "B. Can thiệp",
+            "C. Đại diện",
+            "D. Uỷ quyền"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Nhà nước pháp quyền được hiểu là nhà nước mà ở đó, tất cả mọi công dân đều được giáo dục… và phải hiểu biết ………, tuân thủ ….",
+        a: "C",
+        ops: [
+            "A. Chính sách",
+            "B. Đường lối",
+            "C. Pháp luật",
+            "D. Đạo đức"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Chủ trương của nước ta hiện nay là: “Xây dựng Nhà nước pháp quyền Việt Nam…….”",
+        a: "B", // (Của dân, do dân, vì dân)
+        ops: [
+            "A. Dân chủ, công bằng, văn minh",
+            "B. Của dân, do dân, vì dân",
+            "C. Độc lập – Tự do – Hạnh phúc",
+            "D. Phát triển toàn diện"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Hoạt động của Nhà nước ta được giám sát bởi nhân dân với phương châm: “……” thông qua các tổ chức, các cá nhân được nhân dân ủy nhiệm.",
+        a: "A",
+        ops: [
+            "A. Dân biết, dân bàn, dân làm, dân kiểm tra",
+            "B. Dân bàn, dân biết, dân làm, dân kiểm tra",
+            "C. Dân làm, dân bàn, dân biết, dân kiểm tra",
+            "D. Dân kiểm tra, dân làm, dân bàn, dân biết"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Tổ chức quyền lực của Nhà nước pháp quyền xã hội chủ nghĩạ đảm bảo quyền lực nhà nước là thống nhất, có sự phân công và phối hợp giữa các cơ quan nhà nước trong việc thực hiện các quyền………",
+        a: "C",
+        ops: [
+            "A. Dân chủ",
+            "B. Dân sinh",
+            "C. Lập pháp, hành pháp, tư pháp",
+            "D. Con người"
+        ]
+    },
+    {
+        q: "Trong các nội dung sau đây, nội dung nào KHÔNG phải là nội dung cơ bản trong việc tiếp tục xây dựng và hoàn thiện Nhà nước pháp quyền xã hội chủ nghĩa ở nước ta hiện nay?",
+        a: "C", // (Xây dựng khối liên minh công nông vững chắc là cơ sở chính trị, không phải nội dung xây dựng bộ máy nhà nước pháp quyền trực tiếp như cải cách hành chính, chống tham nhũng)
+        ops: [
+            "A. Xây dựng Nhà nước pháp quyền xã hội chủ nghĩa dưới sự lãnh đạo của Đảng.",
+            "B. Xây dựng đội ngũ cán bộ, công chức trong sạch, có năng lực",
+            "C. Xây dựng khối liên minh công nông vững chắc",
+            "D. Đấu tranh phòng, chống tham nhũng, lãng phí, thực hành tiết kiệm"
+        ]
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, trong một nền dân chủ, hai lĩnh vực quan trọng hàng đầu và nổi bật nhất là:",
+        a: "A",
+        ops: [
+            "A. Dân chủ trong kinh tế và dân chủ trong chính trị",
+            "B. Dân chủ trong xã hội và dân chủ trong đời sống văn hóa - tinh thần, tư tưởng",
+            "C. Dân chủ trong kinh tế và dân chủ trong đời sống văn hóa - tinh thần, tư tưởng",
+            "D. Dân chủ trong chính trị và dân chủ trong xã hội"
+        ]
+    },
+    {
+        q: "Dân chủ trong lĩnh vực nào thể hiện trực tiếp quyền con người và quyền công dân?",
+        a: "D", // Thường là Dân chủ chính trị (Political democracy)
+        ops: [
+            "A. Dân chủ trong kinh tế và dân chủ trong chính trị",
+            "B. Dân chủ trong xã hội và dân chủ trong đời sống văn hóa - tinh thần, tư tưởng",
+            "C. Dân chủ trong kinh tế và dân chủ trong đời sống văn hóa - tinh thần, tư tưởng",
+            "D. Dân chủ trong chính trị và dân chủ trong xã hội"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Theo quan điểm chủ nghĩa Mác – Lênin, dân chủ xã hội chủ nghĩa là nền dân chủ cao hơn về …..so với nền dân chủ tư sản.",
+        a: "C",
+        ops: [
+            "A. Sự tự do",
+            "B. Sự bình đẳng",
+            "C. Chất",
+            "D. Lượng"
+        ]
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nền dân chủ vô sản là nền dân chủ vì lợi ích của ai?",
+        a: "D",
+        ops: [
+            "A. Nông dân",
+            "B. Công nhân",
+            "C. Trí thức",
+            "D. Đa số nhân dân"
+        ]
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, phương diện nào dưới đây thể hiện nền dân chủ xã hội chủ nghĩa dựa trên chế độ sở hữu xã hội vê những tư liệu sản xuất chủ yếu của toàn xã hội?",
+        a: "A",
+        ops: [
+            "A. Bản chất kinh tế",
+            "B. Bản chất chính trị",
+            "C. Bản chất tư tưởng",
+            "D. Bản chất văn hoá – xã hội"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Nhà nước xã hội chủ nghĩạ là kiểu nhà nước mới, khác về …….so với các kiểu nhà nước bóc lột trong lịch sử.",
+        a: "C",
+        ops: [
+            "A. Sự lãnh đạo của Đảng",
+            "B. Lợi ích",
+            "C. Bản chất",
+            "D. Tổ chức chính quyền"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, sự thống trị của giai cấp bóc lột là sự thống trị của… đối với tất cả các giai cấp...",
+        a: "B", // (Thiểu số)
+        ops: [
+            "A. Đa số",
+            "B. Thiểu số",
+            "C. Số đông",
+            "D. Số ít"
+        ]
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, mục tiêu hàng đầu của nhà nước xã hội chù nghĩa là:",
+        a: "D",
+        ops: [
+            "A. Kinh tế phát triển",
+            "B. Chính trị ổn định",
+            "C. Giáo dục phát triển",
+            "D. Chăm lo cho lợi ích của đại đa số nhân dân lao động"
+        ]
+    },
+    {
+        q: "Căn cứ vào phạm vi tác động của quyền lực nhà nước, Nhà nước xã hội chủ nghĩa có mấy chức năng?",
+        a: "A", // (2 chức năng: Đối nội và Đối ngoại)
+        ops: [
+            "A. 2",
+            "B. 3",
+            "C. 4",
+            "D. 5"
+        ]
+    },
+    {
+        q: "Ở Việt Nam, bản chất dân chủ xã hội chủ nghĩa là dựa vào:",
+        a: "D",
+        ops: [
+            "A. Nhân dân",
+            "B. Giai cấp công nhân",
+            "C. Sự quản lý của Nhà nước",
+            "D. Nhà nước xã hội chủ nghĩa và sự ủng hộ, giúp đỡ của nhân dân"
+        ]
+    },
+    {
+        q: "Đảng ta khẳng định: “Dân giàu, nước mạnh, dân chủ, công bằng, văn minh”, là muốn nói đến nội dung nào của dân chủ?",
+        a: "A",
+        ops: [
+            "A. Dân chủ là mục tiêu của chế độ xã hội chủ nghĩa",
+            "B. Dân chủ là bản chất của chế độ xã hội chủ nghĩa",
+            "C. Dân chủ là động lực để xây dựng chủ nghĩa xã hội",
+            "D. Dân chủ gắn với pháp luật"
+        ]
+    },
+    {
+        q: "Đảng ta khẳng định: “Phát huy sức mạnh của nhân dân, của toàn dân tộc”, là muốn nói đến nội dung nào của dân chủ?",
+        a: "C",
+        ops: [
+            "A. Dân chủ là mục tiêu của chế độ xã hội chủ nghĩa",
+            "B. Dân chủ là bản chất của chế độ xã hội chủ nghĩa",
+            "C. Dân chủ là động lực để xây dựng chủ nghĩa xã hội",
+            "D. Dân chủ gắn với pháp luật"
+        ]
+    },
+    {
+        q: "Quốc hội ở nước ta hoạt động theo nhiệm kỳ mấy năm?",
+        a: "C",
+        ops: [
+            "A. 3",
+            "B. 4",
+            "C. 5",
+            "D. 6"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, nhà nước pháp quyền là nhà nước ….",
+        a: "C",
+        ops: [
+            "A. Thượng tôn nhà nước",
+            "B. Thượng tôn đạo đức",
+            "C. Thượng tôn pháp luật",
+            "D. Thượng tôn giáo dục"
+        ]
+    },
+    {
+        q: "Nhà nước pháp quyền xã hội chủ nghĩa ở nước ta có mấy đặc điểm cơ bản?",
+        a: "B", // (6 đặc điểm - theo Cương lĩnh 2011)
+        ops: [
+            "A. 5",
+            "B. 6",
+            "C. 7",
+            "D. 8"
+        ]
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nguyên nhân cơ bản dẫn đến cách mạng xã hội chủ nghĩa là:",
+        a: "C", // (Mâu thuẫn LLSX và QHSX -> Sự phát triển LLSX)
+        ops: [
+            "A. Do có Đảng cộng sản",
+            "B. Do giai cấp công nhân lớn mạnh",
+            "C. Do sự phát triển của lực lượng sản xuất",
+            "D. Do mong muốn của giai cấp thống trị"
+        ]
+    },
+    {
+        q: "Chọn quan điểm đúng nhất về dân chủ theo quan điểm của chủ nghĩa Mác – Lênin.",
+        a: "A",
+        ops: [
+            "A. Dân chủ là quyền lực thuộc về nhân dân",
+            "B. Dân chủ là quyền của con người",
+            "C. Dân chủ là quyền tự do của mỗi người",
+            "D. Dân chủ là trật tự xã hội"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Nhà nước xã hội chủ nghĩa vừa có bản chất giai cấp công nhân, vừa có tính nhân dân rộng rãi và tính ... sâu sắc.",
+        a: "C",
+        ops: [
+            "A. Giai cấp",
+            "B. Nhân đạo",
+            "C. Dân tộc",
+            "D. Cộng đồng"
+        ]
+    },
+    {
+        q: "Giai cấp nào chi phối vấn đề dân chủ trong xã hội?",
+        a: "C",
+        ops: [
+            "A. Giai cấp có số lượng đông",
+            "B. Giai cấp có trình độ cao",
+            "C. Giai cấp nắm giữ tư liệu sản xuất",
+            "D. Các giai cấp trong xã hội"
+        ]
+    },
+    {
+        q: "Trong các kiểu nhà nước dưới đây, nhà nước nào khác về chất so với các nhà nước còn lại?",
+        a: "D",
+        ops: [
+            "A. Chiếm hữu nô lệ",
+            "B. Phong kiến",
+            "C. Tư bản",
+            "D. Xã hội chủ nghĩa"
+        ]
+    },
+    {
+        q: "Nhà nước pháp quyền xã hội chủ nghĩa Việt Nam mang bản chất giai cấp công nhân vì:",
+        a: "D",
+        ops: [
+            "A. Nhà nước có được là thành quả cách mạng của quần chúng nhân dân lao động",
+            "B. Nhà nước có được là thành quả cách mạng của giai cấp công nhân",
+            "C. Nhà nước có được là thành quả cách mạng dưới sự lãnh đạo của Đảng Cộng sản Việt Nam",
+            "D. Nhà nước có được là thành quả cách mạng của quần chúng nhân dân lao động do giai cấp công nhân thông qua chính đảng là Đảng Cộng sản lãnh đạo"
+        ]
+    },
+    {
+        q: "Bản chất giai cấp của nhà nước pháp quyền xã hội chủ nghĩa Việt Nam được thể hiện tập trung nhất là:",
+        a: "A",
+        ops: [
+            "A. Phục vụ lợi ích của nhân dân",
+            "B. Sự lãnh đạo của Đảng Cộng sản Việt Nam đối với nhà nước",
+            "C. Thể hiện ý chí của nhân dân",
+            "D. Do nhân dân xây dựng nên"
+        ]
+    },
+    {
+        q: "Theo các nhà tư tưởng Hy Lạp cổ đại, từ “Demos” dùng để nói về:",
+        a: "D",
+        ops: [
+            "A. Những kẻ thống trị",
+            "B. Những người bị trị",
+            "C. Những người cùng khổ",
+            "D. Nhân dân"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, dân chủ sau này được các nhà chính trị gọi giản lược là: ….của nhân dân hay…… thuộc về nhân dân.",
+        a: "B",
+        ops: [
+            "A. Toàn quyền",
+            "B. Quyền lực",
+            "C. Quyền hạn",
+            "D. Quyền uy"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, nhân dân là…. của đất nước.",
+        a: "D",
+        ops: [
+            "A. Người lãnh đạo",
+            "B. Người thống trị",
+            "C. Người cai trị",
+            "D. Chủ nhân"
+        ]
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân chủ là một hình thái hay hình thức nhà nước, được xét trên phương diện nào?",
+        a: "A", // (Hoặc C. Trong giáo trình đôi khi dùng 'Phương diện quyền lực' hoặc 'Chế độ nhà nước'. A hợp lý với từ khóa 'Quyền lực' ở câu trước, nhưng C đầy đủ nghĩa 'Chế độ nhà nước')
+        ops: [
+            "A. Quyền lực",
+            "B. Tổ chức và quản lý",
+            "C. Chế độ xã hội và lĩnh vực chính trị",
+            "D. Xã hội"
+        ]
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, phương diện nào dưới đây thể hiện dân chủ là một nguyên tắc – nguyên tắc dân chủ?",
+        a: "B",
+        ops: [
+            "A. Quyền lực",
+            "B. Tổ chức và quản lý",
+            "C. Chế độ xã hội và lĩnh vực chính trị",
+            "D. Xã hội"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Thực tiễn cho thấy, bản chất tốt đẹp và tính ưu việt của nền dân chủ xã hội chủ nghĩa ở Việt Nam càng ngày càng thể hiện giá trị ……. (Lấy dân làm gốc)",
+        a: "C",
+        ops: [
+            "A. Mọi người làm chủ",
+            "B. Tập thể làm chủ",
+            "C. Lấy dân làm gốc",
+            "D. Bình đẳng xã hội"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Tổ chức và hoạt động của bộ máy quản lý nhà nước theo nguyên tắc……., thống nhất quyền lực, có phân công, phân cấp...",
+        a: "B",
+        ops: [
+            "A. Phân quyền",
+            "B. Tập trung dân chủ",
+            "C. Tự nguyên",
+            "D. Bắt buộc"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Đối với nhà nước pháp quyền Việt Nam, trong tất cả các hoạt động của xã hội, ……… được đặt ở vị trí tối thượng để điều chỉnh các quan hệ xã hội.",
+        a: "B",
+        ops: [
+            "A. Đạo đức",
+            "B. Pháp luật",
+            "C. Dư luận xã hội",
+            "D. Nhà nước"
+        ]
+    },
+    {
+        q: "Theo quan điểm chủ nghĩa Mác – Lênin, dân chủ là một giá trị xã hội khi:",
+        a: "A",
+        ops: [
+            "A. Phản ánh những quyền cơ bản của con người",
+            "B. Gắn với các hình thức tổ chức nhà nước của giai cấp cầm quyền",
+            "C. Gắn với quá trình ra đời, phát triển của lịch sử xã hội nhân loại",
+            "D. Phản ánh xã hội nói chung"
+        ]
+    },
+    {
+        q: "Theo quan điểm chủ nghĩa Mác – Lênin, dân chủ là một phạm trù lịch sử khi:",
+        a: "C", // (Hoặc B, nhưng "ra đời, phát triển gắn với nhà nước" là ý chính của phạm trù lịch sử)
+        ops: [
+            "A. Phản ánh những quyền cơ bản của con người",
+            "B. Gắn với các hình thức tổ chức nhà nước của giai cấp cầm quyền",
+            "C. Gắn với quá trình ra đời, phát triển của lịch sử xã hội nhân loại",
+            "D. Phản ánh xã hội nói chung"
+        ]
+    },
+    {
+        q: "Theo quan điểm chủ nghĩa Mác – Lênin, tính chính trị của dân chủ sẽ mất đi khi nào?",
+        a: "A", // (Dân chủ trở thành thói quen, tập quán - Phi chính trị hóa)
+        ops: [
+            "A. Dân chủ trở thành một thói quen, một tập quán trong sinh hoạt xã hội",
+            "B. Tăng cường dân chủ trong lĩnh vực kinh tế",
+            "C. Tăng cường dân chủ trong lĩnh vực xã hội",
+            "D. Tăng cường dân chủ trong lĩnh vực văn hoá – tư tưởng"
+        ]
+    },
+    {
+        q: "Theo quan điểm chủ nghĩa Mác – Lênin, khi nào dân chủ xã hội chủ nghĩa với tư cách là một chế độ nhà nước cũng tiêu vong, không còn nữa?",
+        a: "D",
+        ops: [
+            "A. Xã hội đã đạt trình độ phát triển rất cao, làm theo năng lực hưởng theo lao động",
+            "B. Xã hội đã đạt trình độ phát triển rất cao, mọi người đều bình đẳng trước pháp luật",
+            "C. Xã hội đã đạt trình độ phát triển rất cao, xã hội vẫn còn sự phân chia giai cấp",
+            "D. Xã hội đã đạt trình độ phát triển rất cao, xã hội không còn sự phân chia giai cấp"
+        ]
+    },
+    {
+        q: "Cuộc Tổng tuyển cử đầu tiên của nước Việt Nam dân chủ cộng hòa diễn ra vào năm nào?",
+        a: "B", // (1946)
+        ops: [
+            "A. 1945",
+            "B. 1946",
+            "C. 1954",
+            "D. 1975"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Dân chủ đã được đưa vào mục tiêu ……. của cách mạng Việt Nam: Dân giàu, nước mạnh, dân chủ, công bằng, văn minh.",
+        a: "A",
+        ops: [
+            "A. Tổng quát",
+            "B. Dài hạn",
+            "C. Ngắn hạn",
+            "D. Từng giai đoạn"
+        ]
+    },
+    {
+        q: "Hình thức nhà nước xã hội chủ nghĩa đầu tiên trong lịch sử là:",
+        a: "A",
+        ops: [
+            "A. Công xã Pari",
+            "B. Nhà nước Xô viết",
+            "C. Nhà nước dân chủ nhân dân",
+            "D. Nhà nước xã hội chủ nghĩa"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: “Nước ta là nước dân chủ, nghĩa là nhà nước do nhân dân làm chủ. Nhân dân có quyền lợi làm chủ, thì phải có … làm tròn bổn phận công dân” (Hồ Chí Minh)",
+        a: "B", // (Nghĩa vụ)
+        ops: [
+            "A. Trách nhiệm",
+            "B. Nghĩa vụ",
+            "C. Trình độ",
+            "D. Khả năng"
+        ]
+    },
+    {
+        q: "Xây dựng Nhà nước pháp quyền của dân, do dân và vì dân là chủ trương của ai?",
+        a: "D",
+        ops: [
+            "A. C.Mác",
+            "B. Ph.Ăngghen",
+            "C. V.I.Lênin",
+            "D. Hồ Chí Minh và Đảng Cộng sản Việt Nam"
+        ]
+    },
+    {
+        q: "Bản chất giai cấp của nhà nước được thể hiện ở chỗ:",
+        a: "A",
+        ops: [
+            "A. Nhà nước là bộ máy dùng để duy trì phát triển xã hội, trấn áp của giai cấp này đối với giai cấp khác",
+            "B. Nhà nước là một tố chức văn hóa",
+            "C. Nhà nước là một công cụ xã hội",
+            "D. Nhà nước là một thiết chế xã hội"
+        ]
+    },
+    {
+        q: "Thuật ngữ dân chủ ra đời vào khoảng thế kỷ mấy trước công nguyên?",
+        a: "A",
+        ops: [
+            "A. VII – VI",
+            "B. VII – VIII",
+            "C. VII – IX",
+            "D. VII – X"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Theo quan điểm chủ nghĩa Mác – Lênin, quyền lợi căn bản nhất của …….chính là quyền lực nhà nước thuộc sở hữu của nhân dân, của xã hội",
+        a: "C", // (Nhân dân)
+        ops: [
+            "A. Công nhân",
+            "B. Nông dân",
+            "C. Nhân dân",
+            "D. Trí thức"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Hình thức dân chủ gián tiếp là hình thức dân chủ đại diện, được thực hiện do nhân dân “ủy quyền”, giao quyền lực của mình cho tổ chức mà nhân dân …… bầu ra.",
+        a: "A", // (Trực tiếp bầu ra)
+        ops: [
+            "A. Trực tiếp",
+            "B. Gián tiếp",
+            "C. Đại diện",
+            "D. Uỷ quyền"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Thực tiễn xây dựng đất nước cho thấy dân chủ xã hội chủ nghĩa được thể hiện ở việc bảo đảm và phát huy quyền làm chủ của nhân dân theo hướng ngày càng ……… và hoạt động có hiệu quả.",
+        a: "B",
+        ops: [
+            "A. Phát triển",
+            "B. Mở rộng",
+            "C. Đa dạng",
+            "D. Tích cực"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Kể từ khi khai sinh ra nước	cho đến nay, nhân dân thực sự trở thành người làm chủ, tự xây dựng, tổ chức quản lý xã hội.",
+        a: "C",
+        ops: [
+            "A. Việt Nam",
+            "B. Cộng Hoà Xã hội Chủ nghĩa Việt Nam",
+            "C. Việt Nam Dân chủ cộng hòa",
+            "D. Việt Nam Thanh niên Cách mạng đồng chí hội"
+        ]
+    },
+    {
+        q: "Điều mấy trong Hiến pháp năm 2013, Đảng ta khẳng định Nhà nước pháp quyền xã hội chủ nghĩa ở Việt Nam phải do Đảng Cộng sản Việt Nam lãnh đạo?",
+        a: "C",
+        ops: [
+            "A. Điều 2",
+            "B. Điều 3",
+            "C. Điều 4",
+            "D. Điều 5"
+        ]
+    },
+    {
+        q: "Ai là chủ thể, là trung tâm của sự phát triển trong Nhà nước pháp quyền xã hội chủ nghĩa ở Việt Nam?",
+        a: "D",
+        ops: [
+            "A. Công nhân",
+            "B. Nông dân",
+            "C. Trí thức",
+            "D. Con người"
+        ]
+    },
+    {
+        q: "Điều kiện tiên quyết để xây dựng nền dân chủ xã hội chủ nghĩa Việt Nam là:",
+        a: "D",
+        ops: [
+            "A. 퐃 ऀ n định chính trị",
+            "B. Phát triển kinh tế",
+            "C. Liên minh công nông vững chắc",
+            "D. Xây dựng Đảng Cộng sản Việt Nam trong sạch, vững mạnh"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Các tổ chức chính trị - xã hội ở nước ta cần phải đổi mới mạnh mẽ	để nâng cao vị trí, vai trò của mình...",
+        a: "D", // (Phương thức hoạt động)
+        ops: [
+            "A. Cách làm mới",
+            "B. Bước đi vững chắc",
+            "C. Phương pháp cơ bản",
+            "D. Phương thức hoạt động"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Nhà nước pháp quyền xã hội chủ nghĩa ở Vỉệt Nam mang bản chất giai cấp công nhân, đồng thời cũng gắn bó chặt chẽ………..",
+        a: "A",
+        ops: [
+            "A. Với dân tộc, với nhân dân",
+            "B. Với xã hội",
+            "C. Với mọi người",
+            "D. Với nhân nhân loại"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Phòng, chống tham nhũng, lãng phí và thực hành tiết kiệm là nhiệm vụ	của quá trình xây dựng Nhà nước pháp quyền xã hội chủ nghĩa ở nước ta.",
+        a: "D", // (Cấp bách, lâu dài - hoặc Quan trọng hàng đầu. Theo văn kiện thường là Cấp bách)
+        ops: [
+            "A. Trọng tâm",
+            "B. Quan trọng hàng đầu",
+            "C. Quyết định",
+            "D. Cấp bách, lâu dài"
+        ]
+    },
+    {
+        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Việc chăm lo cho lợi ích của đại đa số nhân dân lao động trở thành mục tiêu	của nhà nước xã hội chủ nghĩa.",
+        a: "C", // (Hàng đầu)
+        ops: [
+            "A. Lâu dài",
+            "B. Quan trọng",
+            "C. Hàng đầu",
+            "D. Chủ yếu"
+        ]
+    },
+    {
+        q: "Dựa vào căn cứ nào dưới đây để phân chia chức năng nhà nước thành chức năng giai cấp (trấn áp) và chức năng xã hội (tổ chức và xây dựng)?",
+        a: "B", // (Tính chất quyền lực)
+        ops: [
+            "A. Phạm vi tác động của quyền lực nhà nước",
+            "B. Tính chất của quyền lực nhà nước",
+            "C. Lĩnh vực tác động của quyền lực nhà nước",
+            "D. Bản chất của nhà nước xã hội chủ nghĩa"
+        ]
+    },
+    {
+        q: "Dân chủ vẫn còn tồn tại với tư cách một giá trị nhân loại chung khi:",
+        a: "B", // (Xã hội loài người còn tồn tại / Văn minh nhân loại)
+        ops: [
+            "A. Xã hội công xã nguyên thuỷ ra đời",
+            "B. Xã hội loài người còn tồn tại",
+            "C. Xã hội chiếm hữu nô lệ ra đời",
+            "D. Xã hội tư bản chủ nghĩa ra đời"
+        ]
+    },
+    {
+        q: "Theo quan điểm chủ nghĩa Mác – Lênin, muốn biết một nhà nước dân chủ có thực sự hay không thì phải xem trong nhà nước đó:",
+        a: "A",
+        ops: [
+            "A. Dân là ai và bản chất của chế độ xã hội ấy như thế nào",
+            "B. Nền kinh tế như thế nào",
+            "C. Xã hội như thế nào",
+            "D. Con người như thế nào"
+        ]
+    },
+    {
+        q: "“Bất cứ một nhà nước nào cũng đều có nghĩa là dùng bạo lực; nhưng toàn bộ sự khác nhau là ở chỗ dùng bạo lực đối với những người bị bóc lột hay đối với kẻ đi bóc lột”. Đây là câu nói của ai?",
+        a: "C",
+        ops: [
+            "A. C.Mác",
+            "B. Ph.Ăngghen",
+            "C. V.I.Lênin",
+            "D. Hồ Chí Minh"
+        ]
+    },
+    {
+        q: "Đại hội mấy Đảng ta đã khẳng định: “Trong toàn bộ hoạt động của mình, Đảng phải quán triệt tư tưởng “lấy dân làm gốc, xây dựng và phát huy quyền làm chủ của nhân dân lao động”?",
+        a: "C", // (Đại hội VI)
+        ops: [
+            "A. IV",
+            "B. V",
+            "C. VI",
+            "D. VII"
+        ]
+    },
+    {
+        q: "Đại hội mấy Đảng ta đã khẳng định: “Ở đâu, nhân dân lao động có ý thức làm chủ và được làm chủ thật sự, thì ở đấy xuất hiện phong trào cách mạng”?",
+        a: "C", // (Đại hội VI)
+        ops: [
+            "A. IV",
+            "B. V",
+            "C. VI",
+            "D. VII"
+        ]
+    },
+    {
+        q: "Đại hội mấy Đảng ta đã khẳng định: “Mọi đường lối, chính sách của Đảng và pháp luật của Nhà nước đều vì lợi ích của nhân dân, có sự tham gia ý kiến của nhân dân'?",
+        a: "A", // (Đại hội VI - khởi xướng đổi mới tư duy về dân)
+        ops: [
+            "A. VI",
+            "B. VIII",
+            "C. IX",
+            "D. X"
+        ]
+    },
+    {
+        q: "Trong Tuyên ngôn Đảng cộng sản, C.Mác và Ph.Ăngghen viết: 'Pháp luật của các ông chỉ là ý chí giai cấp của các ông được đề lên thành luật...' Đại từ nhân xưng 'các ông' là muốn nói đến:",
+        a: "C",
+        ops: [
+            "A. Các nhà làm luật",
+            "B. Quốc hội, nghị viện",
+            "C. Nhà nước, giai cấp thống trị",
+            "D. Chính phủ"
+        ]
+    },
+    {
+        q: "Tư tưởng của ai dưới đây cho rằng: Dân chủ là sản phẩm và là thành quả của quá trình đấu tranh giai cấp cho những giá trị tiến bộ của nhân loại...?",
+        a: "D",
+        ops: [
+            "A. Các nhà tư tưởng cổ đại",
+            "B. Các nhà tư tưởng trung đại",
+            "C. Các nhà tư tưởng cận đại",
+            "D. Các nhà sáng lập chủ nghĩa Mác – Lênin"
+        ]
+    },
+    {
+        q: "Chọn từ thích hợp thay thế dấu (…). Trong hệ thống chính trị xã hội chủ nghĩa, Đảng ta xem ………là “trụ cột”, “một công cụ chủ yếu, vững mạnh” của nhân dân trong sự nghiệp xây dựng và bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa.",
+        a: "B",
+        ops: [
+            "A. Nhân dân",
+            "B. Nhà nước",
+            "C. Quốc hội",
+            "D. Xã hội"
+        ]
+    },
+    {
+        q: "Đại hội mấy Đảng ta đã khẳng định: “Quyền lực nhà nước là thống nhất, có sự phân công, phối hợp, kiểm soát giữa các cơ quan nhà nước trong việc thực hiện các quyền lập pháp, hành pháp, tư pháp”?",
+        a: "D", // (Đại hội XI, Hiến pháp 2013)
+        ops: [
+            "A. VI",
+            "B. VIII",
+            "C. X",
+            "D. XII"
+        ]
+    },
+    {
+        q: "Câu nói: “Thực hành dân chủ là cái chìa khoá vạn năng có thể giải quyết mọi khó khăn” là của ai?",
+        a: "C",
+        ops: [
+            "A. V.I.Lênin",
+            "B. Mao Trạch Đông",
+            "C. Hồ Chí Minh",
+            "D. Lê Duẩn"
+        ]
+    }
+];
 
-    const saData = [
-        { q: "1. Dân chủ là một hình thái hay hình thức nhà nước, là chế độ dân chủ hay ....", a: "chế độ dân chủ" },
-        { q: "2. Nguyên tắc dân chủ kết hợp với nguyên tắc tập trung để hình thành nguyên tắc ... trong tổ chức và quản lý xã hội.", a: "tập trung dân chủ" },
-        { q: "3. Nền dân chủ xã hội chủ nghĩa thực hiện chế độ công hữu về ... chủ yếu.", a: "tư liệu sản xuất" },
-        { q: "4. Nền dân chủ xã hội chủ nghĩa thực hiện chế độ phân phối lợi ích theo kết quả ... là chủ yếu.", a: "lao động" },
-        { q: "5. Nhà nước XHCN ra đời là kết quả của cuộc cách mạng do giai cấp vô sản và nhân dân lao động tiến hành dưới sự lãnh đạo của ...", a: "Đảng Cộng sản" },
-        { q: "6. Quyền lực nhà nước ta là thống nhất, có sự phân công, phối hợp và kiểm soát giữa các cơ quan nhà nước trong việc thực hiện các quyền lập pháp, hành pháp và ...", a: "tư pháp" },
-        { q: "7. Hình thức dân chủ gián tiếp là hình thức dân chủ ... được thực hiện do nhân dân “ủy quyền”.", a: "đại diện" },
-        { q: "8. Các quy chế dân chủ ở nước ta... thực hiện phương châm “dân biết, dân bàn, ..., dân kiểm tra\".", a: "dân làm" },
-        { q: "9. Trên phương diện tổ chức và quản lý xã hội, dân chủ là một nguyên tắc, hay còn gọi là ...", a: "nguyên tắc dân chủ" },
-        { q: "10. Chế độ dân chủ chủ nô đã bị xóa bỏ và thay vào đó là chế độ độc tài ... phong kiến.", a: "chuyên chế" },
-        { q: "11. Nền dân chủ tư sản, gắn với chế độ nào?", a: "Tư bản chủ nghĩa" },
-        { q: "12. Nền dân chủ xã hội chủ nghĩa, gắn với chế độ nào?", a: "Xã hội chủ nghĩa" },
-        { q: "13. Dân chủ là sản phẩm và là thành quả của quá trình ... giai cấp cho những giá trị tiến bộ của nhân loại.", a: "đấu tranh" },
-        { q: "14. Theo quan điểm của chủ nghĩa Mác – Lênin, nền dân chủ nào cao hơn về chất so với nền dân chủ tư sản?", a: "Nền dân chủ xã hội chủ nghĩa" },
-        { q: "15. Nền dân chủ xã hội chủ nghĩa do ai lãnh đạo?", a: "Đảng Cộng sản" },
-        { q: "16. Bản chất dân chủ XHCN ở Việt nam được thực hiện thông qua các hình thức dân chủ trực tiếp và ...", a: "dân chủ gián tiếp" },
-        { q: "17. Dân chủ được coi là một phạm trù lịch sử, ra đời và phát triển gắn liền với nhà nước và mất đi khi ...", a: "nhà nước tiêu vong" },
-        { q: "18. Nền dân chủ hay chế độ dân chủ là hình thái gắn với bản chất, tính chất của tổ chức chính trị nào?", a: "Nhà nước" },
-        { q: "19. Nền dân chủ chủ nô được tổ chức thành nhà nước thì ai có quyền tham gia bầu ra Nhà nước?", a: "Dân (chủ nô và công dân tự do)" },
-        { q: "20. Trong nền dân chủ XHCN, ai là những người làm chủ những quan hệ chính trị trong xã hội?", a: "Nhân dân lao động" },
-        { q: "21. Bản chất kinh tế của nền dân chủ XHCN là thực hiện chế độ ... về tư liệu sản xuất chủ yếu.", a: "công hữu" },
-        { q: "22. Ở Việt Nam, bản chất dân chủ XHCN là dựa vào Nhà nước XHCN và sự ủng hộ, giúp đỡ của ai?", a: "Nhân dân" },
-        { q: "23. Hoạt động của Nhà nước được giám sát bởi nhân dân với phương châm gì?", a: "Dân biết, dân bàn, dân làm, dân kiểm tra" },
-        { q: "24. Nhà nước pháp quyền xã hội chủ nghĩa ở Việt Nam tôn trọng quyền ..., coi ... là chủ thể, là trung tâm của sự phát triển.", a: "con người" },
-        { q: "25. Cơ quan quyền lực cao nhất trong bộ máy nước ta là gì?", a: "Quốc hội" },
-        { q: "26. Trong nền dân chủ XHCN có sự kết hợp hài hòa về lợi ích giữa cá nhân, tập thể và lợi ích của ...", a: "toàn xã hội" },
-        { q: "27. Dân chủ là quyền lực thuộc về nhân dân, nhân dân là chủ nhân của đất nước. Quan điểm này được xét trên phương diện nào?", a: "Phương diện quyền lực" },
-        { q: "28. Cơ quan nào là thiết chế có chức năng trực tiếp nhất trong việc thể chế hóa và tổ chức thực hiện những yêu cầu dân chủ chân chính của nhân dân?", a: "Nhà nước" },
-        { q: "29. Nền dân chủ xã hội chủ nghĩa lấy hệ tư tưởng nào làm chủ đạo?", a: "Hệ tư tưởng Mác - Lênin" },
-        { q: "30. Thuật ngữ dân chủ do nhà nước nào sử dụng đầu tiên trong lịch sử?", a: "Hy Lạp (Thành bang Athens)" }
-    ];
+// --- DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN ---
+
+const saData = [
+    {
+        q: "Điềền từ còn thiềếu vào dấếu (…) trong nội dung sau: Dấn chu là một hinh thai hay hinh thưc nhà nươc, là chềế thê dấn chu hay ….",
+        a: "chế độ dân chủ"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Nguyên tắc dân chủ kết hợp với nguyên tắc tập trung để hình thành nguyên tắc…. trong tổ chức và quản lý xã hội.",
+        a: "tập trung dân chủ"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau:Nền dân chủ xã hội chủ nghĩa thực hiện chế độ công hữu về …..chủ yểu.",
+        a: "về tư liệu sản xuất"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Nền dân chủ xã hội chủ nghĩa thực hiện chế độ phân phối lợi ích theo kết quả ……là chủ yểu.",
+        a: "lao động"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Nhà nước xã hội chủ nghĩa ra đời là kết quả của cuộc cách mạng do giai cấp vô sản và nhân dân lao động tiến hành dưới sự lãnh đạo của ….",
+        a: "Đảng Cộng sản"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Quyền lực nhà nước ta là thống nhất, có sự phân công, phối hợp và kiểm soát giữa các cơ quan nhà nước trong việc thực hiện các quyền lập pháp, hành pháp và ……",
+        a: "tư pháp"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Hình thức dân chủ gián tiếp là hình thức dân chủ…… được thực hiện do nhân dân “ủy quyền”.",
+        a: "đại diện"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Các quy chế dân chủ ở nước ta từ cơ sở cho đến Trung ương và trong các tổ chức chính trị - xã hội đều thực hiện phương châm “dân biết, dân bàn, ……, dân kiểm tra\".",
+        a: "dân làm"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, trên phương diện tổ chức và quản lý xã hội, dân chủ là một nguyên tắc, hay còn gọi là…..",
+        a: "nguyên tắc dân chủ"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Cùng với sự tan rã của chế độ chiếm hữu nô lệ, lịch sử xã hội loài người bước vào thời kỳ đen tối với sự thống trị của nhà nước chuyên chế phong kiến, chế độ dân chủ chủ nô đã bị xóa bỏ và thay vào đó là chế độ độc tài ……phong kiến.",
+        a: "chuyên chế"
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nền dân chủ tư sản, gắn với chế độ nào?",
+        a: "tư bản chủ nghĩa"
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nền dân chủ xã hội chủ nghĩa, gắn với chế độ nào?",
+        a: "Xã hội chủ nghĩa"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, dân chủ là sản phẩm và là thành quả của quá trình … giai cấp cho những giá trị tiến bộ của nhân loại...",
+        a: "đấu tranh"
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nền dân chủ nào cao hơn về chất so với nền dân chủ tư sản?",
+        a: "xã hội chủ nghĩa"
+    },
+    {
+        q: "Nền dân chủ xã hội chủ nghĩa do ai lãnh đạo?",
+        a: "đảng Cộng sản"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Bản chất dân chủ xã hội chủ nghĩa ở Việt nam được thực hiện thông qua các hình thức dân chủ trực tiếp và",
+        a: "dân chủ gián tiếp"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Dân chủ với tư cách một hình thức tổ chức thiết chế chính trị, một hình thức hay hình thái nhà nước, thì dân chủ được coi là một phạm trù lịch sử, ra đời và phát triển gắn liền với nhà nước và mất đi khi...",
+        a: "nhà nước tiêu vong"
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin nền dân chủ hay chế độ dân chủ là hình thái gắn với bản chất, tính chất của tổ chức chính trị nào?",
+        a: "Nhà nước"
+    },
+    {
+        q: "Nền dân chủ chủ nô được tổ chức thành nhà nước thì ai có quyền tham gia bầu ra Nhà nước?",
+        a: "Dân( chủ nô và một phần là công dân tự do)"
+    },
+    {
+        q: "Trong nền dân chủ xã hội chủ nghĩa, ai là những người làm chủ những quan hệ chính trị trong xã hội?",
+        a: "nhân dân lao động"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Bản chất kinh tế của nền dân chủ xã hội chủ nghĩa là thực hiện chế độ … về tư liệu sản xuất chủ yểu...",
+        a: "công hữu"
+    },
+    {
+        q: "Ở Việt Nam, bản chất dân chủ xã hội chủ nghĩa là dựa vào Nhà nước xã hội chủ nghĩa và sự ủng hộ, giúp đỡ của ai?",
+        a: "Nhân dân"
+    },
+    {
+        q: "Hoạt động của Nhà nước được giám sát bởi nhân dân với phương châm gì?",
+        a: "Dân biết, dân bàn, dân làm, dân kiểm tra"
+    },
+    {
+        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Nhà nước pháp quyền xã hội chủ nghĩa ở Việt Nam tôn trọng quyền …, coi … là chủ thể, là trung tâm của sự phát triển.",
+        a: "con người, coi con người"
+    },
+    {
+        q: "Cơ quan quyền lực cao nhất trong bộ máy nước ta là gì?",
+        a: "Quốc hội"
+    },
+    {
+        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân chủ là quyền lực thuộc về nhân dân, nhân dân là chủ nhân của đất nước. Quan điểm này được xét trên phương diện nào?",
+        a: "phương diện quyền lực"
+    },
+    {
+        q: "Trong hệ thống chính trị xã hội chủ nghĩa, cơ quan nào là thiết chế có chức năng trực tiếp nhất trong việc thể chế hóa và tổ chức thực hiện những yêu cầu dân chủ chân chính của nhân dân?",
+        a: "Nhà nước"
+    },
+    {
+        q: "Nền dân chủ xã hội chủ nghĩa lấy hệ tư tưởng nào làm chủ đạo?",
+        a: "hệ tư tưởng Mác - Lênin"
+    },
+    {
+        q: "Thuật ngữ dân chủ do nhà nước nào sử dụng đầu tiên trong lịch sử?",
+        a: "hy lạp"
+    }
+];
 
     // KHỞI TẠO
     const mcContainer = document.getElementById('mc-container');
