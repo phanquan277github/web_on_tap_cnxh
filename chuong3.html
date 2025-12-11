@@ -1,1249 +1,1233 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ôn Tập CNXH Khoa Học - Chương 3</title>
     <style>
-        :root {
-            --primary-color: #0056b3;
-            --secondary-color: #28a745;
-            --danger-color: #dc3545;
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-color: #333;
-        }
+      :root {
+        --primary-color: #0056b3;
+        --secondary-color: #28a745;
+        --danger-color: #dc3545;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --text-color: #333;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+      }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
 
-        h1 { color: var(--primary-color); margin: 0; font-size: 2rem; }
-        h2 { color: #666; font-weight: 400; margin-top: 10px; font-size: 1.1rem; }
+      h1 {
+        color: var(--primary-color);
+        margin: 0;
+        font-size: 2rem;
+      }
+      h2 {
+        color: #666;
+        font-weight: 400;
+        margin-top: 10px;
+        font-size: 1.1rem;
+      }
 
-        .stats-bar {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-        }
+      .stats-bar {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        backdrop-filter: blur(5px);
+      }
 
-        .section-header {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin: 30px 0 20px 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+      .section-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin: 30px 0 20px 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
 
-        .section-header.short {
-            background: #17a2b8;
-        }
+      .section-header.short {
+        background: #17a2b8;
+      }
 
-        .question-card {
-            background: var(--card-bg);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-left: 5px solid #ddd;
-        }
+      .question-card {
+        background: var(--card-bg);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid #ddd;
+      }
 
-        .q-number {
-            font-weight: bold;
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: block;
-        }
+      .q-number {
+        font-weight: bold;
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        display: block;
+      }
 
-        .q-text {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
+      .q-text {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
 
-        /* Styles cho các lựa chọn trắc nghiệm */
-        .options-grid {
-            display: grid;
-            gap: 10px;
-        }
+      /* Styles cho các lựa chọn trắc nghiệm */
+      .options-grid {
+        display: grid;
+        gap: 10px;
+      }
 
-        .option {
-            padding: 12px 15px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
+      .option {
+        padding: 12px 15px;
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
 
-        .option:hover {
-            background: #e2e6ea;
-            border-color: #ced4da;
-        }
+      .option:hover {
+        background: #e2e6ea;
+        border-color: #ced4da;
+      }
 
-        /* Khi đã chọn đáp án (đúng/sai) */
-        .option.correct {
-            background-color: #d4edda !important;
-            border-color: #28a745 !important;
-            color: #155724;
-            font-weight: 600;
-        }
+      /* Khi đã chọn đáp án (đúng/sai) */
+      .option.correct {
+        background-color: #d4edda !important;
+        border-color: #28a745 !important;
+        color: #155724;
+        font-weight: 600;
+      }
 
-        .option.correct::after {
-            content: "✓";
-            position: absolute;
-            right: 15px;
-            font-weight: bold;
-            color: #155724;
-        }
+      .option.correct::after {
+        content: "✓";
+        position: absolute;
+        right: 15px;
+        font-weight: bold;
+        color: #155724;
+      }
 
-        .option.wrong {
-            background-color: #f8d7da !important;
-            border-color: #dc3545 !important;
-            color: #721c24;
-            opacity: 0.8;
-        }
+      .option.wrong {
+        background-color: #f8d7da !important;
+        border-color: #dc3545 !important;
+        color: #721c24;
+        opacity: 0.8;
+      }
 
-        .option.wrong::after {
-            content: "✕";
-            position: absolute;
-            right: 15px;
-            font-weight: bold;
-            color: #721c24;
-        }
+      .option.wrong::after {
+        content: "✕";
+        position: absolute;
+        right: 15px;
+        font-weight: bold;
+        color: #721c24;
+      }
 
-        /* Vô hiệu hóa click sau khi đã chọn */
-        .options-grid.answered {
-            pointer-events: none;
-        }
+      /* Vô hiệu hóa click sau khi đã chọn */
+      .options-grid.answered {
+        pointer-events: none;
+      }
 
-        /* Nút cho phần tự luận */
-        .btn-toggle {
-            margin-top: 15px;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background: #e3f2fd; 
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-        
-        .answer-box {
-            margin-top: 15px;
-            padding: 15px;
-            background: #fff3cd;
-            border-radius: 6px;
-            color: #856404;
-            display: none;
-        }
-        .answer-box.visible { display: block; }
+      /* Nút cho phần tự luận */
+      .btn-toggle {
+        margin-top: 15px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: #e3f2fd;
+        color: var(--primary-color);
+        font-weight: 600;
+      }
 
+      .answer-box {
+        margin-top: 15px;
+        padding: 15px;
+        background: #fff3cd;
+        border-radius: 6px;
+        color: #856404;
+        display: none;
+      }
+      .answer-box.visible {
+        display: block;
+      }
     </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
+  </head>
+  <body>
+    <div class="container">
+      <header>
         <h1>TRẮC NGHIỆM TƯƠNG TÁC</h1>
         <h2>Môn học: CNXH Khoa Học - Chương 3: CNXH và Thời kỳ quá độ</h2>
-    </header>
+      </header>
 
-    <div class="stats-bar">
-        <div><strong>Tiến độ:</strong> <span id="progress">0</span> / <span id="total">0</span></div>
-        <div><strong>Điểm:</strong> <span id="score" style="color: var(--secondary-color); font-weight: bold;">0</span></div>
+      <div class="stats-bar">
+        <div>
+          <strong>Tiến độ:</strong> <span id="progress">0</span> /
+          <span id="total">0</span>
+        </div>
+        <div>
+          <strong>Điểm:</strong>
+          <span
+            id="score"
+            style="color: var(--secondary-color); font-weight: bold"
+            >0</span
+          >
+        </div>
+      </div>
+
+      <div class="section-header">
+        A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)
+      </div>
+      <div id="mc-container"></div>
+
+      <div class="section-header short">
+        B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)
+      </div>
+      <div id="sa-container"></div>
     </div>
 
-    <div class="section-header">A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)</div>
-    <div id="mc-container"></div>
+    <script>
+      // --- DỮ LIỆU TỪ FILE CHUONG3.PDF ---
+      // --- DỮ LIỆU CÂU HỎI TỪ FILE CHUONG3.DOCX ---
 
-    <div class="section-header short">B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)</div>
-    <div id="sa-container"></div>
-</div>
-
-<script>
-    // --- DỮ LIỆU TỪ FILE CHUONG3.PDF ---
-    // --- DỮ LIỆU CÂU HỎI TỪ FILE CHUONG3.DOCX ---
-
-const mcData = [
-    {
-        q: "Theo giáo trình chủ nghĩa xã hội khoa học, khái niệm Chủ nghĩa xã hội được hiểu theo bao nhiêu nghĩa?",
-        a: "C",
-        ops: [
-            "A. 2",
-            "B. 3",
-            "C. 4",
-            "D. 5"
-        ]
-    },
-    {
-        q: "Căn cứ vào giáo trình chủ nghĩa xã hội khoa học, hãy xác định khái niệm dùng để chỉ một chế độ xã hội tốt đẹp, giai đoạn đầu của hình thái kinh tế - xã hội cộng sản chủ nghĩa",
-        a: "B",
-        ops: [
+      const mcData = [
+        {
+          q: "Theo giáo trình chủ nghĩa xã hội khoa học, khái niệm Chủ nghĩa xã hội được hiểu theo bao nhiêu nghĩa?",
+          a: "C",
+          ops: ["A. 2", "B. 3", "C. 4", "D. 5"],
+        },
+        {
+          q: "Căn cứ vào giáo trình chủ nghĩa xã hội khoa học, hãy xác định khái niệm dùng để chỉ một chế độ xã hội tốt đẹp, giai đoạn đầu của hình thái kinh tế - xã hội cộng sản chủ nghĩa",
+          a: "B",
+          ops: [
             "A. Thời kỳ quá độ",
             "B. Chủ nghĩa xã hội",
             "C. Thời kỳ quá độ lên chủ nghĩa xã hội",
-            "D. Chủ nghĩa cộng sản"
-        ]
-    },
-    {
-        q: "Cuộc cách mạng của giai cấp công nhân và nhân dân lao động dưới sự lãnh đạo của Đảng cộng sản chống lại giai cấp tư sản, mang tính chất:",
-        a: "C",
-        ops: [
+            "D. Chủ nghĩa cộng sản",
+          ],
+        },
+        {
+          q: "Cuộc cách mạng của giai cấp công nhân và nhân dân lao động dưới sự lãnh đạo của Đảng cộng sản chống lại giai cấp tư sản, mang tính chất:",
+          a: "C",
+          ops: [
             "A. Cách mạng dân chủ tư sản",
             "B. Cách mạng tư sản",
             "C. Cách mạng vô sản",
-            "D. Cách mạng xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, có bao nhiêu hình thức quá độ lên chủ nghĩa xã hội?",
-        a: "B",
-        ops: [
-            "A. Một",
-            "B. Hai",
-            "C. Ba",
-            "D. Bốn"
-        ]
-    },
-    {
-        q: "Xác định mốc bắt đầu của thời kỳ quá độ lên chủ nghĩa xã hội theo quan điểm Chủ nghĩa Mác - Lênin?",
-        a: "A",
-        ops: [
+            "D. Cách mạng xã hội",
+          ],
+        },
+        {
+          q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, có bao nhiêu hình thức quá độ lên chủ nghĩa xã hội?",
+          a: "B",
+          ops: ["A. Một", "B. Hai", "C. Ba", "D. Bốn"],
+        },
+        {
+          q: "Xác định mốc bắt đầu của thời kỳ quá độ lên chủ nghĩa xã hội theo quan điểm Chủ nghĩa Mác - Lênin?",
+          a: "A",
+          ops: [
             "A. Khi giai cấp công nhân và nhân dân lao động giành được chính quyền",
             "B. Khi giai cấp công nhân và nhân dân lao động đấu tranh giành chính quyền",
             "C. Khi giai cấp công nhân và nhân dân lao động đang cải tạo xã hội cũ",
-            "D. Khi giai cấp công nhân và nhân dân lao động đã thực hiện cải tạo xã hội cũ và đang xây dựng xã hội mới."
-        ]
-    },
-    {
-        q: "Đâu là đặc điểm về phương diện kinh tế của thời kỳ quá độ lên chủ nghĩa xã hội?",
-        a: "A",
-        ops: [
+            "D. Khi giai cấp công nhân và nhân dân lao động đã thực hiện cải tạo xã hội cũ và đang xây dựng xã hội mới.",
+          ],
+        },
+        {
+          q: "Đâu là đặc điểm về phương diện kinh tế của thời kỳ quá độ lên chủ nghĩa xã hội?",
+          a: "A",
+          ops: [
             "A. Tồn tại nền kinh tế nhiều thành phần, trong đó có thành phần đối lập",
             "B. Thiết lập, tăng cường chuyên chính vô sản",
             "C. Tồn tại nhiều tư tưởng khác nhau, chủ ỵếu là tư tưởng vô sản và tư tưởng tư sản",
-            "D. Tồn tại nhiều giai cấp, tầng lớp và sự khác biệt giữa các giai cấp tầng lớp xã hội"
-        ]
-    },
-    {
-        q: "Đâu là đặc điểm về phương diện chính trị của thời kỳ quá độ lên chủ nghĩa xã hội?",
-        a: "B",
-        ops: [
+            "D. Tồn tại nhiều giai cấp, tầng lớp và sự khác biệt giữa các giai cấp tầng lớp xã hội",
+          ],
+        },
+        {
+          q: "Đâu là đặc điểm về phương diện chính trị của thời kỳ quá độ lên chủ nghĩa xã hội?",
+          a: "B",
+          ops: [
             "A. Tồn tại nền kinh tế nhiều thành phần, trong đó có thành phần đối lập",
             "B. Thiết lập, tăng cường chuyên chính vô sản",
             "C. Tồn tại nhiều tư tưởng khác nhau, chủ ỵếu là tư tưởng vô sản và tư tưởng tư sản",
-            "D. Tồn tại nhiều giai cấp, tầng lớp và sự khác biệt giữa các giai cấp tầng lớp xã hội"
-        ]
-    },
-    {
-        q: "Đâu là đặc điểm về phương diện xã hội của thời kỳ quá độ lên chủ nghĩa xã hội?",
-        a: "D",
-        ops: [
+            "D. Tồn tại nhiều giai cấp, tầng lớp và sự khác biệt giữa các giai cấp tầng lớp xã hội",
+          ],
+        },
+        {
+          q: "Đâu là đặc điểm về phương diện xã hội của thời kỳ quá độ lên chủ nghĩa xã hội?",
+          a: "D",
+          ops: [
             "A. Tồn tại nền kinh tế nhiều thành phần, trong đó có thành phần đối lập",
             "B. Thiết lập, tăng cường chuyên chính vô sản",
             "C. Tồn tại nhiều tư tưởng khác nhau, chủ ỵếu là tư tưởng vô sản và tư tưởng tư sản",
-            "D. Tồn tại nhiều giai cấp, tầng lớp và sự khác biệt giữa các giai cấp tầng lớp xã hội"
-        ]
-    },
-    {
-        q: "Chọn phương án đúng theo Giáo trình chủ nghĩa xã hội khoa học: Sau khi chế độ xã hội chủ nghĩa ở Liên Xô và Đông Âu sụp đổ...",
-        a: "B",
-        ops: [
+            "D. Tồn tại nhiều giai cấp, tầng lớp và sự khác biệt giữa các giai cấp tầng lớp xã hội",
+          ],
+        },
+        {
+          q: "Chọn phương án đúng theo Giáo trình chủ nghĩa xã hội khoa học: Sau khi chế độ xã hội chủ nghĩa ở Liên Xô và Đông Âu sụp đổ...",
+          a: "B",
+          ops: [
             "A. Thời đại ngày nay không còn là thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội",
             "B. Thời đại ngày nay vẫn là thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội",
             "C. Thời đại ngày nay đã thay đổi tính chất, không còn là thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội",
-            "D. Thời đại ngày nay đã chuyển sang toàn cầu hóa, không còn là thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội"
-        ]
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (1991), đã xác định mô hình chủ nghĩa xã hội ở nước ta có mấy đặc trưng?",
-        a: "B",
-        ops: [
-            "A. 5",
-            "B. 6",
-            "C. 7",
-            "D. 8"
-        ]
-    },
-    {
-        q: "Trên cơ sở xác định rõ mục tiêu, đặc trưng của chủ nghĩa xã hội, Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển năm 2011) Đảng ta đã xác định bao nhiêu phương hướng cơ bản xây dựng chủ nghĩa xã hôi?",
-        a: "C",
-        ops: [
-            "A. 6",
-            "B. 7",
-            "C. 8",
-            "D. 10"
-        ]
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời quá độ lên chủ nghĩa xã hội (1991) xác định bao nhiêu phương hướng cơ bản phản ánh con đường quá độ lên chủ nghĩa xã hội ở nước ta?",
-        a: "B",
-        ops: [
-            "A. 6",
-            "B. 7",
-            "C. 8",
-            "D. 10"
-        ]
-    },
-    {
-        q: "Đại hội nào của Đảng ta đã xác định 9 mối quan hệ lớn cần nhận thức và giải quyết?",
-        a: "D",
-        ops: [
+            "D. Thời đại ngày nay đã chuyển sang toàn cầu hóa, không còn là thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội",
+          ],
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (1991), đã xác định mô hình chủ nghĩa xã hội ở nước ta có mấy đặc trưng?",
+          a: "D",
+          ops: ["A. 5", "B. 6", "C. 7", "D. 8"],
+        },
+        {
+          q: "Trên cơ sở xác định rõ mục tiêu, đặc trưng của chủ nghĩa xã hội, Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển năm 2011) Đảng ta đã xác định bao nhiêu phương hướng cơ bản xây dựng chủ nghĩa xã hôi?",
+          a: "B",
+          ops: ["A. 6", "B. 7", "C. 8", "D. 10"],
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời quá độ lên chủ nghĩa xã hội (1991) xác định bao nhiêu phương hướng cơ bản phản ánh con đường quá độ lên chủ nghĩa xã hội ở nước ta?",
+          a: "B",
+          ops: ["A. 6", "B. 7", "C. 8", "D. 10"],
+        },
+        {
+          q: "Đại hội nào của Đảng ta đã xác định 9 mối quan hệ lớn cần nhận thức và giải quyết?",
+          a: "C",
+          ops: [
             "A. Đại hội IX",
             "B. Đại hội X",
             "C. Đại hội XI",
-            "D. Đại hội XII"
-        ]
-    },
-    {
-        q: "Hiện nay nước ta đang ở giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
-        a: "A",
-        ops: [
+            "D. Đại hội XII",
+          ],
+        },
+        {
+          q: "Hiện nay nước ta đang ở giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
+          a: "A",
+          ops: [
             "A. Thời kỳ quá độ lên chủ nghĩa xã hội",
             "B. Chủ nghĩa xã hội",
             "C. Chủ nghĩa cộng sản",
-            "D. Kết thúc thời kỳ quá độ lên chủ nghĩa xã hội"
-        ]
-    },
-    {
-        q: "Quá trình xây dựng chủ nghĩa xã hội của nước ta đã trãi qua bao nhiêu năm đổi mới? (Theo giáo trình)",
-        a: "C",
-        ops: [
-            "A. 20 năm",
-            "B. 25 năm",
-            "C. 30 năm",
-            "D. Trên 30 năm"
-        ]
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời quá độ lên chủ nghĩa xã hội (Bổ sung và phát triển năm 2011), được Đảng ta thông qua ở Đại hội lần thứ mấy?",
-        a: "C",
-        ops: [
+            "D. Kết thúc thời kỳ quá độ lên chủ nghĩa xã hội",
+          ],
+        },
+        {
+          q: "Quá trình xây dựng chủ nghĩa xã hội của nước ta đã trãi qua bao nhiêu năm đổi mới? (Theo giáo trình)",
+          a: "C",
+          ops: ["A. 20 năm", "B. 25 năm", "C. 30 năm", "D. Trên 30 năm"],
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời quá độ lên chủ nghĩa xã hội (Bổ sung và phát triển năm 2011), được Đảng ta thông qua ở Đại hội lần thứ mấy?",
+          a: "C",
+          ops: [
             "A. Đại hội IX",
             "B. Đại hội X",
             "C. Đại hội XI",
-            "D. Đại hội XII"
-        ]
-    },
-    {
-        q: "Căn cứ vào giáo trình chủ nghĩa xã hội khoa học, hãy xác định khái niệm dùng để chỉ phong trào thực tiễn, phong trào đấu tranh của nhân dân lao động chống lại áp bức, bất công, chống các giai cấp thống trị:",
-        a: "B",
-        ops: [
+            "D. Đại hội XII",
+          ],
+        },
+        {
+          q: "Căn cứ vào giáo trình chủ nghĩa xã hội khoa học, hãy xác định khái niệm dùng để chỉ phong trào thực tiễn, phong trào đấu tranh của nhân dân lao động chống lại áp bức, bất công, chống các giai cấp thống trị:",
+          a: "B",
+          ops: [
             "A. Cách mạng xã hội",
             "B. Chủ nghĩa xã hội",
             "C. Đấu tranh giai cấp",
-            "D. Đối kháng giai cấp"
-        ]
-    },
-    {
-        q: "Sự thay thế hình thái kinh tế - xã hội tư bản chủ nghĩa bằng hình thái kinh tế - xã hội cộng sản chủ nghĩa được thực hiện thông qua cách mạng xã hội chủ nghĩa xuất phát từ một trong hai tiền vật chất quan trọng là:",
-        a: "A",
-        ops: [
+            "D. Đối kháng giai cấp",
+          ],
+        },
+        {
+          q: "Sự thay thế hình thái kinh tế - xã hội tư bản chủ nghĩa bằng hình thái kinh tế - xã hội cộng sản chủ nghĩa được thực hiện thông qua cách mạng xã hội chủ nghĩa xuất phát từ một trong hai tiền vật chất quan trọng là:",
+          a: "A",
+          ops: [
             "A. Sự phát triển của lực lượng sản xuất",
             "B. Mâu thuẫn giai cấp",
             "C. Sự bóc lột của giai cấp tư sản",
-            "D. Sự xuất hiện của chủ nghĩa Mác – Lênin"
-        ]
-    },
-    {
-        q: "Phát triển bỏ qua chế độ tư bản chủ nghĩa (TBCN) ở nước ta hiện nay được hiểu như thế nào?",
-        a: "C",
-        ops: [
+            "D. Sự xuất hiện của chủ nghĩa Mác – Lênin",
+          ],
+        },
+        {
+          q: "Phát triển bỏ qua chế độ tư bản chủ nghĩa (TBCN) ở nước ta hiện nay được hiểu như thế nào?",
+          a: "C",
+          ops: [
             "A. Không xây dựng quan hệ sản xuất TBCN",
             "B. Bỏ qua mọi yếu tố gắn liền với phương thức sản xuất TBCN",
             "C. Bỏ qua việc xác lập vai trò thống trị của quan hệ sản xuất TBCN và sự thống trị của giai cấp tư sản",
-            "D. Bỏ qua sự phát triển lực lượng sản xuất mang tính chất TBCN"
-        ]
-    },
-    {
-        q: "Mâu thuẫn kinh tế cơ bản của chủ nghĩa tư bản là:",
-        a: "B",
-        ops: [
+            "D. Bỏ qua sự phát triển lực lượng sản xuất mang tính chất TBCN",
+          ],
+        },
+        {
+          q: "Mâu thuẫn kinh tế cơ bản của chủ nghĩa tư bản là:",
+          a: "A",
+          ops: [
             "A. Mâu thuẫn giữa lực lượng sản xuất và quan hệ sản xuất của chủ nghĩa tư bản",
             "B. Mâu thuẫn giữa tính chất xã hội hóa của lực lượng sản xuất với chế độ chiếm hữu tư nhân tư bản chủ nghĩa về tư liệu sản xuất",
             "C. Mâu thuẫn giữa giai cấp công nhân và giai cấp nông dân",
-            "D. Mâu thuẫn giữa giai cấp công nhân hiện đại với giai cấp tư sản lỗi thời"
-        ]
-    },
-    {
-        q: "Trong chủ nghĩa tư bản, mâu thuẫn giữa tính chất xã hội hóa của lực lượng sản xuất với chế độ chiếm hữu tư nhân tư bản chủ nghĩa về tư liệu sản xuất, được xác định là mâu thuẫn gì?",
-        a: "C",
-        ops: [
+            "D. Mâu thuẫn giữa giai cấp công nhân hiện đại với giai cấp tư sản lỗi thời",
+          ],
+        },
+        {
+          q: "Trong chủ nghĩa tư bản, mâu thuẫn giữa tính chất xã hội hóa của lực lượng sản xuất với chế độ chiếm hữu tư nhân tư bản chủ nghĩa về tư liệu sản xuất, được xác định là mâu thuẫn gì?",
+          a: "C",
+          ops: [
             "A. Mâu thuẫn bên trong chủ nghĩa tư bản",
             "B. Mâu thuẫn của phương thức sản xuất",
             "C. Mâu thuẫn kinh tế cơ bản của chủ nghĩa tư bản",
-            "D. Mâu thuẫn kinh tế cơ bản của chủ nghĩa tư bản biểu hiện về mặt xã hội"
-        ]
-    },
-    {
-        q: "Trong chủ nghĩa tư bản, mâu thuẫn giữa giai cấp công nhân với giai cấp tư sản, được xác định là mâu thuẫn gì?",
-        a: "D",
-        ops: [
+            "D. Mâu thuẫn kinh tế cơ bản của chủ nghĩa tư bản biểu hiện về mặt xã hội",
+          ],
+        },
+        {
+          q: "Trong chủ nghĩa tư bản, mâu thuẫn giữa giai cấp công nhân với giai cấp tư sản, được xác định là mâu thuẫn gì?",
+          a: "D",
+          ops: [
             "A. Mâu thuẫn bản chất chủ nghĩa tư bản",
             "B. Mâu thuẫn của phương thức sản xuất",
             "C. Mâu thuẫn kinh tế cơ bản của chủ nghĩa tư bản",
-            "D. Mâu thuẫn kinh tế cơ bản của chủ nghĩa tư bản biểu hiện về mặt xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, yếu tố đánh dấu sự trưởng thành vượt bậc và thực sự của giai cấp công nhân là:",
-        a: "C",
-        ops: [
+            "D. Mâu thuẫn kinh tế cơ bản của chủ nghĩa tư bản biểu hiện về mặt xã hội",
+          ],
+        },
+        {
+          q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, yếu tố đánh dấu sự trưởng thành vượt bậc và thực sự của giai cấp công nhân là:",
+          a: "C",
+          ops: [
             "A. Sự ra đời của Chủ nghĩa Mác - Lênin",
             "B. Cuộc đấu tranh của giai cấp công nhân phát triển rộng khắp",
             "C. Sự ra đời của Đảng cộng sản",
-            "D. Giai cấp công nhân được trí thức hóa"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, giữa con người, dân tộc, giai cấp, xã hội thì chủ thể nào phải được giải phóng trước tiên?",
-        a: "B",
-        ops: [
-            "A. Dân tộc",
-            "B. Giai cấp",
-            "C. Con người",
-            "D. Xã hội"
-        ]
-    },
-    {
-        q: "Trong điều kiện mới của đời sống chính trị - xã hội thế giới đầu thế kỷ XX... V.I.Lênin đã cho rằng: mục đích cao nhất, cuối cùng của những cải tạo xã hội chủ nghĩa là:",
-        a: "B",
-        ops: [
+            "D. Giai cấp công nhân được trí thức hóa",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, giữa con người, dân tộc, giai cấp, xã hội thì chủ thể nào phải được giải phóng trước tiên?",
+          a: "A",
+          ops: ["A. Dân tộc", "B. Giai cấp", "C. Con người", "D. Xã hội"],
+        },
+        {
+          q: "Trong điều kiện mới của đời sống chính trị - xã hội thế giới đầu thế kỷ XX... V.I.Lênin đã cho rằng: mục đích cao nhất, cuối cùng của những cải tạo xã hội chủ nghĩa là:",
+          a: "C",
+          ops: [
             "A. Tổ chức và kỹ luật lao động mới",
             "B. Giải phóng người lao động khỏi áp bức, bất công",
             "C. Thực hiện nguyên tắc làm theo năng lực, hưởng theo nhu cầu",
-            "D. Giải phóng giai cấp công nhân"
-        ]
-    },
-    {
-        q: "Thực chất của thời kỳ quá độ lên chủ nghĩa xã hội là gì?",
-        a: "C",
-        ops: [
+            "D. Giải phóng giai cấp công nhân",
+          ],
+        },
+        {
+          q: "Thực chất của thời kỳ quá độ lên chủ nghĩa xã hội là gì?",
+          a: "C",
+          ops: [
             "A. Thời kỳ đấu tranh giai cấp giữa giai cấp công nhân và giai cấp tư sản để nắm chính quyền",
             "B. Thời kỳ đấu tranh giai cấp của giai cấp công nhân dưới sự lãnh đạo của Đảng và giai cấp tư sản để giành chính quyền",
             "C. Thời kỳ cải biến cách mạng từ xã hội tiền tư bản chủ nghĩa và tư bản chủ nghĩa sang xã hội xã hội chủ nghĩa.",
-            "D. Thời kỳ đấu tranh giai cấp của giai cấp công nhân dưới sự lãnh đạo của Đảng và giai cấp tư sản để giữ chính quyền"
-        ]
-    },
-    {
-        q: "Nền kinh tế nhiều thành phần nằm trong giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
-        a: "B",
-        ops: [
+            "D. Thời kỳ đấu tranh giai cấp của giai cấp công nhân dưới sự lãnh đạo của Đảng và giai cấp tư sản để giữ chính quyền",
+          ],
+        },
+        {
+          q: "Nền kinh tế nhiều thành phần nằm trong giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
+          a: "D",
+          ops: [
             "A. Bước vào thời kỳ quá độ",
             "B. Suốt thời kỳ quá độ",
             "C. Giai đoạn chủ nghĩa xã hội",
-            "D. Giai đoạn giao thoa giữa chủ nghĩa xã hội và chủ nghĩa cộng sản"
-        ]
-    },
-    {
-        q: "Đại hội nào của Đảng cộng sản Việt Nam đã xác định: Con đường đi lên của nước ta là sự phát triển quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa...?",
-        a: "C",
-        ops: [
+            "D. Giai đoạn giao thoa giữa chủ nghĩa xã hội và chủ nghĩa cộng sản",
+          ],
+        },
+        {
+          q: "28.	Đại hội nào của Đảng cộng sản Việt Nam đã xác định: Con đường đi lên của nước ta là sự phát triển quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa, tức là bỏ qua việc xác lập vị trí thống trị của quan hệ sản xuất và kiến trúc thượng tầng tư bản chủ nghĩa, nhưng tiếp thu, kế thừa những thành tựu mà nhân loại đã đạt được dưới chế độ tư bản chủ nghĩa, đặc biệt về khoa học và công nghệ, để phát triển nhanh lực lượng sản xuất, xây dựng nền kinh tế hiện đại?",
+          a: "C",
+          ops: [
             "A. Đại hội VII",
             "B. Đại hội VIII",
             "C. Đại hội IX",
-            "D. Đại hội X"
-        ]
-    },
-    {
-        q: "Chọn phương án sai về quá độ lên CNXH bỏ qua chế độ TBCN:",
-        a: "D",
-        ops: [
+            "D. Đại hội X",
+          ],
+        },
+        {
+          q: "Chọn phương án sai về quá độ lên CNXH bỏ qua chế độ TBCN:",
+          a: "D",
+          ops: [
             "A. Con đường đi lên của nước ta là sự phát triển quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa",
-            "B. Quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa là con đường cách mạng tất yếu khách quan...",
-            "C. Quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa, tức là bỏ qua việc xác lập vị trí thống trị của quan hệ sản xuất...",
-            "D. Quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa, nhưng phải tiếp thu, kế thừa toàn bộ các lĩnh vực đã được tạo ra dưới chế độ tư bản chủ nghĩa"
-        ]
-    },
-    {
-        q: "Theo quan điểm của Đảng ta, quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa, tức là bỏ qua việc xác lập vị trí thống trị của quan hệ sản xuất và kiến trúc thượng tầng tư bản chủ nghĩa. Điều đó có nghĩa là gì?",
-        a: "C",
-        ops: [
+            "B.	Quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa là con đường cách mạng tất yếu khách quan, con đường xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta",
+            "C.	Quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa, tức là bỏ qua việc xác lập vị trí thống trị của quan hệ sản xuất và kiến trúc thượng tầng tư bản chù nghĩa",
+            "D. Quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa, nhưng phải tiếp thu, kế thừa toàn bộ các lĩnh vực đã được tạo ra dưới chế độ tư bản chủ nghĩa",
+          ],
+        },
+        {
+          q: "Theo quan điểm của Đảng ta, quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa, tức là bỏ qua việc xác lập vị trí thống trị của quan hệ sản xuất và kiến trúc thượng tầng tư bản chủ nghĩa. Điều đó có nghĩa là gì?",
+          a: "C",
+          ops: [
             "A. Trong thời kỳ quá độ không xóa bỏ quan hệ sản xuất tư bản chủ nghĩa mà chỉ xóa bỏ nhà nước tư bản chủ nghĩa",
             "B. Trong thời kỳ quá độ cần xóa bỏ hoàn toàn quan hệ sản xuất và nhà nước tư bản chủ nghĩa",
             "C. Trong thời kỳ quá độ còn nhiều hình thức sở hữu, nhiều thành phần kinh tế",
-            "D. Trong thời kỳ quá độ còn một hình thức sở hữu, nhiều thành phần kinh tế"
-        ]
-    },
-    {
-        q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội còn tồn tại nhiều thành phần kinh tế. Trong đó thành phần kinh tế nào giữ vai trò chủ đạo?",
-        a: "C",
-        ops: [
+            "D. Trong thời kỳ quá độ còn một hình thức sở hữu, nhiều thành phần kinh tế",
+          ],
+        },
+        {
+          q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội còn tồn tại nhiều thành phần kinh tế. Trong đó thành phần kinh tế nào giữ vai trò chủ đạo?",
+          a: "B",
+          ops: [
             "A. Kinh tế tư nhân tư bản chủ nghĩa",
             "B. Kinh tế tư bản nhà nước",
             "C. Kinh tế nhà nước",
-            "D. Kinh tế hợp tác xã"
-        ]
-    },
-    {
-        q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội còn nhiều hình thức phân phối, Trong đó hình thức phân phối nào giữ vai trò chủ đạo?",
-        a: "A",
-        ops: [
+            "D. Kinh tế hợp tác xã",
+          ],
+        },
+        {
+          q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội còn nhiều hình thức phân phối, Trong đó hình thức phân phối nào giữ vai trò chủ đạo?",
+          a: "A",
+          ops: [
             "A. Phân phối theo lao động",
             "B. Phân phối theo mức độ đóng góp và quĩ phúc lợi xã hội",
             "C. Phân phối theo lao động, phân phối theo mức độ đóng góp và quĩ phúc lợi xã hội",
-            "D. Phân phối bình quân"
-        ]
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển nãm 2011) đã phát triển mô hình chủ nghĩa xã hội Việt Nam với tám đặc trưng, tám đặc trưng đã bao hàm:",
-        a: "C",
-        ops: [
+            "D. Phân phối bình quân",
+          ],
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển nãm 2011) đã phát triển mô hình chủ nghĩa xã hội Việt Nam với tám đặc trưng, tám đặc trưng đã bao hàm:",
+          a: "C",
+          ops: [
             "A. Phương hướng xây dựng chủ nghĩa xã hội",
             "B. Mô hình chủ nghĩa xã hội",
             "C. Mục tiêu, bản chất, nội dung của xã hội xã hội chủ nghĩa.",
-            "D. Mục tiêu tổng quát đến năm 2030"
-        ]
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển nãm 2011) đã phát triển mô hình chủ nghĩa xã hội Việt Nam với tám đặc trưng, trong đó đặc trưng về văn hóa là:",
-        a: "C",
-        ops: [
+            "D. Mục tiêu tổng quát đến năm 2030",
+          ],
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển nãm 2011) đã phát triển mô hình chủ nghĩa xã hội Việt Nam với tám đặc trưng, trong đó đặc trưng về văn hóa là:",
+          a: "C",
+          ops: [
             "A. Dân tộc, khoa học, đại chúng",
             "B. Có nội dung xã hội chủ nghĩa, có tính dân tộc và đại chúng",
             "C. Tiên tiến, đậm đà bản sắc dân tộc",
-            "D. Dân tộc, khoa học và mang nội dung xã hội chủ nghĩa"
-        ]
-    },
-    {
-        q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (1):",
-        a: "B",
-        ops: [
+            "D. Dân tộc, khoa học và mang nội dung xã hội chủ nghĩa",
+          ],
+        },
+        {
+          q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (1):",
+          a: "B",
+          ops: [
             "A. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "B. Nắm vững và giải quyết tốt mối quan hệ giữa đổi mới, ổn định và phát triển",
             "C. Nắm vững và giải quyết tốt mối quan hệ giữa phát triển nhanh lực lượng sản xuất và hoàn thiện nhanh quan hệ sản xuất xã hội chủ nghĩa",
-            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước"
-        ]
-    },
-    {
-        q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (2):",
-        a: "B",
-        ops: [
+            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước",
+          ],
+        },
+        {
+          q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (2):",
+          a: "B",
+          ops: [
             "A. Nắm vững và giải quyết tốt mối quan hệ giữa Phát triển giáo dục và phát triển y tế",
             "B. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế thị trường và định hướng xã hội chủ nghĩa",
             "C. Nắm vững và giải quyết tốt mối quan hệ giữa phát triển nhanh lực lượng sản xuất và hoàn thiện nhanh quan hệ sản xuất xã hội chủ nghĩa",
-            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước"
-        ]
-    },
-    {
-        q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (3):",
-        a: "C",
-        ops: [
+            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước",
+          ],
+        },
+        {
+          q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (3):",
+          a: "C",
+          ops: [
             "A. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "B. Nắm vững và giải quyết tốt mối quan hệ giữa Phát triển giáo dục và phát triển y tế",
             "C. Nắm vững và giải quyết tốt mối quan hệ giữa phát triển lực lượng sản xuất và xây dựng, hoàn thiện từng bước quan hệ sản xuất xã hội chủ nghĩa",
-            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước"
-        ]
-    },
-    {
-        q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (4):",
-        a: "B",
-        ops: [
+            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước",
+          ],
+        },
+        {
+          q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (4):",
+          a: "B",
+          ops: [
             "A. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "B. Nắm vững và giải quyết tốt mối quan hệ giữa xây dựng chủ nghĩa xã hội và bảo vệ Tổ quốc xã hộí chủ nghĩa",
             "C. Nắm vững và giải quyết tốt mối quan hệ giữa phát triển nhanh lực lượng sản xuất và hoàn thiện nhanh quan hệ sản xuất xã hội chủ nghĩa",
-            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước"
-        ]
-    },
-    {
-        q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (5):",
-        a: "B",
-        ops: [
+            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước",
+          ],
+        },
+        {
+          q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nắm vững và giải quyết tốt các mối quan hệ, trong đó có (5):",
+          a: "B",
+          ops: [
             "A. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "B. Nắm vững và giải quyết tốt mối quan hệ giữa độc lập, tự chủ và hội nhập quốc tế",
             "C. Nắm vững và giải quyết tốt mối quan hệ giữa phát triển nhanh lực lượng sản xuất và hoàn thiện nhanh quan hệ sản xuất xã hội chủ nghĩa",
-            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước"
-        ]
-    },
-    {
-        q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nhiều vấn đề, trong đó có (6):",
-        a: "C", // Chú ý: Đây là câu hỏi mẹo, đáp án C lặp lại nội dung mối quan hệ giữa LLSX và QHSX đã đúng ở câu trên.
-        ops: [
+            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước",
+          ],
+        },
+        {
+          q: "Trong quá trình thực hiện các phương hướng cơ bản mà Cương lĩnh (2011)... Đảng ta yêu cầu phải đặc biệt chú trọng nhiều vấn đề, trong đó có (6):",
+          a: "B",
+          ops: [
             "A. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "B. Không phiến diện, cực đoan, duy ý chí .",
             "C. Nắm vững và giải quyết tốt mối quan hệ giữa phát triển nhanh lực lượng sản xuất và hoàn thiện nhanh quan hệ sản xuất xã hội chủ nghĩa",
-            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước"
-        ]
-    },
-    {
-        q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (1):",
-        a: "A",
-        ops: [
+            "D. Nắm vững và giải quyết tốt mối quan hệ giữa kinh tế tư nhân và kinh tế nhà nước",
+          ],
+        },
+        {
+          q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (1):",
+          a: "C",
+          ops: [
             "A. Tiến hành công nghiệp hóa, hiện đại hóa đất nước",
             "B. Tiến hành kinh tế tri thức",
             "C. Phát triển kinh tế nhanh và bền vững",
-            "D. Phát triển kinh tế từng bước và ổn định"
-        ]
-    },
-    {
-        q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (2):",
-        a: "C",
-        ops: [
+            "D. Phát triển kinh tế từng bước và ổn định",
+          ],
+        },
+        {
+          q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (2):",
+          a: "C",
+          ops: [
             "A. Tiến hành công nghiệp hóa, hiện đại hóa đất nước",
             "B. Tiến hành kinh tế tri thức",
             "C. Tiếp tục hoàn thiện thể chế, phát triển kinh tế thị trường định hướng xã hội chủ nghĩa",
-            "D. Phát triển kinh tế từng bước và ổn định"
-        ]
-    },
-    {
-        q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (3):",
-        a: "C",
-        ops: [
+            "D. Phát triển kinh tế từng bước và ổn định",
+          ],
+        },
+        {
+          q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (3):",
+          a: "C",
+          ops: [
             "A. Tiến hành công nghiệp hóa, hiện đại hóa đất nước",
             "B. Tiến hành kinh tế tri thức",
             "C. Xây dựng nền văn hóa Việt Nam tiên tiến, đậm đà bản sắc dân tộc",
-            "D. Phát triển kinh tế từng bước và ổn định"
-        ]
-    },
-    {
-        q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (4):",
-        a: "C",
-        ops: [
+            "D. Phát triển kinh tế từng bước và ổn định",
+          ],
+        },
+        {
+          q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (4):",
+          a: "C",
+          ops: [
             "A. Tiến hành công nghiệp hóa, hiện đại hóa đất nước",
             "B. Tiến hành kinh tế tri thức",
             "C. Quản lý tốt sự phát triển xã hội",
-            "D. Phát triển kinh tế từng bước và ổn định"
-        ]
-    },
-    {
-        q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (5):",
-        a: "C",
-        ops: [
+            "D. Phát triển kinh tế từng bước và ổn định",
+          ],
+        },
+        {
+          q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (5):",
+          a: "C",
+          ops: [
             "A. Tiến hành công nghiệp hóa, hiện đại hóa đất nước",
             "B. Tiến hành kinh tế tri thức",
             "C. Khai thác, sử dụng và quản lý hiệu quả tài nguyên thiên nhiên",
-            "D. Phát triển kinh tế từng bước và ổn định"
-        ]
-    },
-    {
-        q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (6):",
-        a: "C",
-        ops: [
+            "D. Phát triển kinh tế từng bước và ổn định",
+          ],
+        },
+        {
+          q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (6):",
+          a: "C",
+          ops: [
             "A. Tiến hành công nghiệp hóa, hiện đại hóa đất nước",
             "B. Tiến hành kinh tế tri thức",
             "C. Thực hiện đường lối đối ngoại độc lập, tự chủ, đa phương hóa, đa dạng hóa, chủ động và tích cực hội nhập quốc tế",
-            "D. Phát triển kinh tế từng bước và ổn định"
-        ]
-    },
-    {
-        q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (7):",
-        a: "C",
-        ops: [
+            "D. Phát triển kinh tế từng bước và ổn định",
+          ],
+        },
+        {
+          q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (7):",
+          a: "C",
+          ops: [
             "A. Tiến hành công nghiệp hóa, hiện đại hóa đất nước",
             "B. Tiến hành kinh tế tri thức",
             "C. Hoàn thiện, phát huy dân chủ xã hội chủ nghĩa và quyền làm chủ của nhân dân",
-            "D. Phát triển kinh tế từng bước và ổn định"
-        ]
-    },
-    {
-        q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (8):",
-        a: "C",
-        ops: [
+            "D. Phát triển kinh tế từng bước và ổn định",
+          ],
+        },
+        {
+          q: "Để thực hiện thành công các mục tiêu xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội, Đại hội XII của Đảng ta đã quán triệt 12 nhiệm vụ cơ bản, trong đó có (8):",
+          a: "C",
+          ops: [
             "A. Tiến hành công nghiệp hóa, hiện đại hóa đất nước",
             "B. Tiến hành kinh tế tri thức",
             "C. Xây dựng Đảng trong sạch, vững mạnh",
-            "D. Phát triển kinh tế từng bước và ổn định"
-        ]
-    },
-    {
-        q: "Chọn cụm từ còn thiếu vào đoạn viết sau đây: “...Thích ứng với thời kỳ ấy là một …., và nhà nước của thời kỳ ấy không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản”",
-        a: "B", // (thời kỳ quá độ chính trị) - Dựa vào nội dung câu nói của Mác
-        ops: [
+            "D. Phát triển kinh tế từng bước và ổn định",
+          ],
+        },
+        {
+          q: "Chọn cụm từ còn thiếu vào đoạn viết sau đây: “Giữa xã hội tư bản chủ nghĩa và xã hội cộng sản chủ nghĩa là thời kỳ cải biến cách mạng từ xã hội này sang xã hội kia. Thích ứng với thời kỳ ấy là một …., và nhà nước của thời kỳ ấy không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản",
+          a: "B", // (thời kỳ quá độ chính trị) - Dựa vào nội dung câu nói của Mác
+          ops: [
             "A. Thời kỳ quá độ",
             "B. Thời kỳ quá độ chính trị",
             "C. Giai đoạn phát triển",
-            "D. Giai đoạn phát triển liên tục"
-        ]
-    },
-    {
-        q: "Hình thái kinh tế - xã hội cộng sản chủ nghĩa bắt đầu và kết thúc khi nào?",
-        a: "B",
-        ops: [
+            "D. Giai đoạn phát triển liên tục",
+          ],
+        },
+        {
+          q: "Hình thái kinh tế - xã hội cộng sản chủ nghĩa bắt đầu và kết thúc khi nào?",
+          a: "B",
+          ops: [
             "A. Từ khi Đảng cộng sản ra đời và xây dựng xong chủ nghĩa xã hội",
             "B. Bắt đầu từ thời kỳ quá độ cho đến khi xây dựng xong giai đoạn cao của xã hội cộng sản",
             "C. Bắt đầu từ giai đoạn thấp của xã hội cộng sản và kết thúc ở giai đoạn cao của xã hội cộng sản",
-            "D. Bắt đầu từ giai đoạn xã hội xã hội chủ nghĩa và kết thúc ở giai đoạn cao của xã hội cộng sản"
-        ]
-    },
-    {
-        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, con đẻ của nền đại công nghiệp tư bản chủ nghĩa là:",
-        a: "C",
-        ops: [
+            "D. Bắt đầu từ giai đoạn xã hội xã hội chủ nghĩa và kết thúc ở giai đoạn cao của xã hội cộng sản",
+          ],
+        },
+        {
+          q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, con đẻ của nền đại công nghiệp tư bản chủ nghĩa là:",
+          a: "C",
+          ops: [
             "A. Chế độ chiếm hữu về tư liệu sản xuất",
             "B. Phương thức sản xuất tư bản chủ nghĩa",
             "C. Giai cấp công nhân hiện đại",
-            "D. Lực lượng sản xuất tư bản chủ nghĩa"
-        ]
-    },
-    {
-        q: "Chỉ ra một trong những đặc trưng cơ bản của chủ nghĩa xà hội theo quan điểm Chủ nghĩa Mác – Lênin (1):",
-        a: "C",
-        ops: [
+            "D. Lực lượng sản xuất tư bản chủ nghĩa",
+          ],
+        },
+        {
+          q: "Chỉ ra một trong những đặc trưng cơ bản của chủ nghĩa xà hội theo quan điểm Chủ nghĩa Mác – Lênin (1):",
+          a: "C",
+          ops: [
             "A. Chủ nghĩa xã hội thực hiện sự nghiệp giải phóng giai cấp công nhân",
             "B. Chủ nghĩa xã hội là xã hội do giai cấp công nhân làm chủ",
             "C. Chủ nghĩa xã hội là xã hội do nhân dân lao động làm chủ",
-            "D. Chủ nghĩa xã hội chủ yếu là giải phóng giai cấp"
-        ]
-    },
-    {
-        q: "Chỉ ra một trong những đặc trưng cơ bản của chủ nghĩa xã hội theo quan điểm Chủ nghĩa Mác – Lênin (2):",
-        a: "C",
-        ops: [
+            "D. Chủ nghĩa xã hội chủ yếu là giải phóng giai cấp",
+          ],
+        },
+        {
+          q: "Chỉ ra một trong những đặc trưng cơ bản của chủ nghĩa xã hội theo quan điểm Chủ nghĩa Mác – Lênin (2):",
+          a: "D",
+          ops: [
             "A. Chủ nghĩa xã hội có nhà nước chủ yếu thực hiện chức năng chuyên chính vô sản",
             "B. Nhà nước của chủ nghĩa xã hội mang bản chất giai cấp công nhân, thực hiện quyền lực và lợi ích của giai cấp công nhân",
             "C. Chủ nghĩa xã hội có nhà nước kiểu mới mang bản chất giai cấp công nhân, đại biểu cho lợi ích, quyền lực và ý chí của nhân dân lao động",
-            "D. Nhà nước của chủ nghĩa xã hội mang bản chất giai cấp công nhân, thực hiện quyền lực và lợi ích của xã hội"
-        ]
-    },
-    {
-        q: "Chỉ ra một trong những đặc trưng cơ bản của chủ nghĩa xà hội theo quan điểm Chủ nghĩa Mác – Lênin (3):",
-        a: "C",
-        ops: [
+            "D. Nhà nước của chủ nghĩa xã hội mang bản chất giai cấp công nhân, thực hiện quyền lực và lợi ích của xã hội",
+          ],
+        },
+        {
+          q: "Chỉ ra một trong những đặc trưng cơ bản của chủ nghĩa xà hội theo quan điểm Chủ nghĩa Mác – Lênin (3):",
+          a: "D",
+          ops: [
             "A. Chủ nghĩa xã hội có nhà nước chủ yếu thực hiện chức năng chuyên chính vô sản",
             "B. Nhà nước của chủ nghĩa xã hội mang bản chất giai cấp công nhân, thực hiện quyền lực và lợi ích của giai cấp công nhân",
             "C. Chủ nghĩa xã hội có nền văn hóa phát triển cao, kế thừa và phát huy những giá trị văn hóa của dân tộc và tinh hoa văn hóa của nhân loại",
-            "D. Chủ nghĩa xã hội phát triển phương thức sản xuất tiên tiến"
-        ]
-    },
-    {
-        q: "Xã hội có sự đan xen của nhiều tàn dư về mọi phương diện kinh tế, đạo đức, tinh thần... Đặc điểm này nằm trong giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
-        a: "C",
-        ops: [
+            "D. Chủ nghĩa xã hội phát triển phương thức sản xuất tiên tiến",
+          ],
+        },
+        {
+          q: "55.	Xã hội có sự đan xen của nhiều tàn dư về mọi phương diện kinh tế, đạo đức, tinh thần của chủ nghĩa tư bản và những yếu tố mới mang tính chất xã hội chủ nghĩa của chủ nghĩa xã hội mới phát sinh chưa phải là chủ nghĩa xã hội đã phát triển trên cơ sở của chính nó. Đặc điểm này nằm trong giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
+          a: "C",
+          ops: [
             "A. Không nằm trong giai đoạn nào cả",
             "B. Thời kỳ đấu tranh giành chính quyền của giai cấp công nhân",
             "C. Thời kỳ quá độ lên chủ nghĩa xã hội",
-            "D. Thời kỳ đấu tranh giành chính quyền của giai cấp công nhân dưới sự lãnh đạo của Đảng Cộng sản"
-        ]
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội được thông qua tại Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
-        a: "C",
-        ops: [
+            "D. Thời kỳ đấu tranh giành chính quyền của giai cấp công nhân dưới sự lãnh đạo của Đảng Cộng sản",
+          ],
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội được thông qua tại Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
+          a: "C",
+          ops: [
             "A. Đại hội IV",
             "B. Đại hội VI",
             "C. Đại hội VII",
-            "D. Đại hội VIII"
-        ]
-    },
-    {
-        q: "Câu “Giữa xã hội tư bản chủ nghĩa và xã hội cộng sản chủ nghĩa là một thời kì cải biến cách mạng từ xã hội nọ sang xã hội kia...” là của ai ?",
-        a: "A",
-        ops: [
+            "D. Đại hội VIII",
+          ],
+        },
+        {
+          q: "57.	Câu “Giữa xã hội tư bản chủ nghĩa và xã hội cộng sản chủ nghĩa là một thời kì cải biến cách mạng từ xã hội nọ sang xã hội kia. Thích ứng với thời kỳ ấy là một thời kì quá độ chính trị, và nhà nước của thời kì ấy không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản” là của ai ?",
+          a: "A",
+          ops: [
             "A. C.Mác",
             "B. Ph.Ăng ghen",
             "C. C.Mác và Ph.Ăng ghen",
-            "D. V.I.Lênin"
-        ]
-    },
-    {
-        q: "Ở nước ta, quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa là bỏ qua yếu tố nào của chủ nghĩa tư bản?",
-        a: "C", // (xác lập vị trí thống trị của quan hệ sản xuất và kiến trúc thượng tầng TBCN) - Tương ứng với ý bỏ qua kiến trúc thượng tầng trong các đáp án rút gọn
-        ops: [
+            "D. V.I.Lênin",
+          ],
+        },
+        {
+          q: "Ở nước ta, quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa là bỏ qua yếu tố nào của chủ nghĩa tư bản?",
+          a: "A", 
+          ops: [
             "A. Bỏ qua nhà nước của giai cấp tư sản",
             "B. Bỏ qua cơ sở kinh tế của chủ nghĩa tư bản.",
             "C. Bỏ qua việc xây dựng kiến trúc thượng tầng tư bản chủ nghĩa",
-            "D. Bỏ qua khoa học kỹ thuật của chủ nghĩa tư bản"
-        ]
-    },
-    {
-        q: "Con đường cách mạng Việt Nam là quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa là một tất yếu vì:",
-        a: "C",
-        ops: [
+            "D. Bỏ qua khoa học kỹ thuật của chủ nghĩa tư bản",
+          ],
+        },
+        {
+          q: "Con đường cách mạng Việt Nam là quá độ lên chủ nghĩa xã hội bỏ qua chế độ tư bản chủ nghĩa là một tất yếu vì:",
+          a: "C",
+          ops: [
             "A. Đảng cộng sản Việt Nam đã có đường lối đúng đắn",
             "B. Do sự phát triển của lực lượng sản xuất",
             "C. Nó phù hợp với đặc điểm của đất nước và xu thế phát triển của thời đại",
-            "D. Nó đáp ứng được nguyện vọng và mong ước của nhân dân ta"
-        ]
-    },
-    {
-        q: "Tư tưởng quá độ bỏ qua chế độ tư bản chủ nghĩa lên chủ nghĩa xã hội lần đầu tiên được Đảng Cộng sản Việt Nam nêu ra vào năm nào? ở Văn kiện nào?",
-        a: "A",
-        ops: [
+            "D. Nó đáp ứng được nguyện vọng và mong ước của nhân dân ta",
+          ],
+        },
+        {
+          q: "Tư tưởng quá độ bỏ qua chế độ tư bản chủ nghĩa lên chủ nghĩa xã hội lần đầu tiên được Đảng Cộng sản Việt Nam nêu ra vào năm nào? ở Văn kiện nào?",
+          a: "D",
+          ops: [
             "A. Năm 1930 trong cương lĩnh do đồng chí Trần Phú soạn thảo",
             "B. Năm 1951 trong văn kiện Đại hội II",
             "C. Năm 1960 trong văn kiện Đại hội III",
-            "D. Năm 1976 trong văn kiện Đại hội IV"
-        ]
-    },
-    {
-        q: "Những quan điểm mới về công nghiệp hoá – hiện đại hoá nước ta được đề ra ở Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
-        a: "C",
-        ops: [
+            "D. Năm 1976 trong văn kiện Đại hội IV",
+          ],
+        },
+        {
+          q: "Những quan điểm mới về công nghiệp hoá – hiện đại hoá nước ta được đề ra ở Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
+          a: "B",
+          ops: [
             "A. Đại hội VI",
             "B. Đại hội VII",
             "C. Đại hội VIII",
-            "D. Đại hội IX"
-        ]
-    },
-    {
-        q: "Mô hình kinh tế thị trường định hướng xã hội chủ nghĩa ở nước ta được chính thức nêu ra ở Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
-        a: "D",
-        ops: [
+            "D. Đại hội IX",
+          ],
+        },
+        {
+          q: "Mô hình kinh tế thị trường định hướng xã hội chủ nghĩa ở nước ta được chính thức nêu ra ở Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
+          a: "B",
+          ops: [
             "A. Đại hội VI",
             "B. Đại hội VII",
             "C. Đại hội VIII",
-            "D. Đại hội IX"
-        ]
-    },
-    {
-        q: "Đặc điểm lớn nhất của thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta là:",
-        a: "B",
-        ops: [
+            "D. Đại hội IX",
+          ],
+        },
+        {
+          q: "Phát triển bỏ qua chế độ tư bản chủ nghĩa (TBCN) ở nước ta hiện nay được hiểu như thế nào?",
+          a: "C",
+          ops: [
+            "A.	Không xây dựng quan hệ sản xuất TBCN",
+            "B.	Bỏ qua mọi yếu tố gắn liền với phương thức sản xuất TBCN",
+            "C.	Bỏ qua việc xác lập vai trò thống trị của quan hệ sản xuất TBCN và sự thống trị của giai cấp tư sản",
+            "D.	Bỏ qua sự phát triển lực lượng sản xuất mang tính chất TBCN",
+          ],
+        },
+        {
+          q: "Đặc điểm lớn nhất của thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta là:",
+          a: "B",
+          ops: [
             "A. Năng suất lao động thấp",
             "B. Từ một nền sản xuất nhỏ là phổ biến quá độ lên chủ nghĩa xã hội không qua chế độ tư bản chủ nghĩa",
             "C. Lực lượng sản xuất chưa phát triển",
-            "D. Có nhiều thành phần kinh tế đan xen nhau"
-        ]
-    },
-    {
-        q: "Hình thức nhà nước xã hội chủ nghĩa đầu tiên trong lịch sử là:",
-        a: "A",
-        ops: [
+            "D. Có nhiều thành phần kinh tế đan xen nhau",
+          ],
+        },
+        {
+          q: "Hình thức nhà nước xã hội chủ nghĩa đầu tiên trong lịch sử là:",
+          a: "A",
+          ops: [
             "A. Công xã Pari",
             "B. Nhà nước Xô viết",
             "C. Nhà nước dân chủ nhân dân",
-            "D. Nhà nước xã hội chủ nghĩa"
-        ]
-    },
-    {
-        q: "Cách mạng xã hội chủ nghĩa do giai cấp, tầng lớp nào lãnh đạo?",
-        a: "C",
-        ops: [
+            "D. Nhà nước xã hội chủ nghĩa",
+          ],
+        },
+        {
+          q: "Cách mạng xã hội chủ nghĩa do giai cấp, tầng lớp nào lãnh đạo?",
+          a: "C",
+          ops: [
             "A. Giai cấp công nhân, giai cấp nông dân",
             "B. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức",
             "C. Giai cấp công nhân",
-            "D. Giai cấp công nhân, giai cấp tư sản, giai cấp nông dân"
-        ]
-    },
-    {
-        q: "Cuộc cách mạng xã hội nào mở đầu thời kỳ quá độ lên chủ nghĩa xã hội trong lịch sử loài người?",
-        a: "C",
-        ops: [
+            "D. Giai cấp công nhân, giai cấp tư sản, giai cấp nông dân",
+          ],
+        },
+        {
+          q: "Cuộc cách mạng xã hội nào mở đầu thời kỳ quá độ lên chủ nghĩa xã hội trong lịch sử loài người?",
+          a: "C",
+          ops: [
             "A. Cách mạng Tân Hợi của Trung Quốc",
             "B. Cách mạng Tháng Bảy của Cuba",
             "C. Cách mạng Tháng Mười của Nga",
-            "D. Cách mạng Tháng Tám của Việt Nam"
-        ]
-    },
-    {
-        q: "Chọn phương án đúng về 9 mối quan hệ lớn (1):",
-        a: "A",
-        ops: [
+            "D. Cách mạng Tháng Tám của Việt Nam",
+          ],
+        },
+        {
+          q: "Chọn phương án đúng về 9 mối quan hệ lớn (1):",
+          a: "A",
+          ops: [
             "A. Đại hội XII đã xác định 9 mối quan hệ lớn cần nhận thức và giải quyết, trong đó có quan hệ giữa đổi mới, ổn định và phát triển",
             "B. ... quan hệ giữa phát triển nhanh lực lượng sản xuất và hoàn thiện nhanh quan hệ sản xuất xã hội chủ nghĩa",
             "C. ... quan hệ giữa Phát triển giáo dục và phát triển y tế",
-            "D. ... quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường"
-        ]
-    },
-    {
-        q: "Chọn phương án đúng về 9 mối quan hệ lớn (2):",
-        a: "A",
-        ops: [
+            "D. ... quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
+          ],
+        },
+        {
+          q: "Chọn phương án đúng về 9 mối quan hệ lớn (2): Đại hội XII đã xác định 9 mối quan hệ lớn cần nhận thức và giải quyết, trong đó có...",
+          a: "A",
+          ops: [
             "A. ... quan hệ giữa giữa đổi mới kinh tế và đổi mới chính trị",
             "B. ... quan hệ giữa phát triển nhanh lực lượng sản xuất và xây dựng nhanh quan hệ sản xuất xã hội chủ nghĩa",
             "C. ... quan hệ giữa Phát triển giáo dục và phát triển y tế, phát triển con người",
-            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội"
-        ]
-    },
-    {
-        q: "Chọn phương án đúng về 9 mối quan hệ lớn (3):",
-        a: "A",
-        ops: [
+            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội",
+          ],
+        },
+        {
+          q: "Chọn phương án đúng về 9 mối quan hệ lớn (3): Đại hội XII đã xác định 9 mối quan hệ lớn cần nhận thức và giải quyết, trong đó có...",
+          a: "A",
+          ops: [
             "A. ... quan hệ giữa phát triển lực lượng sản xuất và xây dựng, hoàn thiện từng bước quan hệ sản xuất xã hội chủ nghĩa",
             "B. ... quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "C. ... quan hệ giữa Phát triển giáo dục và phát triển y tế, phát triển con người",
-            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội"
-        ]
-    },
-    {
-        q: "Chọn phương án đúng về 9 mối quan hệ lớn (4):",
-        a: "A",
-        ops: [
+            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội",
+          ],
+        },
+        {
+          q: "Chọn phương án đúng về 9 mối quan hệ lớn (4): Đại hội XII đã xác định 9 mối quan hệ lớn cần nhận thức và giải quyết, trong đó có... ",
+          a: "A",
+          ops: [
             "A. ... quan hệ giữa Nhà nước và thị trường",
             "B. ... quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "C. ... quan hệ giữa Phát triển giáo dục và phát triển y tế, phát triển con người",
-            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội"
-        ]
-    },
-    {
-        q: "Chọn phương án đúng về 9 mối quan hệ lớn (5):",
-        a: "A",
-        ops: [
+            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội",
+          ],
+        },
+        {
+          q: "Chọn phương án đúng về 9 mối quan hệ lớn (5): Đại hội XII đã xác định 9 mối quan hệ lớn cần nhận thức và giải quyết, trong đó có ...",
+          a: "A",
+          ops: [
             "A. ... quan hệ giữa tăng trưởng kinh tế và phát triển văn hóa, thực hiện tiến bộ và công bằng xã hội",
             "B. ... quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "C. ... quan hệ giữa Phát triển giáo dục và phát triển y tế, phát triển con người",
-            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội"
-        ]
-    },
-    {
-        q: "Chọn phương án đúng về 9 mối quan hệ lớn (6):",
-        a: "A",
-        ops: [
+            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội",
+          ],
+        },
+        {
+          q: "Chọn phương án đúng về 9 mối quan hệ lớn (6): Đại hội XII đã xác định 9 mối quan hệ lớn cần nhận thức và giải quyết, trong đó có...",
+          a: "A",
+          ops: [
             "A. ... quan hệ giữa độc lập, tự chủ và hội nhập quốc tế",
             "B. ... quan hệ giữa kinh tế nhiều thành phần và kinh tế thị trường",
             "C. ... quan hệ giữa Phát triển giáo dục và phát triển y tế, phát triển con người",
-            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội"
-        ]
-    },
-    {
-        q: "Trong Văn kiện Đại hội IX, Đảng ta xác định phải tiếp thu và kế thừa những gì của chủ nghĩa tư bản trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam?",
-        a: "A",
-        ops: [
+            "D. ... quan hệ giữa dân chủ và tiến bộ xã hội",
+          ],
+        },
+        {
+          q: "Trong Văn kiện Đại hội IX, Đảng ta xác định phải tiếp thu và kế thừa những gì của chủ nghĩa tư bản trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam?",
+          a: "A",
+          ops: [
             "A. Tiếp thu, kế thừa những thành tựu mà nhân loại đã đạt được dưới chế độ tư bản chủ nghĩa, đặc biệt về khoa học và công nghệ, để phát triển nhanh lực lượng sản xuất, xây dựng nền kinh tế hiện đại",
             "B. Tiếp thu, kế thừa mô hình quản lý kinh tế - xã hội và thành tựu khoa học công nghệ",
             "C. Tiếp thu, kế thừa những giá trị kinh tế, chính trị, văn hoá - xã hội và pháp luật trong chủ nghĩa tư bản",
-            "D. Tiếp thu, kế thừa mô hình kinh tế hàng hóa tư bản chủ nghĩa"
-        ]
-    },
-    {
-        q: "Câu nói “Chủ nghĩa đế quốc là sự chuẩn bị vật chất đầy đủ nhất cho cách mạng vô sản” là của ai?",
-        a: "C",
-        ops: [
-            "A. C.Mác",
-            "B. Ph.Ăngghen",
-            "C. V.I Lênin",
-            "D. Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Theo Ph.Ăngghen, chủ nghĩa xã hội chỉ thủ tiêu được chế độ tư hữu khi:",
-        a: "B",
-        ops: [
+            "D. Tiếp thu, kế thừa mô hình kinh tế hàng hóa tư bản chủ nghĩa",
+          ],
+        },
+        {
+          q: "Câu nói “Chủ nghĩa đế quốc là sự chuẩn bị vật chất đầy đủ nhất cho cách mạng vô sản” là của ai?",
+          a: "C",
+          ops: ["A. C.Mác", "B. Ph.Ăngghen", "C. V.I Lênin", "D. Hồ Chí Minh"],
+        },
+        {
+          q: "Theo Ph.Ăngghen, chủ nghĩa xã hội chỉ thủ tiêu được chế độ tư hữu khi:",
+          a: "B",
+          ops: [
             "A. Lao động được tổ chức theo trình độ cao hơn",
             "B. Đã tạo nên được khối lượng tư liệu sản xuất cần thiết",
             "C. Nâng cao năng suát lao động",
-            "D. Chế độ phân phối theo lao động ổn định"
-        ]
-    },
-    {
-        q: "Theo V.I.Lênin, thiết lập một chế độ xã hội cao hơn chủ nghĩa tư bản nghĩa là như thế nào?",
-        a: "C",
-        ops: [
+            "D. Chế độ phân phối theo lao động ổn định",
+          ],
+        },
+        {
+          q: "Theo V.I.Lênin, thiết lập một chế độ xã hội cao hơn chủ nghĩa tư bản nghĩa là như thế nào?",
+          a: "C",
+          ops: [
             "A. Giải phóng nhân dân lao động thoát khỏi áp bức bóc lột",
             "B. Phát triển lực lượng sản xuất",
             "C. Nâng cao năng suất lao động và tổ chức lao động theo một trình độ cao hơn",
-            "D. Không có phương án đúng"
-        ]
-    },
-    {
-        q: "Luận điểm “với sự giúp đỡ của giai cấp vô sản các nước tiên tiến, các nước lạc hậu có thể tiến tới chế độ xô – viết...”, là của ai?",
-        a: "D",
-        ops: [
-            "A. Hồ Chí Minh",
-            "B. C. Mác",
-            "C. Ph.Ăngghen",
-            "D. V.I.Lênin"
-        ]
-    },
-    {
-        q: "Quan hệ sản xuất trong thời kỳ quá độ lên chủ nghĩa xã hội như thế nào?",
-        a: "D",
-        ops: [
+            "D. Không có phương án đúng",
+          ],
+        },
+        {
+          q: "với sự giúp đỡ của giai cấp vô sản các nước tiên tiến, các nước lạc hậu có thể tiến tới chế độ xô – viết, và qua những giai đoạn phát triển nhất định, tiến tới chù nghĩa cộng sản không phải trải qua giai đoạn phát triển tư bản chủ nghĩa”, là của ai?",
+          a: "D",
+          ops: ["A. Hồ Chí Minh", "B. C. Mác", "C. Ph.Ăngghen", "D. V.I.Lênin"],
+        },
+        {
+          q: "Quan hệ sản xuất trong thời kỳ quá độ lên chủ nghĩa xã hội như thế nào?",
+          a: "D",
+          ops: [
             "A. Chế độ công hữu về tư liệu sản xuất",
             "B. Chế độ công hữu về tư liệu sản xuất chủ yếu",
             "C. Quan hệ sản xuất tư bản chủ nghĩa vẫn còn tồn tai",
-            "D. Tồn tại nền kinh tế nhiều thành phần"
-        ]
-    },
-    {
-        q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội có còn quan hệ bóc lột và bị bóc lột hay không? Vì sao?",
-        a: "D",
-        ops: [
+            "D. Tồn tại nền kinh tế nhiều thành phần",
+          ],
+        },
+        {
+          q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội có còn quan hệ bóc lột và bị bóc lột hay không? Vì sao?",
+          a: "D",
+          ops: [
             "A. Không còn, vì chủ nghĩa tư bản đã bị xóa bỏ",
             "B. Còn, vì vẫn còn tồn tại chủ nghĩa tư bản",
             "C. Không còn, vì giai cấp bóc lột đã bị đánh đổ",
-            "D. Còn, vì còn nhiều hình thức sở hữu, nhiều thành phần kinh tế"
-        ]
-    },
-    {
-        q: "Chọn cụm từ còn thiếu điền vào dấu… : “bước quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội kẻ thù chủ yếu của chúng ta là giai cấp …, những tập quán thói quen của giai cấp ấy” (V.I. Lênin )",
-        a: "B", // (Tiểu tư sản - Kẻ thù của chủ nghĩa xã hội theo Lênin là thói quen của giai cấp tiểu tư sản)
-        ops: [
+            "D. Còn, vì còn nhiều hình thức sở hữu, nhiều thành phần kinh tế",
+          ],
+        },
+        {
+          q: "Chọn cụm từ còn thiếu điền vào dấu… : “bước quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội kẻ thù chủ yếu của chúng ta là giai cấp …, những tập quán thói quen của giai cấp ấy” (V.I. Lênin )",
+          a: "C", // (Tiểu tư sản - Kẻ thù của chủ nghĩa xã hội theo Lênin là thói quen của giai cấp tiểu tư sản)
+          ops: [
             "A. Phong kiến",
             "B. Nông dân", // Hoặc Tiểu tư sản. Tuy nhiên trong ngữ cảnh câu hỏi này đáp án chính xác là "tiểu tư sản" (D). Nhưng dựa trên trật tự options B là Nông dân, C là Tiêu tư sản. Thường đáp án đúng là Tiểu tư sản.
             "C. Tiểu tư sản", // Đáp án này đúng hơn.
-            "D. Tư sản"
-        ]
-        // LƯU Ý: Ở đây mình để B là placeholder, nhưng về kiến thức thì đáp án C (Tiểu tư sản) là chính xác cho câu nói của Lênin.
-        // Tuy nhiên trong file gốc, thứ tự là: A. Phong kiến, B. Nông dân, C. Tiểu tư sản, D. Tư sản.
-        // Đáp án đúng thường là C (Tiểu tư sản). Mình sẽ sửa lại thành C.
-    },
-    {
-        q: "“Thời kì phát triển mới - đẩy mạnh công nghiệp hoá, hiện đại hoá đất nước” được Đảng ta nêu ra ở Đại hội nào?",
-        a: "C",
-        ops: [
+            "D. Tư sản",
+          ],
+        },
+        {
+          q: "“Thời kì phát triển mới - đẩy mạnh công nghiệp hoá, hiện đại hoá đất nước” được Đảng ta nêu ra ở Đại hội nào?",
+          a: "D",
+          ops: [
             "A. Đại hội VI",
             "B. Đại hội VII",
             "C. Đại hội VIII",
-            "D. Đại hội XI"
-        ]
-    },
-    {
-        q: "Chọn cụm từ còn thiếu điền vào dấu…: “với sự giúp đỡ của giai cấp vô sản các nước tiên tiến, các nước lạc hậu có thể tiến tới ….., và qua những giai đoạn phát triển nhất định...",
-        a: "C",
-        ops: [
+            "D. Đại hội XI",
+          ],
+        },
+        {
+          q: "85.	Chọn cụm từ còn thiếu điền vào dấu…: “với sự giúp đỡ của giai cấp vô sản các nước tiên tiến, các nước lạc hậu có thể tiến tới ….., và qua những giai đoạn phát triển nhất định, tiến tới chù nghĩa cộng sản không phải trải qua giai đoạn phát triển tư bản chủ nghĩa (V.I. Lênin )",
+          a: "C",
+          ops: [
             "A. Chủ nghĩa cộng sản",
             "B. Chủ nghĩa xã hội",
             "C. Chế độ xô – viết",
-            "D. Chế độ dân chủ"
-        ]
-    },
-    {
-        q: "Chọn cụm từ còn thiếu điền vào dấu…: “...Thích ứng với thời kỳ ấy là một …, và nhà nước của thời kỳ ấỵ không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản” (C.Mác).",
-        a: "A", // (Thời kỳ quá độ chính trị)
-        ops: [
+            "D. Chế độ dân chủ",
+          ],
+        },
+        {
+          q: "86.	Chọn cụm từ còn thiếu điền vào dấu…: “Giữa xã hội tư bản chủ nghĩa và xã hội cộng sản chủ nghĩa là một thời kỳ cải biển cách mạng từ' xã hội này sang xã hội kia. Thích ứng với thời kỳ ấy là một …, và nhà nước của thời kỳ ấỵ không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản” (C.Mác).",
+          a: "A", // (Thời kỳ quá độ chính trị)
+          ops: [
             "A. Thời kỳ quá độ chính trị",
             "B. Thời kỳ quá độ",
             "C. Thời kỳ chuyên chính vô sản",
-            "D. Thời kỳ chuyên chính cách mạng"
-        ]
-    },
-    {
-        q: "Chọn cụm từ còn thiếu điền vào dấu…: \" chỉ có chế độ xô - viết là chế độ có thể thật sự đảm bảo quyền bình đẳng giữa các dân tộc, bằng cách thực hiện trước hết sự …., rồi đến toàn thể quần chúng lao động...” (V.I. Lênin )",
-        a: "C", // (Liên hiệp tất cả những người vô sản)
-        ops: [
+            "D. Thời kỳ chuyên chính cách mạng",
+          ],
+        },
+        {
+          q: 'Chọn cụm từ còn thiếu điền vào dấu…: " chỉ có chế độ xô - viết là chế độ có thể thật sự đảm bảo quyền bình đẳng giữa các dân tộc, bằng cách thực hiện trước hết sự …., rồi đến toàn thể quần chúng lao động...” (V.I. Lênin )',
+          a: "A", 
+          ops: [
             "A. Đoàn kết tất cả những người vô sản",
             "B. Liên minh tất cả những người vô sản",
             "C. Liên hiệp tất cả những người vô sản",
-            "D. Tập hợp tất cả những người vô sản"
-        ]
-    },
-    {
-        q: "Do đâu trong thời kỳ quá độ lên chủ nghĩa xã hội còn tồn tại nhiều giai cấp, tầng lớp và sự khác biệt giữa các giai cấp tầng lớp xã hội?",
-        a: "A",
-        ops: [
+            "D. Tập hợp tất cả những người vô sản",
+          ],
+        },
+        {
+          q: "Do đâu trong thời kỳ quá độ lên chủ nghĩa xã hội còn tồn tại nhiều giai cấp, tầng lớp và sự khác biệt giữa các giai cấp tầng lớp xã hội?",
+          a: "A",
+          ops: [
             "A. Do kết cấu của nền kinh tế nhiều thành phần qui định",
             "B. Do nền kinh tế thị trường qui định",
             "C. Do sự khác biệt về lợi ích kinh tế qui định",
-            "D. Do sự khác nhau về quan hệ sở hữu qui định"
-        ]
-    },
-    {
-        q: "Những đặc trưng cơ bản của chủ nghĩa xã hội mà nhân dân ta đang xây dựng hiện nay được thông qua tại Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
-        a: "C",
-        ops: [
+            "D. Do sự khác nhau về quan hệ sở hữu qui định",
+          ],
+        },
+        {
+          q: "Những đặc trưng cơ bản của chủ nghĩa xã hội mà nhân dân ta đang xây dựng hiện nay được thông qua tại Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
+          a: "C",
+          ops: [
             "A. Đại hội IX",
             "B. Đại hội X",
             "C. Đại hội XI",
-            "D. Đại hội XII"
-        ]
-    }
-];
+            "D. Đại hội XII",
+          ],
+        },
+      ];
 
-// --- DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN ---
+      // --- DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN ---
 
-const saData = [
-    {
-        q: "Căn cứ vào giáo trình chủ nghĩa xã hội khoa học, hãy xác định khái niệm dùng để chỉ một chế độ xã hội tốt đẹp, giai đoạn đầu của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
-        a: "Chủ nghĩa xã hội"
-    },
-    {
-        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, có bao nhiêu hình thức quá độ lên chủ nghĩa xã hội?",
-        a: "2"
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, hình thức quá độ lên chủ nghĩa xã hội ở Việt Nam là như thế nào?",
-        a: "Quá độ chế độ tư bản chủ nghĩa lên xã hội chủ nghĩa"
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển năm 2011) đã phát triển mô hình chủ nghĩa xã hội Việt Nam với mấy đặc trưng?",
-        a: "8"
-    },
-    {
-        q: "Trên cơ sở xác định rõ mục tiêu, đặc trưng của chủ nghĩa xã hội, Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển năm 2011) Đảng ta đã xác định bao nhiêu phương hướng cơ bản xây dựng chủ nghĩa xã hôi?",
-        a: "7" // Lưu ý: Cương lĩnh 2011 xác định 8 phương hướng. Tuy nhiên file gốc ghi đáp án là 7 (dòng 995). Giữ nguyên theo file.
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời quá độ lên chủ nghĩa xã hội (Bổ sung và phát triển năm 2011) đưa ra 8 phương hướng, trong đó có phương hướng xác định nền kinh tế thị trường mà nước ta đang xây dựng như thế nào?",
-        a: "Kinh tế quốc đoanh và kinh tế tập thể ngày càng trở thành nền tảng của nên kinh tế quốc dân."
-    },
-    {
-        q: "Hiện nay nước ta đang ở giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
-        a: "Quá độ lên chủ nghĩa xã hội"
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời quá độ lên chủ nghĩa xã hội (Bổ sung và phát triển), được Đảng ta thông qua ở Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
-        a: "Đại hội Đảng cộng sản Việt Nam lần thứ XI"
-    },
-    {
-        q: "Căn cứ vào giáo trình chủ nghĩa xã hội khoa học, hãy xác định khái niệm dùng để chỉ trào lưu tư tưởng, lý luận phản ánh lý tưởng giải phóng nhân dân lao động khỏi áp bức, bóc lột, bất công?",
-        a: "Chủ nghĩa xã hội"
-    },
-    {
-        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, yếu tố đánh dấu sự trưởng thành vượt bậc và thực sự của giai cấp công nhân là gì?",
-        a: "Đảng Cộng sản- đội tiên phong của giai cấp công nhân ra đời và đảm nhận vai trò lãnh đạo cuộc cách mạng"
-    },
-    {
-        q: "Nền kinh tế nhiều thành phần nằm trong giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
-        a: "Thời kỳ quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội"
-    },
-    {
-        q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội còn tồn tại nhiều thành phần kinh tế. Trong đó thành phần kinh tế nào giữ vai trò chủ đạo?",
-        a: "kinh tế nhà nước"
-    },
-    {
-        q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội còn nhiều hình thức sở hữu. Trong đó hình thức sở hữu nào giữ vai trò chủ đạo?",
-        a: "sở hữu nhà nước"
-    },
-    {
-        q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển nãm 2011) đã phát triển mô hình chủ nghĩa xã hội Việt Nam với tám đặc trưng, trong đó xác định mục tiêu của xã hội xã hội chủ nghĩa mà nhân dân ta xây dựng là gì?",
-        a: "xây dựng chủ nghĩa xã hội và bảo vệ Tổ quốc là" // Đáp án trong file gốc có vẻ bị cắt nhưng giữ nguyên theo yêu cầu.
-    },
-    {
-        q: "Sự thay thế hình thái kinh tế - xã hội tư bản chủ nghĩa bằng hình thái kinh tế - xã hội cộng sản chủ nghĩa được thực hiện thông qua cách mạng xã hội chủ nghĩa xuất phát từ hai tiền vật chất quan trọng là: Sự phát triển của lực lượng sản xuất và …?",
-        a: "sự trưởng thành của giai cấp công nhân."
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, hình thái kinh tế - xã hội cộng sản chủ nghĩa không tự nhiên ra đời, nó chỉ được hình thành thông qua cuộc cách mạng nào?",
-        a: "Cách mạng vô sản"
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, cuộc cách mạng vô sản do ai lãnh đạo?",
-        a: "Đảng cộng sản Việt Nam"
-    },
-    {
-        q: "Lý thuyết phân kỳ hình thái kinh tế-xã hội cộng sản chủ nghĩa lần đầu tiên được đề cập trong tác phẩm nào?",
-        a: "Tuyên ngôn của Đảng Cộng sản"
-    },
-    {
-        q: "Thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội trên phạm vi toàn thế giới được bắt đầu từ khi nào?",
-        a: "Từ cuộc Cách mạng Tháng Mười Nga"
-    },
-    {
-        q: "Câu “Giữa xã hội tư bản chủ nghĩa và xã hội cộng sản chủ nghĩa là một thời kì cải biến cách mạng từ xã hội nọ sang xã hội kia. Thích ứng với thời kỳ ấy là một thời kì quá độ chính trị, và nhà nước của thời kì ấy không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản” là của ai?",
-        a: "C.Mác"
-    },
-    {
-        q: "Tư tưởng về quá độ lên chủ nghĩa xã hội bỏ qua tư bản chủ nghĩa do ai phát kiến?",
-        a: "C.Mác và Ph.Ăngghen"
-    },
-    {
-        q: "Mô hình kinh tế thị trường định hướng xã hội chủ nghĩa ở nước ta được chính thức nêu ra ở Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
-        a: "XI" // Lưu ý: Đáp án chuẩn thường là ĐH IX, nhưng file gốc ghi XI ở dòng 1037. Giữ nguyên theo file.
-    },
-    {
-        q: "Hình thức nhà nước xã hội chủ nghĩa đầu tiên trong lịch sử là?",
-        a: "Công xã Pari"
-    },
-    {
-        q: "Điền từ thiếu vào dấu… trong luận điểm của C.Mác: “...Thích ứng với thời kỳ ấy là một …, và nhà nước của thời kỳ ấỵ không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản”.",
-        a: "thời kỳ quá độ chính trị"
-    }
-];    
+      const saData = [
+        {
+          q: "Căn cứ vào giáo trình chủ nghĩa xã hội khoa học, hãy xác định khái niệm dùng để chỉ một chế độ xã hội tốt đẹp, giai đoạn đầu của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
+          a: "Chủ nghĩa xã hội",
+        },
+        {
+          q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, có bao nhiêu hình thức quá độ lên chủ nghĩa xã hội?",
+          a: "2",
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, hình thức quá độ lên chủ nghĩa xã hội ở Việt Nam là như thế nào?",
+          a: "Quá độ chế độ tư bản chủ nghĩa lên xã hội chủ nghĩa",
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển năm 2011) đã phát triển mô hình chủ nghĩa xã hội Việt Nam với mấy đặc trưng?",
+          a: "8",
+        },
+        {
+          q: "Trên cơ sở xác định rõ mục tiêu, đặc trưng của chủ nghĩa xã hội, Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển năm 2011) Đảng ta đã xác định bao nhiêu phương hướng cơ bản xây dựng chủ nghĩa xã hôi?",
+          a: "7", // Lưu ý: Cương lĩnh 2011 xác định 8 phương hướng. Tuy nhiên file gốc ghi đáp án là 7 (dòng 995). Giữ nguyên theo file.
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời quá độ lên chủ nghĩa xã hội (Bổ sung và phát triển năm 2011) đưa ra 8 phương hướng, trong đó có phương hướng xác định nền kinh tế thị trường mà nước ta đang xây dựng như thế nào?",
+          a: "Kinh tế quốc đoanh và kinh tế tập thể ngày càng trở thành nền tảng của nên kinh tế quốc dân.",
+        },
+        {
+          q: "Hiện nay nước ta đang ở giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
+          a: "Quá độ lên chủ nghĩa xã hội",
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời quá độ lên chủ nghĩa xã hội (Bổ sung và phát triển), được Đảng ta thông qua ở Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
+          a: "Đại hội Đảng cộng sản Việt Nam lần thứ XI",
+        },
+        {
+          q: "Căn cứ vào giáo trình chủ nghĩa xã hội khoa học, hãy xác định khái niệm dùng để chỉ trào lưu tư tưởng, lý luận phản ánh lý tưởng giải phóng nhân dân lao động khỏi áp bức, bóc lột, bất công?",
+          a: "Chủ nghĩa xã hội",
+        },
+        {
+          q: "Theo quan điểm của Chủ nghĩa Mác – Lênin, yếu tố đánh dấu sự trưởng thành vượt bậc và thực sự của giai cấp công nhân là gì?",
+          a: "Đảng Cộng sản- đội tiên phong của giai cấp công nhân ra đời và đảm nhận vai trò lãnh đạo cuộc cách mạng",
+        },
+        {
+          q: "Nền kinh tế nhiều thành phần nằm trong giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
+          a: "Thời kỳ quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội",
+        },
+        {
+          q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội còn tồn tại nhiều thành phần kinh tế. Trong đó thành phần kinh tế nào giữ vai trò chủ đạo?",
+          a: "kinh tế nhà nước",
+        },
+        {
+          q: "Theo quan điểm của Đảng ta, trong thời kỳ quá độ lên chủ nghĩa xã hội còn nhiều hình thức sở hữu. Trong đó hình thức sở hữu nào giữ vai trò chủ đạo?",
+          a: "sở hữu nhà nước",
+        },
+        {
+          q: "Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên chủ nghĩa xã hội (bổ sung, phát triển nãm 2011) đã phát triển mô hình chủ nghĩa xã hội Việt Nam với tám đặc trưng, trong đó xác định mục tiêu của xã hội xã hội chủ nghĩa mà nhân dân ta xây dựng là gì?",
+          a: "xây dựng chủ nghĩa xã hội và bảo vệ Tổ quốc là", // Đáp án trong file gốc có vẻ bị cắt nhưng giữ nguyên theo yêu cầu.
+        },
+        {
+          q: "Sự thay thế hình thái kinh tế - xã hội tư bản chủ nghĩa bằng hình thái kinh tế - xã hội cộng sản chủ nghĩa được thực hiện thông qua cách mạng xã hội chủ nghĩa xuất phát từ hai tiền vật chất quan trọng là: Sự phát triển của lực lượng sản xuất và …?",
+          a: "sự trưởng thành của giai cấp công nhân.",
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, hình thái kinh tế - xã hội cộng sản chủ nghĩa không tự nhiên ra đời, nó chỉ được hình thành thông qua cuộc cách mạng nào?",
+          a: "Cách mạng vô sản",
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, cuộc cách mạng vô sản do ai lãnh đạo?",
+          a: "Đảng cộng sản Việt Nam",
+        },
+        {
+          q: "Lý thuyết phân kỳ hình thái kinh tế-xã hội cộng sản chủ nghĩa lần đầu tiên được đề cập trong tác phẩm nào?",
+          a: "Tuyên ngôn của Đảng Cộng sản",
+        },
+        {
+          q: "Thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội trên phạm vi toàn thế giới được bắt đầu từ khi nào?",
+          a: "Từ cuộc Cách mạng Tháng Mười Nga",
+        },
+        {
+          q: "Câu “Giữa xã hội tư bản chủ nghĩa và xã hội cộng sản chủ nghĩa là một thời kì cải biến cách mạng từ xã hội nọ sang xã hội kia. Thích ứng với thời kỳ ấy là một thời kì quá độ chính trị, và nhà nước của thời kì ấy không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản” là của ai?",
+          a: "C.Mác",
+        },
+        {
+          q: "Tư tưởng về quá độ lên chủ nghĩa xã hội bỏ qua tư bản chủ nghĩa do ai phát kiến?",
+          a: "C.Mác và Ph.Ăngghen",
+        },
+        {
+          q: "Mô hình kinh tế thị trường định hướng xã hội chủ nghĩa ở nước ta được chính thức nêu ra ở Đại hội Đảng cộng sản Việt Nam lần thứ mấy?",
+          a: "XI", // Lưu ý: Đáp án chuẩn thường là ĐH IX, nhưng file gốc ghi XI ở dòng 1037. Giữ nguyên theo file.
+        },
+        {
+          q: "Hình thức nhà nước xã hội chủ nghĩa đầu tiên trong lịch sử là?",
+          a: "Công xã Pari",
+        },
+        {
+          q: "Điền từ thiếu vào dấu… trong luận điểm của C.Mác: “...Thích ứng với thời kỳ ấy là một …, và nhà nước của thời kỳ ấỵ không thể là cái gì khác hơn là nền chuyên chính cách mạng của giai cấp vô sản”.",
+          a: "thời kỳ quá độ chính trị",
+        },
+      ];
 
+      // KHỞI TẠO
+      const mcContainer = document.getElementById("mc-container");
+      const saContainer = document.getElementById("sa-container");
+      const totalEl = document.getElementById("total");
+      const progressEl = document.getElementById("progress");
+      const scoreEl = document.getElementById("score");
 
-    // KHỞI TẠO
-    const mcContainer = document.getElementById('mc-container');
-    const saContainer = document.getElementById('sa-container');
-    const totalEl = document.getElementById('total');
-    const progressEl = document.getElementById('progress');
-    const scoreEl = document.getElementById('score');
+      let answeredCount = 0;
+      let score = 0;
 
-    let answeredCount = 0;
-    let score = 0;
+      // Hiển thị tổng số câu hỏi
+      totalEl.innerText = mcData.length;
 
-    // Hiển thị tổng số câu hỏi
-    totalEl.innerText = mcData.length;
-
-    // RENDER TRẮC NGHIỆM
-    mcData.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'question-card';
+      // RENDER TRẮC NGHIỆM
+      mcData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
         card.innerHTML = `
             <span class="q-number">Câu ${index + 1}</span>
             <div class="q-text">${item.q}</div>
             <div class="options-grid" id="ops-${index}">
-                ${item.ops.map(op => {
+                ${item.ops
+                  .map((op) => {
                     const letter = op.charAt(0); // A, B, C, D
                     return `<div class="option" onclick="checkAnswer(this, ${index}, '${item.a}', '${letter}')">${op}</div>`;
-                }).join('')}
+                  })
+                  .join("")}
             </div>
         `;
         mcContainer.appendChild(card);
-    });
+      });
 
-    // RENDER TRẢ LỜI NGẮN
-    saData.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'question-card';
-        card.style.borderLeftColor = '#17a2b8';
+      // RENDER TRẢ LỜI NGẮN
+      saData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.style.borderLeftColor = "#17a2b8";
         card.innerHTML = `
             <div class="q-text">${item.q}</div>
             <button class="btn-toggle" onclick="toggleSa(${index})">Xem Đáp Án</button>
             <div id="sa-ans-${index}" class="answer-box"><strong>Đáp án:</strong> ${item.a}</div>
         `;
         saContainer.appendChild(card);
-    });
+      });
 
-    // XỬ LÝ CLICK TRẮC NGHIỆM
-    function checkAnswer(el, index, correctLetter, selectedLetter) {
+      // XỬ LÝ CLICK TRẮC NGHIỆM
+      function checkAnswer(el, index, correctLetter, selectedLetter) {
         const parent = document.getElementById(`ops-${index}`);
-        
+
         // Ngăn click lại nếu đã trả lời
-        if (parent.classList.contains('answered')) return;
-        parent.classList.add('answered');
+        if (parent.classList.contains("answered")) return;
+        parent.classList.add("answered");
 
         // Logic Đúng/Sai
         if (selectedLetter === correctLetter) {
-            el.classList.add('correct');
-            score++;
+          el.classList.add("correct");
+          score++;
         } else {
-            el.classList.add('wrong');
-            // Tìm và hiện đáp án đúng
-            const options = parent.children;
-            for (let op of options) {
-                if (op.innerText.startsWith(correctLetter)) {
-                    op.classList.add('correct');
-                }
+          el.classList.add("wrong");
+          // Tìm và hiện đáp án đúng
+          const options = parent.children;
+          for (let op of options) {
+            if (op.innerText.startsWith(correctLetter)) {
+              op.classList.add("correct");
             }
+          }
         }
 
         // Cập nhật thống kê
         answeredCount++;
         progressEl.innerText = answeredCount;
         scoreEl.innerText = score;
-    }
+      }
 
-    // XỬ LÝ TRẢ LỜI NGẮN
-    function toggleSa(index) {
+      // XỬ LÝ TRẢ LỜI NGẮN
+      function toggleSa(index) {
         const box = document.getElementById(`sa-ans-${index}`);
-        box.classList.toggle('visible');
-    }
-
-</script>
-
-</body>
+        box.classList.toggle("visible");
+      }
+    </script>
+  </body>
 </html>

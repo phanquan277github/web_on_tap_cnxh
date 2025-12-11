@@ -1,1310 +1,1272 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ôn Tập CNXH Khoa Học - Chương 6</title>
     <style>
-        :root {
-            --primary-color: #0056b3;
-            --secondary-color: #28a745;
-            --danger-color: #dc3545;
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-color: #333;
-        }
+      :root {
+        --primary-color: #0056b3;
+        --secondary-color: #28a745;
+        --danger-color: #dc3545;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --text-color: #333;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+      }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
 
-        h1 { color: var(--primary-color); margin: 0; font-size: 2rem; }
-        h2 { color: #666; font-weight: 400; margin-top: 10px; font-size: 1.1rem; }
+      h1 {
+        color: var(--primary-color);
+        margin: 0;
+        font-size: 2rem;
+      }
+      h2 {
+        color: #666;
+        font-weight: 400;
+        margin-top: 10px;
+        font-size: 1.1rem;
+      }
 
-        .stats-bar {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-        }
+      .stats-bar {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        backdrop-filter: blur(5px);
+      }
 
-        .section-header {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin: 30px 0 20px 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+      .section-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin: 30px 0 20px 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
 
-        .section-header.short {
-            background: #17a2b8;
-        }
+      .section-header.short {
+        background: #17a2b8;
+      }
 
-        .question-card {
-            background: var(--card-bg);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-left: 5px solid #ddd;
-        }
+      .question-card {
+        background: var(--card-bg);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid #ddd;
+      }
 
-        .q-number {
-            font-weight: bold;
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: block;
-        }
+      .q-number {
+        font-weight: bold;
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        display: block;
+      }
 
-        .q-text {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
+      .q-text {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
 
-        /* Styles cho các lựa chọn trắc nghiệm */
-        .options-grid {
-            display: grid;
-            gap: 10px;
-        }
+      /* Styles cho các lựa chọn trắc nghiệm */
+      .options-grid {
+        display: grid;
+        gap: 10px;
+      }
 
-        .option {
-            padding: 12px 15px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
+      .option {
+        padding: 12px 15px;
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
 
-        .option:hover {
-            background: #e2e6ea;
-            border-color: #ced4da;
-        }
+      .option:hover {
+        background: #e2e6ea;
+        border-color: #ced4da;
+      }
 
-        /* Khi đã chọn đáp án (đúng/sai) */
-        .option.correct {
-            background-color: #d4edda !important;
-            border-color: #28a745 !important;
-            color: #155724;
-            font-weight: 600;
-        }
+      /* Khi đã chọn đáp án (đúng/sai) */
+      .option.correct {
+        background-color: #d4edda !important;
+        border-color: #28a745 !important;
+        color: #155724;
+        font-weight: 600;
+      }
 
-        .option.correct::after {
-            content: "✓";
-            position: absolute;
-            right: 15px;
-            font-weight: bold;
-            color: #155724;
-        }
+      .option.correct::after {
+        content: "✓";
+        position: absolute;
+        right: 15px;
+        font-weight: bold;
+        color: #155724;
+      }
 
-        .option.wrong {
-            background-color: #f8d7da !important;
-            border-color: #dc3545 !important;
-            color: #721c24;
-            opacity: 0.8;
-        }
+      .option.wrong {
+        background-color: #f8d7da !important;
+        border-color: #dc3545 !important;
+        color: #721c24;
+        opacity: 0.8;
+      }
 
-        .option.wrong::after {
-            content: "✕";
-            position: absolute;
-            right: 15px;
-            font-weight: bold;
-            color: #721c24;
-        }
+      .option.wrong::after {
+        content: "✕";
+        position: absolute;
+        right: 15px;
+        font-weight: bold;
+        color: #721c24;
+      }
 
-        /* Vô hiệu hóa click sau khi đã chọn */
-        .options-grid.answered {
-            pointer-events: none;
-        }
+      /* Vô hiệu hóa click sau khi đã chọn */
+      .options-grid.answered {
+        pointer-events: none;
+      }
 
-        /* Nút cho phần tự luận */
-        .btn-toggle {
-            margin-top: 15px;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background: #e3f2fd; 
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-        
-        .answer-box {
-            margin-top: 15px;
-            padding: 15px;
-            background: #fff3cd;
-            border-radius: 6px;
-            color: #856404;
-            display: none;
-        }
-        .answer-box.visible { display: block; }
+      /* Nút cho phần tự luận */
+      .btn-toggle {
+        margin-top: 15px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: #e3f2fd;
+        color: var(--primary-color);
+        font-weight: 600;
+      }
 
+      .answer-box {
+        margin-top: 15px;
+        padding: 15px;
+        background: #fff3cd;
+        border-radius: 6px;
+        color: #856404;
+        display: none;
+      }
+      .answer-box.visible {
+        display: block;
+      }
     </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
+  </head>
+  <body>
+    <div class="container">
+      <header>
         <h1>TRẮC NGHIỆM TƯƠNG TÁC</h1>
         <h2>Môn học: CNXH Khoa Học - Chương 6: Dân tộc và Tôn giáo</h2>
-    </header>
+      </header>
 
-    <div class="stats-bar">
-        <div><strong>Tiến độ:</strong> <span id="progress">0</span> / <span id="total">0</span></div>
-        <div><strong>Điểm:</strong> <span id="score" style="color: var(--secondary-color); font-weight: bold;">0</span></div>
+      <div class="stats-bar">
+        <div>
+          <strong>Tiến độ:</strong> <span id="progress">0</span> /
+          <span id="total">0</span>
+        </div>
+        <div>
+          <strong>Điểm:</strong>
+          <span
+            id="score"
+            style="color: var(--secondary-color); font-weight: bold"
+            >0</span
+          >
+        </div>
+      </div>
+
+      <div class="section-header">
+        A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)
+      </div>
+      <div id="mc-container"></div>
+
+      <div class="section-header short">
+        B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)
+      </div>
+      <div id="sa-container"></div>
     </div>
 
-    <div class="section-header">A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)</div>
-    <div id="mc-container"></div>
+    <script>
+      // --- DỮ LIỆU TỪ FILE CHUONG6.DOCX ---
+      // --- DỮ LIỆU CÂU HỎI TỪ FILE CHUONG6.DOCX ---
 
-    <div class="section-header short">B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)</div>
-    <div id="sa-container"></div>
-</div>
-
-<script>
-    // --- DỮ LIỆU TỪ FILE CHUONG6.DOCX ---
-    // --- DỮ LIỆU CÂU HỎI TỪ FILE CHUONG6.DOCX ---
-
-const mcData = [
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác - Lênin, dân tộc là:",
-        a: "A",
-        ops: [
+      const mcData = [
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác - Lênin, dân tộc là:",
+          a: "A",
+          ops: [
             "A. Quá trình phát triển lâu dài của xã hội loài người, trải qua các hình thức cộng đồng từ thấp đến cao",
             "B. Quá trình phát triển lâu dài của xã hội loài người, thông qua các chế độ xã hội",
             "C. Quá trình phát triển lâu dài của xã hội loài người, thông qua từng giai đoạn lịch sử",
-            "D. Quá trình phát triển lâu dài của xã hội loài người, trải qua các hình thái ý thức xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nguyên nhân quyết định sự biến đổi của cộng đồng dân tộc là do:",
-        a: "C",
-        ops: [
+            "D. Quá trình phát triển lâu dài của xã hội loài người, trải qua các hình thái ý thức xã hội",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nguyên nhân quyết định sự biến đổi của cộng đồng dân tộc là do:",
+          a: "C",
+          ops: [
             "A. Sự biến đổi của lực lượng sản xuất",
             "B. Sự biến đổi của quan hệ sản xuất",
             "C. Sự biến đổi của phương thức sản xuất",
-            "D. Sự biến đổi của kiến trúc thượng tầng"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân tộc được hiểu theo mấy nghĩa cơ bản?",
-        a: "A",
-        ops: [
-            "A. 2",
-            "B. 3",
-            "C. 4",
-            "D. 5"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào là đặc trưng cơ bản của dân tộc (theo nghĩa quốc gia dân tộc) (1)",
-        a: "D",
-        ops: [
+            "D. Sự biến đổi của kiến trúc thượng tầng",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân tộc được hiểu theo mấy nghĩa cơ bản?",
+          a: "A",
+          ops: ["A. 2", "B. 3", "C. 4", "D. 5"],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào là đặc trưng cơ bản của dân tộc (theo nghĩa quốc gia dân tộc) (1)",
+          a: "D",
+          ops: [
             "A. Có chung về tính cách",
             "B. Có chung về lối sống",
             "C. Có những quan điểm chính trị xã hội giống nhau",
-            "D. Có chung phương thức sinh hoại kinh tế."
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào là đặc trưng cơ bản của dân tộc (theo nghĩa quốc gia dân tộc) (2)",
-        a: "D",
-        ops: [
+            "D. Có chung phương thức sinh hoại kinh tế.",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào là đặc trưng cơ bản của dân tộc (theo nghĩa quốc gia dân tộc) (2)",
+          a: "D",
+          ops: [
             "A. Có chung về tính cách",
             "B. Có chung về lối sống",
             "C. Có những quan điểm chính trị xã hội giống nhau",
-            "D. Có lãnh thổ chung ổn định không bị chia cắt"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào là đặc trưng cơ bản của dân tộc (theo nghĩa quốc gia dân tộc) (3)",
-        a: "D",
-        ops: [
+            "D. Có lãnh thổ chung ổn định không bị chia cắt",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào là đặc trưng cơ bản của dân tộc (theo nghĩa quốc gia dân tộc) (3)",
+          a: "D",
+          ops: [
             "A. Có chung về tính cách",
             "B. Có chung về lối sống",
             "C. Có những quan điểm chính trị xã hội giống nhau",
-            "D. Có ngôn ngữ chung của quốc gia làm công cụ giao tiếp trong xã hội và trong cộng đồng"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân tộc theo nghĩa tộc người có mấy đặc trưng cơ bản?",
-        a: "B",
-        ops: [
-            "A. 2",
-            "B. 3",
-            "C. 4",
-            "D. 5"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân tộc theo nghĩa quốc gia dân tộc có mấy đặc trưng cơ bản?",
-        a: "D",
-        ops: [
-            "A. 2",
-            "B. 3",
-            "C. 4",
-            "D. 5"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, đặc trưng quan trọng nhất của dân tộc là:",
-        a: "A",
-        ops: [
+            "D. Có ngôn ngữ chung của quốc gia làm công cụ giao tiếp trong xã hội và trong cộng đồng",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân tộc theo nghĩa tộc người có mấy đặc trưng cơ bản?",
+          a: "B",
+          ops: ["A. 2", "B. 3", "C. 4", "D. 5"],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân tộc theo nghĩa quốc gia dân tộc có mấy đặc trưng cơ bản?",
+          a: "B",
+          ops: ["A. 2", "B. 3", "C. 4", "D. 5"],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, đặc trưng quan trọng nhất của dân tộc là:",
+          a: "A",
+          ops: [
             "A. Có chung phương thức sinh hoại kinh tế",
             "B. Có lãnh thổ chung ổn định không bị chia cắt",
             "C. Có sự quản lý của một nhà nước",
-            "D. Có ngôn ngữ chung của quốc gia làm công cụ giao tiếp trong xã hội và trong cộng đồng"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tiêu chí quan trọng nhất để phân định một tộc người và có vị trí quyết định đối với sự tồn tại và phát triển của mỗi tộc người là:",
-        a: "C",
-        ops: [
+            "D. Có ngôn ngữ chung của quốc gia làm công cụ giao tiếp trong xã hội và trong cộng đồng",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tiêu chí quan trọng nhất để phân định một tộc người và có vị trí quyết định đối với sự tồn tại và phát triển của mỗi tộc người là:",
+          a: "C",
+          ops: [
             "A. Cộng đồng về ngôn ngữ",
             "B. Cộng đồng về văn hóa",
             "C. Ý thức tự giác tộc người",
-            "D. Số lượng của mỗi cộng đồng"
-        ]
-    },
-    {
-        q: "Trong một quốc gia có nhiều tộc người, căn cứ để phân thành tộc người đa số và tộc người thiểu số là:",
-        a: "D",
-        ops: [
+            "D. Số lượng của mỗi cộng đồng",
+          ],
+        },
+        {
+          q: "Trong một quốc gia có nhiều tộc người, căn cứ để phân thành tộc người đa số và tộc người thiểu số là:",
+          a: "D",
+          ops: [
             "A. Ngôn ngữ",
             "B. Văn hóa",
             "C. Giáo dục",
-            "D. Số lượng người"
-        ]
-    },
-    {
-        q: "Nội dung nào dưới đây không nằm trong Cương lĩnh dân tộc của V.I.Lênin?",
-        a: "D",
-        ops: [
+            "D. Số lượng người",
+          ],
+        },
+        {
+          q: "Nội dung nào dưới đây không nằm trong Cương lĩnh dân tộc của V.I.Lênin?",
+          a: "D",
+          ops: [
             "A. Các dân tộc hoàn toàn bình đẳng",
             "B. Các dân tộc được quyền tự quyết",
             "C. Liên hiệp công nhân tất cà các dân tộc lại",
-            "D. Các dân tộc trong cùng một quốc gia có thể tách ra thành các quốc gia dân tộc độc lập"
-        ]
-    },
-    {
-        q: "Việt Nam có bao nhiêu dân tộc?",
-        a: "B",
-        ops: [
-            "A. 53",
-            "B. 54",
-            "C. 55",
-            "D. 56"
-        ]
-    },
-    {
-        q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: … là hệ thống những niềm tin, sự ngưỡng mộ, cũng như cách thức thể hiện niềm tin của con người trước các sự vật, hiện tượng, lực lượng có tính thần thánh...",
-        a: "B",
-        ops: [
+            "D. Các dân tộc trong cùng một quốc gia có thể tách ra thành các quốc gia dân tộc độc lập",
+          ],
+        },
+        {
+          q: "Việt Nam có bao nhiêu dân tộc?",
+          a: "B",
+          ops: ["A. 53", "B. 54", "C. 55", "D. 56"],
+        },
+        {
+          q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: … là hệ thống những niềm tin, sự ngưỡng mộ, cũng như cách thức thể hiện niềm tin của con người trước các sự vật, hiện tượng, lực lượng có tính thần thánh, linh thiêng để cầu mong sự che chở, giúp đỡ.",
+          a: "B",
+          ops: [
             "A. Tôn giáo",
             "B. Tín ngưỡng",
             "C. Mê tín",
-            "D. Tín ngưỡng và mê tín"
-        ]
-    },
-    {
-        q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: ….. là niềm tin mê muội, viển vông, không dựa trên một cơ sở khoa học nào.",
-        a: "C",
-        ops: [
+            "D. Tín ngưỡng và mê tín",
+          ],
+        },
+        {
+          q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: ….. là niềm tin mê muội, viển vông, không dựa trên một cơ sở khoa học nào.",
+          a: "C",
+          ops: [
             "A. Tôn giáo",
             "B. Tín ngưỡng",
             "C. Mê tín",
-            "D. Tín ngưỡng và mê tín"
-        ]
-    },
-    {
-        q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: ….. là niềm tin của con người vào các lực lượng siêu nhiên, thần thánh đến mức độ mê muội, cuồng tín, dẫn đến những hành vi cực đoan...",
-        a: "C",
-        ops: [
+            "D. Tín ngưỡng và mê tín",
+          ],
+        },
+        {
+          q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: ….. là niềm tin của con người vào các lực lượng siêu nhiên, thần thánh đến mức độ mê muội, cuồng tín, dẫn đến những hành vi cực đoan, sai lệch quá mức, trái với các giá trị văn hóa, đạo đức, pháp luật, gây tổn hại cho cá nhân, xã hội và cộng đồng.",
+          a: "C",
+          ops: [
             "A. Tôn giáo",
             "B. Tín ngưỡng",
             "C. Mê tín dị đoan",
-            "D. Tín ngưỡng và tôn giáo"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào dưới đây thuộc nguồn gốc nhận thức của tôn giáo?",
-        a: "D",
-        ops: [
+            "D. Tín ngưỡng và tôn giáo",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào dưới đây thuộc nguồn gốc nhận thức của tôn giáo?",
+          a: "D",
+          ops: [
             "A. Sợ hãi trước những hiện tượng tự nhiên, xã hội",
             "B. Những lúc ốm đau, bệnh tật",
             "C. Những may, rủi bất ngờ xảy ra",
-            "D. Nhận thức của con người về tự nhiên, xã hội và chính bản thân mình là có giới hạn"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, về khách quan, sự phát triển của quan hệ dân tộc được diễn ra theo mấy hướng?",
-        a: "B",
-        ops: [
-            "A. 1",
-            "B. 2",
-            "C. 3",
-            "D. 4"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào dưới đây là xu hướng khách quan của sự phát triển quan hệ dân tộc?",
-        a: "D",
-        ops: [
+            "D. Nhận thức của con người về tự nhiên, xã hội và chính bản thân mình là có giới hạn",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, về khách quan, sự phát triển của quan hệ dân tộc được diễn ra theo mấy hướng?",
+          a: "B",
+          ops: ["A. 1", "B. 2", "C. 3", "D. 4"],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào dưới đây là xu hướng khách quan của sự phát triển quan hệ dân tộc?",
+          a: "D",
+          ops: [
             "A. Các dân tộc trong từng quốc gia có sự độc lập tương đối",
             "B. Các dân tộc trong từng quốc gia ngày càng mở rộng",
             "C. Các dân tộc trong từng quốc gia ngày càng thu hẹp lại",
-            "D. Các dân tộc trong từng quốc gia, thậm chí các dân tộc ở nhiều quốc gia muốn liên hiệp lại với nhau"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin , xu hướng các dân tộc trong từng quốc gia, thậm chí các dân tộc ở nhiều quốc gia muốn liên hiệp lại với nhau nổi lên trong giai đoạn:",
-        a: "C",
-        ops: [
+            "D. Các dân tộc trong từng quốc gia, thậm chí các dân tộc ở nhiều quốc gia muốn liên hiệp lại với nhau",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin , xu hướng các dân tộc trong từng quốc gia, thậm chí các dân tộc ở nhiều quốc gia muốn liên hiệp lại với nhau nổi lên trong giai đoạn:",
+          a: "C",
+          ops: [
             "A. Chủ nghĩa tư bản mới hình thành",
             "B. Chủ nghĩa tư bản đang phát triển",
             "C. Chủ nghĩa tư bản đã phát triển thành chủ nghĩa đế quốc",
-            "D. Chủ nghĩa tư bản chưa hình thành"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, xu hướng các dân tộc trong từng quốc gia, thậm chí các dân tộc ở nhiều quốc gia muốn liên hiệp lại với nhau là do:",
-        a: "A",
-        ops: [
+            "D. Chủ nghĩa tư bản chưa hình thành",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, xu hướng các dân tộc trong từng quốc gia, thậm chí các dân tộc ở nhiều quốc gia muốn liên hiệp lại với nhau là do:",
+          a: "A",
+          ops: [
             "A. Sự phát triển của lực lượng sản xuất, của khoa học và công nghệ, của giao lưu kinh tế và văn hoá trong xã hội tư bản chủ nghĩa",
             "B. Sự phát triển của quan hệ sản xuất trong xã hội",
             "C. Sự phát triển của các hệ tư tưởng",
-            "D. sự phát triển của kinh tế"
-        ]
-    },
-    {
-        q: "Theo Cương lĩnh dân tộc của V.I.Lênin, vấn đề nào dưới đây không nằm trong nội dung các dân tộc hoàn toàn bình đẳng?",
-        a: "A",
-        ops: [
+            "D. sự phát triển của kinh tế",
+          ],
+        },
+        {
+          q: "Theo Cương lĩnh dân tộc của V.I.Lênin, vấn đề nào dưới đây không nằm trong nội dung các dân tộc hoàn toàn bình đẳng?",
+          a: "A",
+          ops: [
             "A. Các dân tộc đều có quyền tách ra thành lập một quốc gia dân tộc độc lập",
             "B. Các dân lộc đều có nghĩa vụ và quyền lợi ngang nhau trên tất cả các lĩnh vực của đời sống xã hội",
             "C. Trong quan hệ quốc tế, không một dân tộc nào có quyền đi áp bức, bóc lột dân tộc khác",
-            "D. Trong một quốc gia có nhiều dân tộc, quyền bình đẳng dân tộc phải được thể hiện trên cơ sở pháp lý"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, để thực hiện được quyền bình đẳng dân tộc, trước hết phải:",
-        a: "A",
-        ops: [
+            "D. Trong một quốc gia có nhiều dân tộc, quyền bình đẳng dân tộc phải được thể hiện trên cơ sở pháp lý",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, để thực hiện được quyền bình đẳng dân tộc, trước hết phải:",
+          a: "A",
+          ops: [
             "A. Thủ tiêu tình trạng áp bức giai cấp",
             "B. Phát triển kinh tế",
             "C. 퐃 ऀ n định chính trị",
-            "D. Nâng cao đời sống của nhân dân"
-        ]
-    },
-    {
-        q: "Quan điểm: \"... tất cả mọi tôn giáo chẳng qua chỉ là sự phản ánh hư ảo...\" là của ai?",
-        a: "B",
-        ops: [
+            "D. Nâng cao đời sống của nhân dân",
+          ],
+        },
+        {
+          q: 'Quan điểm: "... tất cả mọi tôn giáo chẳng qua chỉ là sự phản ánh hư ảo - vào trong đầu óc của con người - của những lực lượng ở bên ngoài chi phối cuộc sống hàng ngày của họ; chỉ là sự phản ánh trong đó những lực lượng ở trần thế đã mang hình thức những lực lượng siêu trần thế” là của ai?',
+          a: "B",
+          ops: [
             "A. C. Mác",
             "B. Ph. Ăngghen",
             "C. V.I. Lênin",
-            "D. Chủ tịch Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo và tín ngưỡng:",
-        a: "A",
-        ops: [
+            "D. Chủ tịch Hồ Chí Minh",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo và tín ngưỡng:",
+          a: "A",
+          ops: [
             "A. Không đồng nhất và có sự giao thoa nhất định",
             "B. Đồng nhất và có sự giao thoa nhất định",
             "C. Không đồng nhất và không có sự giao thoa",
-            "D. Đồng nhất và không có sự giao thoa"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, con người sáng tạo ra tôn giáo vì:",
-        a: "A",
-        ops: [
+            "D. Đồng nhất và không có sự giao thoa",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, con người sáng tạo ra tôn giáo vì:",
+          a: "A",
+          ops: [
             "A. Mục đích, lợi ích của họ, phản ánh những ước mơ, nguyện vọng, suy nghĩ của họ",
             "B. Nhu cầu của họ",
             "C. Xu hướng phát triển của xã hội",
-            "D. Xu hướng phát triển của thế giới"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, mọi quan niệm về tôn giáo, các tổ chức, thiết chế tôn giáo đều được sinh ra từ:",
-        a: "A",
-        ops: [
+            "D. Xu hướng phát triển của thế giới",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, mọi quan niệm về tôn giáo, các tổ chức, thiết chế tôn giáo đều được sinh ra từ:",
+          a: "A",
+          ops: [
             "A. Những hoạt động sản xuất, từ những điều kiện sống nhất định trong xã hội và thay đổi theo những thay đổi của cơ sở kinh tế",
             "B. Những hoạt động chính trị – xã hội trong những giai đoạn lịch sử nhất định",
             "C. Những hoạt động tư tưởng – văn hoá trong những giai đoạn lịch sử nhất định",
-            "D. Những hoạt động kinh tế –xã hội trong những giai đoạn lịch sử nhất định"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, tôn giáo là một hiện tượng xã hội có tính chất nào dưới đây?",
-        a: "A",
-        ops: [
+            "D. Những hoạt động kinh tế –xã hội trong những giai đoạn lịch sử nhất định",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, tôn giáo là một hiện tượng xã hội có tính chất nào dưới đây?",
+          a: "A",
+          ops: [
             "A. Tính lịch sử",
             "B. Tính vĩnh viễn",
             "C. Tính cố định",
-            "D. Tính giáo dục"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, tôn giáo là một hiện tượng xã hội có tính lịch sử, nghĩa là:",
-        a: "A",
-        ops: [
+            "D. Tính giáo dục",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, tôn giáo là một hiện tượng xã hội có tính lịch sử, nghĩa là:",
+          a: "A",
+          ops: [
             "A. Nó có sự hình thành, tồn tại và phát triển và có khả năng biến đổi trong những giai đoạn lịch sử nhất định",
             "B. Nó tồn tại trong những giai đoạn lịch sử nhất định",
             "C. Nó luôn vận động trong những giai đoạn lịch sử nhất định",
-            "D. Nó luôn thay đổi trong những giai đoạn lịch sử nhất định"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, các tôn giáo bị phân liệt, chia tách thành nhiều tôn giáo, hệ phái khác nhau là do:",
-        a: "B",
-        ops: [
+            "D. Nó luôn thay đổi trong những giai đoạn lịch sử nhất định",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, các tôn giáo bị phân liệt, chia tách thành nhiều tôn giáo, hệ phái khác nhau là do:",
+          a: "A",
+          ops: [
             "A. Các điều kiện chính trị – xã hội thay đổi",
             "B. Các điều kiện kinh tế - xã hội, lịch sử thay đổi",
             "C. Các điều kiện văn hoá – xã hội thay đổi",
-            "D. Các điều kiện văn hoá – tư tưởng thay đổi"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác - Lênin, khi khoa học và giáo dục giúp cho đại đa số quần chúng nhân đân nhận thức được bản chất các hiện tượng tự nhiên và xã hội thì:",
-        a: "D",
-        ops: [
+            "D. Các điều kiện văn hoá – tư tưởng thay đổi",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác - Lênin, khi khoa học và giáo dục giúp cho đại đa số quần chúng nhân đân nhận thức được bản chất các hiện tượng tự nhiên và xã hội thì:",
+          a: "D",
+          ops: [
             "A. Tôn giáo sẽ ngày càng phát triển",
             "B. Tôn giáo sẽ xuất hiện thêm nhiều tôn giáo mới",
             "C. Số lượng tín đồ theo tôn giáo ngày càng nhiều",
-            "D. Tôn giáo sẽ dần dần mất đi vị trí của nó trong đời sông xã hội và cả trong nhận thức, niềm tin của mỗi người"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào dưới đây biểu hiện tính quần chúng của tôn giáo?",
-        a: "A",
-        ops: [
+            "D. Tôn giáo sẽ dần dần mất đi vị trí của nó trong đời sông xã hội và cả trong nhận thức, niềm tin của mỗi người",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, nội dung nào dưới đây biểu hiện tính quần chúng của tôn giáo?",
+          a: "B",
+          ops: [
             "A. Tôn giáo không chỉ biểu hiện ở số lượng tín đồ rất đông đảo mà là nơi sinh hoạt văn hoá, tinh thần của một bộ phận quần chúng nhân dân",
             "B. Tôn giáo là sản phẩm của những điều kiện kinh tế - xã hội, phản ánh lợi ích, nguyện vọng của các giai cấp khác nhau trong cuộc đấu tranh giai cấp, đấu tranh dân tộc",
             "C. Khi các giai cấp bóc lột, thống trị sử dụng tôn giáo để phục vụ cho lợi ích giai cấp mình, chống lại các giai cấp lao động và tiến bộ xã hội",
-            "D. Tôn giáo chỉ xuất hiện khi xã hội đã phân chia giai cấp, có sự khác biệt, sự đối kháng về lợi ích giai cấp"
-        ]
-    },
-    {
-        q: "Chọn phương án sai theo quan điểm của chủ nghĩa Mác – Lênin về tính chính trị của tôn giáo?",
-        a: "A",
-        ops: [
+            "D. Tôn giáo chỉ xuất hiện khi xã hội đã phân chia giai cấp, có sự khác biệt, sự đối kháng về lợi ích giai cấp",
+          ],
+        },
+        {
+          q: "Chọn phương án sai theo quan điểm của chủ nghĩa Mác – Lênin về tính chính trị của tôn giáo?",
+          a: "A",
+          ops: [
             "A. Tôn giáo không chỉ biểu hiện ở số lượng tín đồ rất đông đảo mà là nơi sinh hoạt văn hoá, tinh thần của một bộ phận quần chúng nhân dân",
             "B. Tôn giáo là sản phẩm của những điều kiện kinh tế - xã hội, phản ánh lợi ích, nguyện vọng của các giai cấp khác nhau trong cuộc đấu tranh giai cấp, đấu tranh dân tộc",
             "C. Khi các giai cấp bóc lột, thống trị sử dụng tôn giáo để phục vụ cho lợi ích giai cấp mình, chống lại các giai cấp lao động và tiến bộ xã hội",
-            "D. Tôn giáo chỉ xuất hiện khi xã hội đã phân chia giai cấp, có sự khác biệt, sự đối kháng về lợi ích giai cấp"
-        ]
-    },
-    {
-        q: "Chọn phương án sai theo quan điểm của chủ nghĩa Mác – Lênin về nguyên tắc tôn trọng, bảo đảm quyền tự do tín ngưỡng và không tín ngưỡng của nhân dân?",
-        a: "D",
-        ops: [
+            "D. Tôn giáo chỉ xuất hiện khi xã hội đã phân chia giai cấp, có sự khác biệt, sự đối kháng về lợi ích giai cấp",
+          ],
+        },
+        {
+          q: "Chọn phương án sai theo quan điểm của chủ nghĩa Mác – Lênin về nguyên tắc tôn trọng, bảo đảm quyền tự do tín ngưỡng và không tín ngưỡng của nhân dân?",
+          a: "D",
+          ops: [
             "A. Tự do tín ngưỡng và tự do không tín ngưởng thuộc quyền tự do tư tưởng của nhân dân",
             "B. Mọi hành vi cấm đoán, ngăn cản tự do theo đạo, đổi đạo, bỏ đạo hay đe dọa, bắt buộc người dân phải theo đạo đều xâm phạm đến quyền tự do tư tưởng của nhân dân",
             "C. Tôn trọng quyền con người",
-            "D. Quan điểm, thái độ của các giáo hội, giáo sĩ, giáo dân về những lĩnh vực của đời sống xã hội luôn có sự khác biệt"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, để khắc phục dần những ảnh hưởng tiêu cực của tôn giáo, cần phải gắn liền với quá trình:",
-        a: "A",
-        ops: [
+            "D. Quan điểm, thái độ của các giáo hội, giáo sĩ, giáo dân về những lĩnh vực của đời sống xã hội luôn có sự khác biệt",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, để khắc phục dần những ảnh hưởng tiêu cực của tôn giáo, cần phải gắn liền với quá trình:",
+          a: "A",
+          ops: [
             "A. Cải tạo xã hội cũ, xây dựng xã hội mới",
             "B. Phát triển giáo dục",
             "C. Phát triển kinh tế",
-            "D. Thay đổi tư tưởng của người dân"
-        ]
-    },
-    {
-        q: "Trong giai đoạn hiện nay, hàng ngũ chức sắc các tôn giáo ở Việt Nam luôn chịu sự tác động của:",
-        a: "A",
-        ops: [
+            "D. Thay đổi tư tưởng của người dân",
+          ],
+        },
+        {
+          q: "Trong giai đoạn hiện nay, hàng ngũ chức sắc các tôn giáo ở Việt Nam luôn chịu sự tác động của:",
+          a: "A",
+          ops: [
             "A. Tình hình chính trị - xã hội trong và ngoài nước",
             "B. Tình hình kinh tế - xã hội trong và ngoài nước",
             "C. Tình hình văn hoá - xã hội trong và ngoài nước",
-            "D. Tình hình văn hoá – tư tưởng trong và ngoài nước"
-        ]
-    },
-    {
-        q: "Chọn đáp án đúng theo quan điểm của chủ nghĩa Mác - Lênin:",
-        a: "A",
-        ops: [
+            "D. Tình hình văn hoá – tư tưởng trong và ngoài nước",
+          ],
+        },
+        {
+          q: "Chọn đáp án đúng theo quan điểm của chủ nghĩa Mác - Lênin:",
+          a: "A",
+          ops: [
             "A. Tôn giáo không phải là một hiện tượng xã hội bất biến, ngược lại, nó luôn luôn vận động và biến đổi không ngừng tuỳ thuộc vào những điều kiện kinh tế - xã hội - lịch sử cụ thể",
             "B. Tôn giáo là một hiện tượng xã hội bất biến, trường tồn với thời gian",
             "C. Ở những thời kỳ lịch sử khác nhau, vai trò, tác động của từng tôn giáo đối với đời sống xã hội là giống nhau",
-            "D. Các tôn giáo đều có lịch sử hình thành, có quá trình tồn tại và phát triển giống nhau"
-        ]
-    },
-    {
-        q: "Ở cấp độ gia đình Việt Nam, hoạt động phổ biến, thậm chí trở thành truyền thống, nét đẹp văn hóa của mỗi gia đình, dòng họ là:",
-        a: "A",
-        ops: [
+            "D. Các tôn giáo đều có lịch sử hình thành, có quá trình tồn tại và phát triển giống nhau",
+          ],
+        },
+        {
+          q: "Ở cấp độ gia đình Việt Nam, hoạt động phổ biến, thậm chí trở thành truyền thống, nét đẹp văn hóa của mỗi gia đình, dòng họ là:",
+          a: "A",
+          ops: [
             "A. Thờ cúng tổ tiên",
             "B. Thờ cúng Thành hoàng làng",
             "C. Thờ cúng các Vua Hùng",
-            "D. Thờ các anh hùng dân tộc"
-        ]
-    },
-    {
-        q: "Ở cấp độ quốc gia Việt Nam, đỉnh cao của sự hội tụ đoàn kết thống nhất cộng đồng dân tộc của người Việt Nam được biểu hiện dưới dạng:",
-        a: "C",
-        ops: [
+            "D. Thờ các anh hùng dân tộc",
+          ],
+        },
+        {
+          q: "Ở cấp độ quốc gia Việt Nam, đỉnh cao của sự hội tụ đoàn kết thống nhất cộng đồng dân tộc của người Việt Nam được biểu hiện dưới dạng:",
+          a: "C",
+          ops: [
             "A. Tự do tín ngưỡng",
             "B. Niềm tin tôn giáo",
             "C. Tín ngưỡng, tôn giáo",
-            "D. Tự do mê tín"
-        ]
-    },
-    {
-        q: "Nội dung cương lĩnh dân tộc của chủ nghĩa Mác - Lênin là:",
-        a: "A",
-        ops: [
+            "D. Tự do mê tín",
+          ],
+        },
+        {
+          q: "Nội dung cương lĩnh dân tộc của chủ nghĩa Mác - Lênin là:",
+          a: "A",
+          ops: [
             "A. Các dân tộc hoàn toàn bình đẳng, các dân tộc được quyền tự quyết, liên hiệp công nhân tất cả các dân tộc lại",
             "B. Các dân tộc đoàn kết, bình đẳng",
             "C. Các dân tộc có quyền tự quyết",
-            "D. Các dân tộc liên hiệp công nhân các nước"
-        ]
-    },
-    {
-        q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: Quyền dân tộc tự quyết là quyền làm chủ của mỗi dân tộc đối với vận mệnh dân tộc mình, quyền tự quyết định chế độ chính trị – xã hội và	phát triển của dân tộc mình.",
-        a: "B",
-        ops: [
-            "A. Cách thức",
-            "B. Con đường",
-            "C. Mục tiêu",
-            "D. Hình thức"
-        ]
-    },
-    {
-        q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: Về vấn đề tín ngưỡng, tôn giáo, Đảng và Nhà nước ta thực hiện nguyên tắc: Tôn trọng, bảo đảm quyền tự do ... và không ... của nhân dân.",
-        a: "B",
-        ops: [
+            "D. Các dân tộc liên hiệp công nhân các nước",
+          ],
+        },
+        {
+          q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: Quyền dân tộc tự quyết là quyền làm chủ của mỗi dân tộc đối với vận mệnh dân tộc mình, quyền tự quyết định chế độ chính trị – xã hội và ... phát triển của dân tộc mình.",
+          a: "B",
+          ops: ["A. Cách thức", "B. Con đường", "C. Mục tiêu", "D. Hình thức"],
+        },
+        {
+          q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: Về vấn đề tín ngưỡng, tôn giáo, Đảng và Nhà nước ta thực hiện nguyên tắc: Tôn trọng, bảo đảm quyền tự do ... và không ... của nhân dân.",
+          a: "B",
+          ops: [
             "A. Tôn giáo",
             "B. Tín ngưỡng",
             "C. Tín ngưỡng - tôn giáo",
-            "D. Tôn giáo - tín ngưỡng"
-        ]
-    },
-    {
-        q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: Tôn giáo là một hình thái ý thức – xã hội phản ánh một cách hoang đường, hư ảo ... khách quan.",
-        a: "B",
-        ops: [
-            "A. Thực tiễn",
-            "B. Hiện thực",
-            "C. Điều kiện",
-            "D. Cuộc sống"
-        ]
-    },
-    {
-        q: "Hãy điền từ thích hợp để làm rõ bản chất của tôn giáo: “tất cả mọi tôn giáo chẳng qua chỉ là sự phản ánh (1)…… vào đầu óc của con người, của những lực lượng bên ngoài chi phối cuộc sống hàng ngày của họ; chỉ là sự phản ánh trong đó các lực lượng của (2)…… đã mang hình thức những lực lượng siêu trần thế”.",
-        a: "C",
-        ops: [
+            "D. Tôn giáo - tín ngưỡng",
+          ],
+        },
+        {
+          q: "Chọn từ thích hợp điền vào dấu (…) trong nội dung sau: Tôn giáo là một hình thái ý thức – xã hội phản ánh một cách hoang đường, hư ảo ... khách quan.",
+          a: "B",
+          ops: ["A. Thực tiễn", "B. Hiện thực", "C. Điều kiện", "D. Cuộc sống"],
+        },
+        {
+          q: "Hãy điền từ thích hợp để làm rõ bản chất của tôn giáo: “tất cả mọi tôn giáo chẳng qua chỉ là sự phản ánh (1)…… vào đầu óc của con người, của những lực lượng bên ngoài chi phối cuộc sống hàng ngày của họ; chỉ là sự phản ánh trong đó các lực lượng của (2)…… đã mang hình thức những lực lượng siêu trần thế”.",
+          a: "C",
+          ops: [
             "A. (1) - dưới hình thức nghệ thuật, (2) - quần chúng",
             "B. (1) - khoa học, (2) - giai cấp",
             "C. (1)- hư ảo, (2) - trần thế",
-            "D. (1) - chân thực, (2) - không có thực"
-        ]
-    },
-    {
-        q: "Nội dung nào là cơ bản trong “Cương Lĩnh dân tộc” của V.I.Lênin?",
-        a: "D",
-        ops: [
-            "A. Đoàn kết",
-            "B. Bình Đẳng",
-            "C. Tự quyết",
-            "D. Liên hiệp"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân tộc theo nghĩa quốc gia là:",
-        a: "D",
-        ops: [
+            "D. (1) - chân thực, (2) - không có thực",
+          ],
+        },
+        {
+          q: "Nội dung nào là cơ bản trong “Cương Lĩnh dân tộc” của V.I.Lênin?",
+          a: "D",
+          ops: ["A. Đoàn kết", "B. Bình Đẳng", "C. Tự quyết", "D. Liên hiệp"],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, dân tộc theo nghĩa quốc gia là:",
+          a: "D",
+          ops: [
             "A. Một bộ phận dân cư của 1 quốc gia",
             "B. Một dân tộc thiểu số",
             "C. Một dân tộc ít người",
-            "D. Một cộng đồng có chung lãnh thổ, văn hóa, kinh tế, ngôn ngữ"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, quyền tự do tín ngưỡng tôn giáo được hiểu là:",
-        a: "A",
-        ops: [
+            "D. Một cộng đồng có chung lãnh thổ, văn hóa, kinh tế, ngôn ngữ",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, quyền tự do tín ngưỡng tôn giáo được hiểu là:",
+          a: "A",
+          ops: [
             "A. Công dân có quyền theo hoặc không theo bất kì tôn giáo nào.",
             "B. Người đã theo tín ngưỡng, tôn giáo không có quyền bỏ mà theo tín ngưỡng, tôn giáo khác.",
             "C. Người theo tín ngưỡng, tôn giáo có quyền tham gia hoạt động tín ngưỡng tôn giáo đó.",
-            "D. Phải theo tất cả các tôn giáo"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, quyền bình đẳng giữa các dân tộc được hiểu là:",
-        a: "C",
-        ops: [
+            "D. Phải theo tất cả các tôn giáo",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, quyền bình đẳng giữa các dân tộc được hiểu là:",
+          a: "C",
+          ops: [
             "A. Các dân tộc được nhà nước và pháp luật tôn trọng",
             "B. Các dân tộc được nhà nước và pháp luật bảo vệ",
             "C. Các dân tộc được nhà nước tôn trọng, bảo vệ và pháp luật tạo điều kiện phát triển.",
-            "D. Các dân tộc được nhà nước và pháp luật tôn trọng, bảo vệ"
-        ]
-    },
-    {
-        q: "Hình thức cộng đồng đầu tiên trong lịch sử là:",
-        a: "B",
-        ops: [
-            "A. Bộ lạc",
-            "B. Thị tộc",
-            "C. Bộ tộc",
-            "D. Dân tộc"
-        ]
-    },
-    {
-        q: "Bộ tộc là hình thức cộng đồng người xuất hiện và tồn tại đầu tiên trong chế độ:",
-        a: "B",
-        ops: [
+            "D. Các dân tộc được nhà nước và pháp luật tôn trọng, bảo vệ",
+          ],
+        },
+        {
+          q: "Hình thức cộng đồng đầu tiên trong lịch sử là:",
+          a: "B",
+          ops: ["A. Bộ lạc", "B. Thị tộc", "C. Bộ tộc", "D. Dân tộc"],
+        },
+        {
+          q: "Bộ tộc là hình thức cộng đồng người xuất hiện và tồn tại đầu tiên trong chế độ:",
+          a: "A",
+          ops: [
             "A. Công xã nguyên thuỷ",
             "B. Nô lệ và phong kiến",
             "C. Phong kiến và tư bản chủ nghĩa",
-            "D. Tư bản chủ nghĩa"
-        ]
-    },
-    {
-        q: "Phong trào đấu tranh giải phóng dân tộc diễn ra mạnh mẽ vào giai đoạn nào?",
-        a: "A",
-        ops: [
+            "D. Tư bản chủ nghĩa",
+          ],
+        },
+        {
+          q: "Phong trào đấu tranh giải phóng dân tộc diễn ra mạnh mẽ vào giai đoạn nào?",
+          a: "A",
+          ops: [
             "A. Những năm 60 của thế kỷ XX",
             "B. Những năm 70 của thế kỷ XX",
             "C. Những năm 80 của thế kỷ XX",
-            "D. Những năm 90 của thế kỷ XX"
-        ]
-    },
-    {
-        q: "Kết quả của phong trào đấu tranh giải phóng dân tộc vào những năm 60 của thế kỷ XX là:",
-        a: "B",
-        ops: [
+            "D. Những năm 90 của thế kỷ XX",
+          ],
+        },
+        {
+          q: "Kết quả của phong trào đấu tranh giải phóng dân tộc vào những năm 60 của thế kỷ XX là:",
+          a: "D",
+          ops: [
             "A. Khoảng 80 quốc gia đã giành được độc lập dân tộc",
             "B. Khoảng 100 quốc gia đã giành được độc lập dân tộc",
             "C. Khoảng 120 quốc gia đã giành được độc lập dân tộc",
-            "D. Khoảng 140 quốc gia đã giành được độc lập dân tộc"
-        ]
-    },
-    {
-        q: "V.I.Lênin đã dựa vào tiền đề nào dưới đây để khái quát Cương lĩnh dân tộc?",
-        a: "A",
-        ops: [
+            "D. Khoảng 140 quốc gia đã giành được độc lập dân tộc",
+          ],
+        },
+        {
+          q: "V.I.Lênin đã dựa vào tiền đề nào dưới đây để khái quát Cương lĩnh dân tộc?",
+          a: "A",
+          ops: [
             "A. Hai xu hướng khách quan trong sự phát triển dân tộc",
             "B. Đặc trưng cơ bản của dân tộc",
             "C. Hai nghĩa cơ bản của dân tộc",
-            "D. Khái niệm dân tộc"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo là sản phẩm của ai?",
-        a: "D",
-        ops: [
+            "D. Khái niệm dân tộc",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo là sản phẩm của ai?",
+          a: "D",
+          ops: [
             "A. Thần linh",
             "B. Thượng đế",
             "C. Các lực lượng siêu nhiên",
-            "D. Con người"
-        ]
-    },
-    {
-        q: "Trong quan niệm tôn giáo, \"thiên đường\" tồn tại ở đâu?",
-        a: "A",
-        ops: [
-            "A. \"Thế giới bên kia\", trên \"thượng giới\"",
+            "D. Con người",
+          ],
+        },
+        {
+          q: 'Trong quan niệm tôn giáo, "thiên đường" tồn tại ở đâu?',
+          a: "A",
+          ops: [
+            'A. "Thế giới bên kia", trên "thượng giới"',
             "B. Xã hội hiện thực",
             "C. Xã hội trong quá khứ",
-            "D. Xã hội trong tương tai"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo hình thành là do:",
-        a: "A",
-        ops: [
+            "D. Xã hội trong tương tai",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo hình thành là do:",
+          a: "A",
+          ops: [
             "A. Trình độ nhận thức, xã hội có áp bức bóc lột, tâm lý, tình cảm.",
             "B. Lịch sử lâu đời",
             "C. Giai cấp thống trị tạo ra",
-            "D. Kinh tế tạo ra"
-        ]
-    },
-    {
-        q: "Theo Cương lĩnh dân tộc, trong các nội dung của quyền dân tộc tự quyết thì nội dung nào được coi là cơ bản nhất, tiên quyết nhất?",
-        a: "A",
-        ops: [
+            "D. Kinh tế tạo ra",
+          ],
+        },
+        {
+          q: "Theo Cương lĩnh dân tộc, trong các nội dung của quyền dân tộc tự quyết thì nội dung nào được coi là cơ bản nhất, tiên quyết nhất?",
+          a: "A",
+          ops: [
             "A. Tự quyết về chính trị",
             "B. Tự quyết về kinh tế",
             "C. Tự quyết về văn hoá",
-            "D. Tự quyết về lãnh thổ"
-        ]
-    },
-    {
-        q: "Trong các nội dung dưới đây, chính sách nào của Đảng và Nhà nước ta được coi là cực kỳ quan trọng, là nền tảng để tăng cường khối đại đoàn kết toàn dân tộc?",
-        a: "C",
-        ops: [
+            "D. Tự quyết về lãnh thổ",
+          ],
+        },
+        {
+          q: "Trong các nội dung dưới đây, chính sách nào của Đảng và Nhà nước ta được coi là cực kỳ quan trọng, là nền tảng để tăng cường khối đại đoàn kết toàn dân tộc?",
+          a: "A",
+          ops: [
             "A. Tôn trọng lợi ích, truyền thống, văn hoá của các dân tộc",
             "B. Phát huy truyền thống đoàn kết giữa các dân tộc",
             "C. Phát triển kinh tế hàng hoá ở các vùng dân tộc thiểu số",
-            "D. Tăng cường bồi dưỡng, đào tạo đội ngũ cán bộ là người dân tộc thiểu số"
-        ]
-    },
-    {
-        q: "Việc xác định hành vi tôn giáo hay mê tín dị đoan dựa vào yếu tố nào?",
-        a: "B",
-        ops: [
+            "D. Tăng cường bồi dưỡng, đào tạo đội ngũ cán bộ là người dân tộc thiểu số",
+          ],
+        },
+        {
+          q: "Việc xác định hành vi tôn giáo hay mê tín dị đoan dựa vào yếu tố nào?",
+          a: "D",
+          ops: [
             "A. Nghi lễ tiến hành",
             "B. Hậu quả hành vi",
             "C. Nội dung hành vi",
-            "D. Giáo lý"
-        ]
-    },
-    {
-        q: "Chủ trương của Đảng ta đối với hoạt động tôn giáo là gì?",
-        a: "D",
-        ops: [
+            "D. Giáo lý",
+          ],
+        },
+        {
+          q: "Chủ trương của Đảng ta đối với hoạt động tôn giáo là gì?",
+          a: "D",
+          ops: [
             "A. Cấm mọi hình thức sinh hoạt tôn giáo",
             "B. Phân biệt đối xử giữa người có tín ngưỡng và người không có tín ngưỡng",
             "C. Nhanh chóng thủ tiêu tôn giáo",
-            "D. Tôn trọng đảm bảo quyền tự do tín ngưỡng và không tín ngưỡng"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác Lênin, bản chất của tôn giáo là:",
-        a: "B",
-        ops: [
+            "D. Tôn trọng đảm bảo quyền tự do tín ngưỡng và không tín ngưỡng",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác Lênin, bản chất của tôn giáo là:",
+          a: "A",
+          ops: [
             "A. Là sự phản ánh hiện thực khách quan",
             "B. Là sự phản ánh sai lầm hiện thực khách quan",
             "C. Là niềm vui nhân loại",
-            "D. Là sáng tạo của thiên tài"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tiêu chí cơ bản để phân biệt sự khác nhau giữa các dân tộc là:",
-        a: "C",
-        ops: [
+            "D. Là sáng tạo của thiên tài",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tiêu chí cơ bản để phân biệt sự khác nhau giữa các dân tộc là:",
+          a: "C",
+          ops: [
             "A. Địa bàn cư trú của dân tộc",
             "B. Trình độ phát triển của dân tộc",
             "C. Bản sắc văn hoá của dân tộc",
-            "D. Tổ chức dân tộc"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, khoa học khác với tôn giáo:",
-        a: "A",
-        ops: [
+            "D. Tổ chức dân tộc",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, khoa học khác với tôn giáo:",
+          a: "A",
+          ops: [
             "A. Về cơ sở và tính chất phản ánh hiện thực",
             "B. Về thực hành",
             "C. Về nguồn gốc phát sinh",
-            "D. Về vai trò xã hội"
-        ]
-    },
-    {
-        q: "Theo lịch sử tiến hoá của nhân loại, dân tộc là sản phẩm của quá trình:",
-        a: "B",
-        ops: [
+            "D. Về vai trò xã hội",
+          ],
+        },
+        {
+          q: "Theo lịch sử tiến hoá của nhân loại, dân tộc là sản phẩm của quá trình:",
+          a: "B",
+          ops: [
             "A. Phát triển lâu dài của giới tự nhiên",
             "B. Phát triển lâu dài của xã hội loài người",
             "C. Phát triển kinh tế – xã hội",
-            "D. Phát triển chính trị - xã hội"
-        ]
-    },
-    {
-        q: "Thờ cúng tổ tiên, Thờ anh hùng dân tộc, Thờ Mẫu là:",
-        a: "B",
-        ops: [
+            "D. Phát triển chính trị - xã hội",
+          ],
+        },
+        {
+          q: "Thờ cúng tổ tiên, Thờ anh hùng dân tộc, Thờ Mẫu là:",
+          a: "B",
+          ops: [
             "A. Tôn giáo",
             "B. Tín ngưỡng",
             "C. Mê tín",
-            "D. Tín ngưỡng và mê tín"
-        ]
-    },
-    {
-        q: "Nguồn gốc tự nhiên, kinh tế – xã hội của tôn giáo xuất hiện đầu tiên trong chế độ:",
-        a: "A",
-        ops: [
+            "D. Tín ngưỡng và mê tín",
+          ],
+        },
+        {
+          q: "Nguồn gốc tự nhiên, kinh tế – xã hội của tôn giáo xuất hiện đầu tiên trong chế độ:",
+          a: "A",
+          ops: [
             "A. Công xã nguyên thuỷ",
             "B. Chiếm hữu nô lệ",
             "C. Phong kiến",
-            "D. Tư bản chủ nghĩa"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo phản ánh khát vọng của những người lao động về một xã hội tự do, bình đẳng, bác ái là thuộc:",
-        a: "C",
-        ops: [
+            "D. Tư bản chủ nghĩa",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo phản ánh khát vọng của những người lao động về một xã hội tự do, bình đẳng, bác ái là thuộc:",
+          a: "C",
+          ops: [
             "A. Tính lịch sử",
             "B. Tính chính trị",
             "C. Tính quần chúng",
-            "D. Tính chất chung của tôn giáo"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo hình thành, tồn tại, phát triển và có khả năng biến đổi trong những giai đoạn lịch sử nhất định là thuộc:",
-        a: "A",
-        ops: [
+            "D. Tính chất chung của tôn giáo",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo hình thành, tồn tại, phát triển và có khả năng biến đổi trong những giai đoạn lịch sử nhất định là thuộc:",
+          a: "A",
+          ops: [
             "A. Tính lịch sử",
             "B. Tính chính trị",
             "C. Tính quần chúng",
-            "D. Tính chất chung của tôn giáo"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, quan điểm tôn giáo chỉ xuất hiện khi xã hội đã phân chia giai cấp là thuộc:",
-        a: "B",
-        ops: [
+            "D. Tính chất chung của tôn giáo",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, quan điểm tôn giáo chỉ xuất hiện khi xã hội đã phân chia giai cấp là thuộc:",
+          a: "B",
+          ops: [
             "A. Tính lịch sử",
             "B. Tính chính trị",
             "C. Tính quần chúng",
-            "D. Tính chất chung của tôn giáo"
-        ]
-    },
-    {
-        q: "Trong xã hội nào, tín ngưỡng, tôn giáo chỉ biểu hiện thuần tuý về tư tưởng?",
-        a: "A",
-        ops: [
+            "D. Tính chất chung của tôn giáo",
+          ],
+        },
+        {
+          q: "Trong xã hội nào, tín ngưỡng, tôn giáo chỉ biểu hiện thuần tuý về tư tưởng?",
+          a: "A",
+          ops: [
             "A. Công xã nguyên thuỷ",
             "B. Chiếm hữu nô lệ",
             "C. Phong kiến",
-            "D. Tư bản chủ nghĩa"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, phân biệt hai mặt chính trị và tư tưởng trong giải quyết vấn đề tôn giáo thực chất là phân biệt tính chất khác nhau của:",
-        a: "B",
-        ops: [
+            "D. Tư bản chủ nghĩa",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, phân biệt hai mặt chính trị và tư tưởng trong giải quyết vấn đề tôn giáo thực chất là phân biệt tính chất khác nhau của:",
+          a: "B",
+          ops: [
             "A. Hai hình thức luôn tồn tại trong bản thân tôn giáo và trong vấn đề tôn giáo",
             "B. Hai loại mâu thuẫn luôn tồn tại trong bản thân tôn giáo và trong vấn đề tôn giáo",
             "C. Hai nội dung tồn tại trong bản thân tôn giáo và trong vấn đề tôn giáo",
-            "D. Hai đặc điểm luôn tồn tại trong bản thân tôn giáo và trong vấn đề tôn giáo"
-        ]
-    },
-    {
-        q: "Tôn giáo không phải là một hiện tượng xã hội bất biến... Nội dung này thể hiện trong nguyên tắc:",
-        a: "D",
-        ops: [
+            "D. Hai đặc điểm luôn tồn tại trong bản thân tôn giáo và trong vấn đề tôn giáo",
+          ],
+        },
+        {
+          q: "Tôn giáo không phải là một hiện tượng xã hội bất biến, ngược lại, nó luôn luôn vận động và biến đổi không ngừng tuỳ thuộc vào những điều kiện kinh tế - xã hội - lịch sử cụ thể. Nội dung này thể hiện trong nguyên tắc:",
+          a: "D",
+          ops: [
             "A. Tôn trọng, bảo đảm quyền tự do tín ngưỡng và không tín ngưỡng của nhân dân",
             "B. Khắc phục dần những ảnh hưởng tiêu cực của tôn giáo phải gắn liền với quá trình cải tạo xã hội cũ, xây dựng xã hội mới",
             "C. Phân biệt hai mặt chính trị và tư tưởng; tín ngưỡng, tôn giáo và lợỉ dụng tín ngưỡng, tôn giáo trong quá trình giải quyết vấn đề tôn giáo",
-            "D. Quan điểm lịch sử cụ thể trong giải quyết vấn đề tín ngưỡng, tôn giáo"
-        ]
-    },
-    {
-        q: "Muốn thay đổi ý thức xã hội, trước hết cần phải thay đổi bản thân tồn tại xã hội... Nội dung này thể hiện trong nguyên tắc:",
-        a: "B",
-        ops: [
+            "D. Quan điểm lịch sử cụ thể trong giải quyết vấn đề tín ngưỡng, tôn giáo",
+          ],
+        },
+        {
+          q: "Muốn thay đổi ý thức xã hội, trước hết cần phải thay đổi bản thân tồn tại xã hội; muốn xoá bỏ ảo tưởng nảy sinh trong tư tưởng con người, phải xoá bỏ nguồn gốc sinh ra ảo tưởng ấy. Nội dung này thể hiện trong nguyên tắc:",
+          a: "B",
+          ops: [
             "A. Tôn trọng, bảo đảm quyền tự do tín ngưỡng và không tín ngưỡng của nhân dân",
             "B. Khắc phục dần những ảnh hưởng tiêu cực của tôn giáo phải gắn liền với quá trình cải tạo xã hội cũ, xây dựng xã hội mới",
             "C. Phân biệt hai mặt chính trị và tư tưởng; tín ngưỡng, tôn giáo và lợỉ dụng tín ngưỡng, tôn giáo trong quá trình giải quyết vấn đề tôn giáo",
-            "D. Quan điểm lịch sử cụ thể trong giải quyết vấn đề tín ngưỡng, tôn giáo"
-        ]
-    },
-    {
-        q: "Trong xã hội có đối kháng giai cấp, tôn giáo thường bị yếu tố chính trị chi phối rất sâu sắc... Nội dung này thể hiện trong nguyên tắc:",
-        a: "C",
-        ops: [
+            "D. Quan điểm lịch sử cụ thể trong giải quyết vấn đề tín ngưỡng, tôn giáo",
+          ],
+        },
+        {
+          q: "Trong xã hội có đối kháng giai cấp, tôn giáo thường bị yếu tố chính trị chi phối rất sâu sắc, nên khó nhận biết vấn đề chính trị hay tư tưởng thuần tuý trong tôn giáo. Nội dung này thể hiện trong nguyên tắc:",
+          a: "C",
+          ops: [
             "A. Tôn trọng, bảo đảm quyền tự do tín ngưỡng và không tín ngưỡng của nhân dân",
             "B. Khắc phục dần những ảnh hưởng tiêu cực của tôn giáo phải gắn liền với quá trình cải tạo xã hội cũ, xây dựng xã hội mới",
             "C. Phân biệt hai mặt chính trị và tư tưởng; tín ngưỡng, tôn giáo và lợi dụng tín ngưỡng, tôn giáo trong quá trình giải quyết vấn đề tôn giáo",
-            "D. Quan điểm lịch sử cụ thể trong giải quyết vấn đề tín ngưỡng, tôn giáo"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, quan hệ dân tộc và tôn giáo là:",
-        a: "D",
-        ops: [
+            "D. Quan điểm lịch sử cụ thể trong giải quyết vấn đề tín ngưỡng, tôn giáo",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, quan hệ dân tộc và tôn giáo là:",
+          a: "D",
+          ops: [
             "A. Sự tồn tại độc lập của dân tộc và tôn giáo trong nội bộ một quốc gia, hoặc giữa các quốc gia với nhau trên mọi lĩnh vực của đời sống xã hội",
             "B. Sự liên kết, vai trò quyết định của tôn giáo đối với trong nội bộ một quốc gia, hoặc giữa các quốc gia với nhau trên mọi lĩnh vực của đời sống xã hội",
             "C. Sự liên kết, vai trò quyết định của dân tộc đối với tôn giáo trong nội bộ một quốc gia, hoặc giữa các quốc gia với nhau trên mọi lĩnh vực của đời sống xã hội.",
-            "D. Sự liên kết, tác động qua lại, chi phối lẫn nhau giữa dân tộc với tôn giáo trong nội bộ một quốc gia, hoặc giữa các quốc gia với nhau trên mọi lĩnh vực của đời sống xã hội."
-        ]
-    },
-    {
-        q: "Việt Nam là một quốc gia:",
-        a: "A",
-        ops: [
+            "D. Sự liên kết, tác động qua lại, chi phối lẫn nhau giữa dân tộc với tôn giáo trong nội bộ một quốc gia, hoặc giữa các quốc gia với nhau trên mọi lĩnh vực của đời sống xã hội.",
+          ],
+        },
+        {
+          q: "Việt Nam là một quốc gia:",
+          a: "A",
+          ops: [
             "A. Đa dân tộc, đa tôn giáo",
             "B. Đa dân tộc",
             "C. Đa tôn giáo",
-            "D. Nhiều dân tộc, ít tôn giáo"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, khi nào thì tôn giáo sẽ dần dần mất đi vị trí của nó trong đời sống xã hội và cả trong nhận thức, niềm tin của mỗi người?",
-        a: "A",
-        ops: [
+            "D. Nhiều dân tộc, ít tôn giáo",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, khi nào thì tôn giáo sẽ dần dần mất đi vị trí của nó trong đời sống xã hội và cả trong nhận thức, niềm tin của mỗi người?",
+          a: "A",
+          ops: [
             "A. Khi khoa học và giáo dục giúp cho đại đa số quần chúng nhân dân nhận thức được bản chất các hiện tượng tự nhiên và xã hội",
             "B. Khi kinh tế phát triển",
             "C. Khi con người được phát triển toàn diện",
-            "D. Khi con người được đáp ứng đầy đủ các nhu cầu vật chất"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác - Lênin, khi khoa học và giáo dục giúp cho đại đa số quần chúng nhân dân nhận thức được bản chất các hiện tượng tự nhiên và xã hội thì:",
-        a: "A",
-        ops: [
+            "D. Khi con người được đáp ứng đầy đủ các nhu cầu vật chất",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác - Lênin, khi khoa học và giáo dục giúp cho đại đa số quần chúng nhân dân nhận thức được bản chất các hiện tượng tự nhiên và xã hội thì:",
+          a: "A",
+          ops: [
             "A. Tôn giáo sẽ dần dần mất đi vị trí của nó trong đời sông xã hội và cả trong nhận thức, niềm tin của mỗi người.",
             "B. Tôn giáo sẽ hoàn toàn mất đi",
             "C. Tôn giáo sẽ không còn tồn tại",
-            "D. Tôn giáo ngày càng phát triển"
-        ]
-    },
-    {
-        q: "Đại hội nào của Đảng Cộng sản Việt Nam khẳng định: “... Nghiêm trị những âm mưu, hành động chia rẽ, phá hoại khối đại đoàn kết dân tộc... Đồng thời chủ động phòng ngừa, kiên quyết đấu tranh với những hành vi lợi dụng tín ngưỡng, tôn giáo...\"?",
-        a: "D",
-        ops: [
-            "A. IX",
-            "B. X",
-            "C. XI",
-            "D. XII"
-        ]
-    },
-    {
-        q: "Tư tưởng: sợ hãi trước thế lực mù quáng của tư bản..., sự phá sản \"đột ngột\", \"bất ngờ\", \"ngẫu nhiên\", làm họ bị diệt vong... là của ai?",
-        a: "C",
-        ops: [
+            "D. Tôn giáo ngày càng phát triển",
+          ],
+        },
+        {
+          q: 'Đại hội nào của Đảng Cộng sản Việt Nam khẳng định: “... Nghiêm trị những âm mưu, hành động chia rẽ, phá hoại khối đại đoàn kết dân tộc... Đồng thời chủ động phòng ngừa, kiên quyết đấu tranh với những hành vi lợi dụng tín ngưỡng, tôn giáo trái quy định của pháp luật”?"?',
+          a: "D",
+          ops: ["A. IX", "B. X", "C. XI", "D. XII"],
+        },
+        {
+          q: 'Tư tưởng: sợ hãi trước thế lực mù quáng của tư bản..., sự phá sản "đột ngột", "bất ngờ", "ngẫu nhiên", làm họ bị diệt vong..., dồn họ vào cảnh chết đói, đó chính là nguồn gốc sâu xa của tôn giáo hiện đại, là của ai?',
+          a: "C",
+          ops: [
             "A. C. Mác",
             "B. Ph. Ăngghen",
             "C. V.I. Lênin",
-            "D. Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Tác phẩm: “Về quyền dân tộc tự quyết” là của ai?",
-        a: "C",
-        ops: [
+            "D. Hồ Chí Minh",
+          ],
+        },
+        {
+          q: "Tác phẩm: “Về quyền dân tộc tự quyết” là của ai?",
+          a: "C",
+          ops: [
             "A. C. Mác",
             "B. C. Mác & Ph. Ăng ghen",
             "C. V.I Lênin",
-            "D. Stalin"
-        ]
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, cơ sở tồn tại của tôn giáo là:",
-        a: "D",
-        ops: [
+            "D. Stalin",
+          ],
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, cơ sở tồn tại của tôn giáo là:",
+          a: "A",
+          ops: [
             "A. Nhận thức của con người đối với thế giới khách quan",
             "B. Niềm tin của con người",
             "C. Sự tưởng tượng của con người",
-            "D. Tồn tại xã hội"
-        ]
-    },
-    {
-        q: "Ở phương Tây, dân tộc xuất hiện khi nào?",
-        a: "C",
-        ops: [
+            "D. Tồn tại xã hội",
+          ],
+        },
+        {
+          q: "Ở phương Tây, dân tộc xuất hiện khi nào?",
+          a: "C",
+          ops: [
             "A. Khi chế độ chiếm hữu nô lệ ra đời",
             "B. Khi chế độ phong kiến ra đời",
             "C. Khi chế độ tư bản chủ nghĩa ra đời",
-            "D. Khi chế độ xã hội chủ nghĩa ra đời"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác Lênin, tình trạng dân tộc này áp bức, đô hộ các dân tộc khác bị xoá bỏ khi nào?",
-        a: "A",
-        ops: [
+            "D. Khi chế độ xã hội chủ nghĩa ra đời",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác Lênin, tình trạng dân tộc này áp bức, đô hộ các dân tộc khác bị xoá bỏ khi nào?",
+          a: "D",
+          ops: [
             "A. Khi chế độ người bóc lột người bị xoá bỏ",
             "B. Khi nền kinh tế tư bản chủ nghĩa phát triển đến đỉnh cao",
             "C. Khi nền kinh tế xã hội xã hội chủ nghĩa phát triển đến đỉnh cao",
-            "D. Khi con người được phát triển toàn diện"
-        ]
-    },
-    {
-        q: "Đại hội nào của Đảng ta đã khẳng định: “Sự phát triển mọi mặt của từng dân tộc đi liền với sự củng cố, phát triển của cộng đồng các dân tộc trên đất nước ta...\"?",
-        a: "C",
-        ops: [
-            "A. IV",
-            "B. V",
-            "C. VI",
-            "D. VII"
-        ]
-    },
-    {
-        q: "Đại hội mấy của Đảng ta đã khẳng định: “Giữ vững độc lập tự chủ đi đôi với mở rộng hợp tác quốc tế, đa phương hoá, đa dạng hoá quan hệ đối ngoại”?",
-        a: "D",
-        ops: [
-            "A. IV",
-            "B. V",
-            "C. VI",
-            "D. VII"
-        ]
-    },
-    {
-        q: "Đối với các vùng dân tộc và miền núi, Đảng và Nhà nước ta ưu tiên đầu tư phát triển:",
-        a: "A",
-        ops: [
+            "D. Khi con người được phát triển toàn diện",
+          ],
+        },
+        {
+          q: 'Đại hội nào của Đảng ta đã khẳng định: “Sự phát triển mọi mặt của từng dân tộc đi liền với sự củng cố, phát triển của cộng đồng các dân tộc trên đất nước ta. Sự tăng cường tính cộng đồng, tính thống nhất là một quá trình hợp quy luật, nhưng tính cộng đồng, tính thống nhất không mâu thuẫn, không bài trừ tính đa dạng, tính độc đáo trong bản sắc của mỗi dân tộc”?',
+          a: "C",
+          ops: ["A. IV", "B. V", "C. VI", "D. VII"],
+        },
+        {
+          q: "Đại hội mấy của Đảng ta đã khẳng định: “Giữ vững độc lập tự chủ đi đôi với mở rộng hợp tác quốc tế, đa phương hoá, đa dạng hoá quan hệ đối ngoại”?",
+          a: "D",
+          ops: ["A. IV", "B. V", "C. VI", "D. VII"],
+        },
+        {
+          q: "Đối với các vùng dân tộc và miền núi, Đảng và Nhà nước ta ưu tiên đầu tư phát triển:",
+          a: "A",
+          ops: [
             "A. Kinh tế –xã hội",
             "B. Chính trị – xã hội",
             "C. Văn hoá – xã hội",
-            "D. Văn hoá – giáo dục"
-        ]
-    },
-    {
-        q: "Ai đưa ra luận điểm: \"sự sợ hãi sinh ra thần linh\"?",
-        a: "A",
-        ops: [
+            "D. Văn hoá – giáo dục",
+          ],
+        },
+        {
+          q: 'Ai đưa ra luận điểm: "sự sợ hãi sinh ra thần linh"?',
+          a: "A",
+          ops: [
             "A. Các nhà duy vật cổ đại",
             "B. Các nhà duy vật cận đại",
             "C. Các nhà duy vật trung đại",
-            "D. Các nhà duy vật biện chứng"
-        ]
-    },
-    {
-        q: "Tư tưởng: “tôn giáo là trái tim của thế giới không có trái tim, cũng giống như nó là tinh thần của trạng thái xã hội không có tinh thần” là của ai?",
-        a: "A",
-        ops: [
+            "D. Các nhà duy vật biện chứng",
+          ],
+        },
+        {
+          q: "Tư tưởng: “tôn giáo là trái tim của thế giới không có trái tim, cũng giống như nó là tinh thần của trạng thái xã hội không có tinh thần” là của ai?",
+          a: "A",
+          ops: [
             "A. C. Mác",
             "B. Ph. Ăngghen",
             "C. V.I. Lênin",
-            "D. Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác - Lênin, tôn giáo chỉ xuất hiện khi:",
-        a: "A",
-        ops: [
+            "D. Hồ Chí Minh",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác - Lênin, tôn giáo chỉ xuất hiện khi:",
+          a: "A",
+          ops: [
             "A. Khả năng tư duy trừu tượng của con người đạt tới một mức độ nhất định.",
             "B. Khoa học kỹ thuật phát triển",
             "C. Kinh tế phát triển",
-            "D. Giáo dục phát triển"
-        ]
-    }
-];
+            "D. Giáo dục phát triển",
+          ],
+        },
+      ];
 
-// --- DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN ---
+      // --- DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN ---
 
-const saData = [
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, tôn giáo còn tồn tại không?",
-        a: "Còn"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo là một hiện tượng xã hội phản ánh sự bế tắc, bất lực của con người trước tự nhiên và ….",
-        a: "Xã hội"
-    },
-    {
-        q: "Khái niệm nào được dùng để chỉ một cộng đồng người ổn định được hình thành trong lịch sử trong một lãnh thổ nhất định, có chung mối liên hệ về kinh tế, ngôn ngữ và một nền văn hoá?",
-        a: "Dân Tộc"
-    },
-    {
-        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: Ngoài nguồn gốc tự nhiên, xã hội và tâm lý tôn còn được sinh ra từ nguồn gốc nào?",
-        a: "Nguồn gốc nhận thức"
-    },
-    {
-        q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: Ngoài nguồn gốc tự nhiên, nguồn gốc nhận thức và tâm lý, tôn còn được sinh ra từ nguồn gốc nào?",
-        a: "Nguồn góc sâu xa"
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo có xuất hiện cùng với sự xuất hiện của con người không?",
-        a: "có"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, khắc phục dần những ảnh hưởng tiêu cực của tôn giáo phải gắn liền với quá trình cải tạo xã hội cũ và….",
-        a: "xấy dựng xã hội mới"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Về phương diện thế giới quan, thế giới quan duy vật mácxít và thế giới quan tôn giáo có đối lập nhau không?",
-        a: "Có"
-    },
-    {
-        q: "Ngôn ngữ có thể dùng để nhận biết một dân tộc hay không?",
-        a: "có"
-    },
-    {
-        q: "Nước ta hiện nay có bao nhiêu tôn giáo?",
-        a: "6"
-    },
-    {
-        q: "Việt Nam có bao nhiêu dân tộc?",
-        a: "54"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, tôn giáo còn tồn tại không?",
-        a: "còn"
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác Lênin, cơ sở tồn tại của tôn giáo là gì?",
-        a: "Tồn tại xã hội"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Quan điểm của Đảng và nhà nước ta hiện nay là giải quyết mối quan hệ dân tộc và tôn giáo phải bảo đảm …….tín ngưỡng, tôn giáo của nhân dân, quyền của các dân tộc thiểu so, đồng thời kiên quyết đấu tranh chống lợi dụng vấn đề dân tộc, tôn giảo vào mục đích chính trị.",
-        a: "Quyền tự do"
-    },
-    {
-        q: "Hình thức cộng đồng đầu tiên trong lịch sử là gì?",
-        a: "Thị tộc"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Về văn hóa, …. dân trí, ……chuyên môn kỹ thuật của nhiều dân tộc thiểu số ở Việt nam còn thấp.",
-        a: "Trình độ"
-    },
-    {
-        q: "Tính chất chính trị của tôn giáo chỉ xuất hiện khi xã hội đã….",
-        a: "phân chia giai cấp"
-    },
-    {
-        q: "Quan hệ dân tộc và tôn giáo ở Việt Nam chịu sự chi phối mạnh mẽ bởi yếu tố nào?",
-        a: "tín ngưỡng truyền thống"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm chủ nghĩa Mác - Lênin, bản chất của tôn giáo là sự phản ánh sai lầm……",
-        a: "hiện thực khách quan"
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác - Lênin, trong xã hội nào, tín ngưỡng, tôn giáo chỉ biểu hiện thuần tuý về mặt tư tưởng?",
-        a: "công xã nguyền thuỷ"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Đối với các vùng dân tộc và miền núi, Đảng và Nhà nước ta ưu tiên đầu tư phát triển….",
-        a: "kinh tềế - xã hội"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Quan điểm của Đảng và nhà nước ta hiện nay là tăng cường mối quan hệ tốt đẹp giữa……., củng cố khối đại đoàn kết toàn dân tộc và đoàn kết tôn giáo là vấn đề chiến lược, cơ bản, lâu dài và cấp bách của cách mạng Việt Nam.",
-        a: "dân tộc và tôn giáo"
-    },
-    {
-        q: "Điền từ còn thiếu vào chỗ trống: Theo quan điểm chủ nghĩa Mác Lênin, đối với các quốc gia có nhiều tộc người thì tính thống nhất trong đa dạng văn hóa là đặc trưng của….",
-        a: "Dân tộc"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm chủ nghĩa Mác Lênin, trong một quốc gia có nhiều dân tộc, quyền bình đẳng dân tộc phải được thể hiện trên……, nhưng quan trọng hơn nó phải được thực hiện trên thực tế.",
-        a: "cơ sở phap lý"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: V.I.Lênin đã dựa vào quan điểm của chủ nghĩa Mác về mối quan hệ giữa …… để khái quát Cương lĩnh dân tộc",
-        a: "dấn tộc với giai cấếp"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Lịch sử phát triển của các tộc người gắn liền với ….của họ.",
-        a: "Truyền thống văn hóa"
-    },
-    {
-        q: "Quan điểm: \"... tất cả mọi tôn giáo chẳng qua chỉ là sự phản ánh hư ảo...\" là của ai?",
-        a: "Ph.Ăngghen"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Ngày nay, để thực hiện thắng lợi chiến lược xây dựng và bảo vệ vững chắc Tổ quốc Việt Nam, các dân tộc thiểu số cũng như đa số phải ra sức phát huy ……., giữ gìn và phát huy truyền thống đoàn kết dân tộc, nâng cao cảnh giác, kịp thời đập tan mọi âm mưu và hành động chia rẽ, phá hoại khối đại đoàn kết dân tộc.",
-        a: "Nội lực"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Vấn đề dân tộc và đoàn kết dân tộc là vấn đề …….cơ bản, lâu dài, đồng thời cũng là vấn đề cấp bách hiện nay của cách mạng Việt Nam.",
-        a: "chiềến lược"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác - Lênin, khi khoa học và giáo dục giúp cho đại đa số quần chúng nhân đân nhận thức được bản chất các hiện tượng tự nhiên và xã hội thì …….sẽ dần dần mất đi vị trí của nó trong đời sống xã hội và cả trong nhận thức, niềm tin của mỗi người.",
-        a: "Tôn giáo"
-    }
-];
+      const saData = [
+        {
+          q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, tôn giáo còn tồn tại không?",
+          a: "Còn",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo là một hiện tượng xã hội phản ánh sự bế tắc, bất lực của con người trước tự nhiên và ….",
+          a: "Xã hội",
+        },
+        {
+          q: "Khái niệm nào được dùng để chỉ một cộng đồng người ổn định được hình thành trong lịch sử trong một lãnh thổ nhất định, có chung mối liên hệ về kinh tế, ngôn ngữ và một nền văn hoá?",
+          a: "Dân Tộc",
+        },
+        {
+          q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: Ngoài nguồn gốc tự nhiên, xã hội và tâm lý tôn còn được sinh ra từ nguồn gốc nào?",
+          a: "Nguồn gốc nhận thức",
+        },
+        {
+          q: "Theo quan điểm của Chủ nghĩa Mác – Lênin: Ngoài nguồn gốc tự nhiên, nguồn gốc nhận thức và tâm lý, tôn còn được sinh ra từ nguồn gốc nào?",
+          a: "Nguồn góc sâu xa",
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, tôn giáo có xuất hiện cùng với sự xuất hiện của con người không?",
+          a: "có",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, khắc phục dần những ảnh hưởng tiêu cực của tôn giáo phải gắn liền với quá trình cải tạo xã hội cũ và….",
+          a: "xấy dựng xã hội mới",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Về phương diện thế giới quan, thế giới quan duy vật mácxít và thế giới quan tôn giáo có đối lập nhau không?",
+          a: "Có",
+        },
+        {
+          q: "Ngôn ngữ có thể dùng để nhận biết một dân tộc hay không?",
+          a: "có",
+        },
+        {
+          q: "Nước ta hiện nay có bao nhiêu tôn giáo?",
+          a: "6",
+        },
+        {
+          q: "Việt Nam có bao nhiêu dân tộc?",
+          a: "54",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, tôn giáo còn tồn tại không?",
+          a: "còn",
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác Lênin, cơ sở tồn tại của tôn giáo là gì?",
+          a: "Tồn tại xã hội",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Quan điểm của Đảng và nhà nước ta hiện nay là giải quyết mối quan hệ dân tộc và tôn giáo phải bảo đảm …….tín ngưỡng, tôn giáo của nhân dân, quyền của các dân tộc thiểu so, đồng thời kiên quyết đấu tranh chống lợi dụng vấn đề dân tộc, tôn giảo vào mục đích chính trị.",
+          a: "Quyền tự do",
+        },
+        {
+          q: "Hình thức cộng đồng đầu tiên trong lịch sử là gì?",
+          a: "Thị tộc",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Về văn hóa, …. dân trí, ……chuyên môn kỹ thuật của nhiều dân tộc thiểu số ở Việt nam còn thấp.",
+          a: "Trình độ",
+        },
+        {
+          q: "Tính chất chính trị của tôn giáo chỉ xuất hiện khi xã hội đã….",
+          a: "phân chia giai cấp",
+        },
+        {
+          q: "Quan hệ dân tộc và tôn giáo ở Việt Nam chịu sự chi phối mạnh mẽ bởi yếu tố nào?",
+          a: "tín ngưỡng truyền thống",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm chủ nghĩa Mác - Lênin, bản chất của tôn giáo là sự phản ánh sai lầm……",
+          a: "hiện thực khách quan",
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác - Lênin, trong xã hội nào, tín ngưỡng, tôn giáo chỉ biểu hiện thuần tuý về mặt tư tưởng?",
+          a: "công xã nguyền thuỷ",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Đối với các vùng dân tộc và miền núi, Đảng và Nhà nước ta ưu tiên đầu tư phát triển….",
+          a: "kinh tềế - xã hội",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Quan điểm của Đảng và nhà nước ta hiện nay là tăng cường mối quan hệ tốt đẹp giữa……., củng cố khối đại đoàn kết toàn dân tộc và đoàn kết tôn giáo là vấn đề chiến lược, cơ bản, lâu dài và cấp bách của cách mạng Việt Nam.",
+          a: "dân tộc và tôn giáo",
+        },
+        {
+          q: "Điền từ còn thiếu vào chỗ trống: Theo quan điểm chủ nghĩa Mác Lênin, đối với các quốc gia có nhiều tộc người thì tính thống nhất trong đa dạng văn hóa là đặc trưng của….",
+          a: "Dân tộc",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm chủ nghĩa Mác Lênin, trong một quốc gia có nhiều dân tộc, quyền bình đẳng dân tộc phải được thể hiện trên……, nhưng quan trọng hơn nó phải được thực hiện trên thực tế.",
+          a: "cơ sở phap lý",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: V.I.Lênin đã dựa vào quan điểm của chủ nghĩa Mác về mối quan hệ giữa …… để khái quát Cương lĩnh dân tộc",
+          a: "dấn tộc với giai cấếp",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Lịch sử phát triển của các tộc người gắn liền với ….của họ.",
+          a: "Truyền thống văn hóa",
+        },
+        {
+          q: 'Quan điểm: "... tất cả mọi tôn giáo chẳng qua chỉ là sự phản ánh hư ảo..." là của ai?',
+          a: "Ph.Ăngghen",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Ngày nay, để thực hiện thắng lợi chiến lược xây dựng và bảo vệ vững chắc Tổ quốc Việt Nam, các dân tộc thiểu số cũng như đa số phải ra sức phát huy ……., giữ gìn và phát huy truyền thống đoàn kết dân tộc, nâng cao cảnh giác, kịp thời đập tan mọi âm mưu và hành động chia rẽ, phá hoại khối đại đoàn kết dân tộc.",
+          a: "Nội lực",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Vấn đề dân tộc và đoàn kết dân tộc là vấn đề …….cơ bản, lâu dài, đồng thời cũng là vấn đề cấp bách hiện nay của cách mạng Việt Nam.",
+          a: "chiềến lược",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác - Lênin, khi khoa học và giáo dục giúp cho đại đa số quần chúng nhân đân nhận thức được bản chất các hiện tượng tự nhiên và xã hội thì …….sẽ dần dần mất đi vị trí của nó trong đời sống xã hội và cả trong nhận thức, niềm tin của mỗi người.",
+          a: "Tôn giáo",
+        },
+      ];
 
+      // KHỞI TẠO
+      const mcContainer = document.getElementById("mc-container");
+      const saContainer = document.getElementById("sa-container");
+      const totalEl = document.getElementById("total");
+      const progressEl = document.getElementById("progress");
+      const scoreEl = document.getElementById("score");
 
-    // KHỞI TẠO
-    const mcContainer = document.getElementById('mc-container');
-    const saContainer = document.getElementById('sa-container');
-    const totalEl = document.getElementById('total');
-    const progressEl = document.getElementById('progress');
-    const scoreEl = document.getElementById('score');
+      let answeredCount = 0;
+      let score = 0;
 
-    let answeredCount = 0;
-    let score = 0;
+      // Hiển thị tổng số câu hỏi
+      totalEl.innerText = mcData.length;
 
-    // Hiển thị tổng số câu hỏi
-    totalEl.innerText = mcData.length;
-
-    // RENDER TRẮC NGHIỆM
-    mcData.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'question-card';
+      // RENDER TRẮC NGHIỆM
+      mcData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
         card.innerHTML = `
             <span class="q-number">Câu ${index + 1}</span>
             <div class="q-text">${item.q}</div>
             <div class="options-grid" id="ops-${index}">
-                ${item.ops.map(op => {
+                ${item.ops
+                  .map((op) => {
                     const letter = op.charAt(0); // A, B, C, D
                     return `<div class="option" onclick="checkAnswer(this, ${index}, '${item.a}', '${letter}')">${op}</div>`;
-                }).join('')}
+                  })
+                  .join("")}
             </div>
         `;
         mcContainer.appendChild(card);
-    });
+      });
 
-    // RENDER TRẢ LỜI NGẮN
-    saData.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'question-card';
-        card.style.borderLeftColor = '#17a2b8';
+      // RENDER TRẢ LỜI NGẮN
+      saData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.style.borderLeftColor = "#17a2b8";
         card.innerHTML = `
             <div class="q-text">${item.q}</div>
             <button class="btn-toggle" onclick="toggleSa(${index})">Xem Đáp Án Gợi Ý</button>
             <div id="sa-ans-${index}" class="answer-box"><strong>Đáp án:</strong> ${item.a}</div>
         `;
         saContainer.appendChild(card);
-    });
+      });
 
-    // XỬ LÝ CLICK TRẮC NGHIỆM
-    function checkAnswer(el, index, correctLetter, selectedLetter) {
+      // XỬ LÝ CLICK TRẮC NGHIỆM
+      function checkAnswer(el, index, correctLetter, selectedLetter) {
         const parent = document.getElementById(`ops-${index}`);
-        
+
         // Ngăn click lại nếu đã trả lời
-        if (parent.classList.contains('answered')) return;
-        parent.classList.add('answered');
+        if (parent.classList.contains("answered")) return;
+        parent.classList.add("answered");
 
         // Logic Đúng/Sai
         if (selectedLetter === correctLetter) {
-            el.classList.add('correct');
-            score++;
+          el.classList.add("correct");
+          score++;
         } else {
-            el.classList.add('wrong');
-            // Tìm và hiện đáp án đúng
-            const options = parent.children;
-            for (let op of options) {
-                if (op.innerText.startsWith(correctLetter)) {
-                    op.classList.add('correct');
-                }
+          el.classList.add("wrong");
+          // Tìm và hiện đáp án đúng
+          const options = parent.children;
+          for (let op of options) {
+            if (op.innerText.startsWith(correctLetter)) {
+              op.classList.add("correct");
             }
+          }
         }
 
         // Cập nhật thống kê
         answeredCount++;
         progressEl.innerText = answeredCount;
         scoreEl.innerText = score;
-    }
+      }
 
-    // XỬ LÝ TRẢ LỜI NGẮN
-    function toggleSa(index) {
+      // XỬ LÝ TRẢ LỜI NGẮN
+      function toggleSa(index) {
         const box = document.getElementById(`sa-ans-${index}`);
-        box.classList.toggle('visible');
-    }
-
-</script>
-
-</body>
+        box.classList.toggle("visible");
+      }
+    </script>
+  </body>
 </html>

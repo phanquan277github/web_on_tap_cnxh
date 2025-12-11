@@ -1,1240 +1,1194 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ôn Tập CNXH Khoa Học - Chương 5</title>
     <style>
-        :root {
-            --primary-color: #0056b3;
-            --secondary-color: #28a745;
-            --danger-color: #dc3545;
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-color: #333;
-        }
+      :root {
+        --primary-color: #0056b3;
+        --secondary-color: #28a745;
+        --danger-color: #dc3545;
+        --bg-color: #f4f7f6;
+        --card-bg: #ffffff;
+        --text-color: #333;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+      }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
 
-        h1 { color: var(--primary-color); margin: 0; font-size: 2rem; }
-        h2 { color: #666; font-weight: 400; margin-top: 10px; font-size: 1.1rem; }
+      h1 {
+        color: var(--primary-color);
+        margin: 0;
+        font-size: 2rem;
+      }
+      h2 {
+        color: #666;
+        font-weight: 400;
+        margin-top: 10px;
+        font-size: 1.1rem;
+      }
 
-        .stats-bar {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-        }
+      .stats-bar {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        backdrop-filter: blur(5px);
+      }
 
-        .section-header {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin: 30px 0 20px 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+      .section-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin: 30px 0 20px 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
 
-        .section-header.short {
-            background: #17a2b8;
-        }
+      .section-header.short {
+        background: #17a2b8;
+      }
 
-        .question-card {
-            background: var(--card-bg);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-left: 5px solid #ddd;
-        }
+      .question-card {
+        background: var(--card-bg);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid #ddd;
+      }
 
-        .q-number {
-            font-weight: bold;
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: block;
-        }
+      .q-number {
+        font-weight: bold;
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        display: block;
+      }
 
-        .q-text {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
+      .q-text {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
 
-        /* Styles cho các lựa chọn trắc nghiệm */
-        .options-grid {
-            display: grid;
-            gap: 10px;
-        }
+      /* Styles cho các lựa chọn trắc nghiệm */
+      .options-grid {
+        display: grid;
+        gap: 10px;
+      }
 
-        .option {
-            padding: 12px 15px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
+      .option {
+        padding: 12px 15px;
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
 
-        .option:hover {
-            background: #e2e6ea;
-            border-color: #ced4da;
-        }
+      .option:hover {
+        background: #e2e6ea;
+        border-color: #ced4da;
+      }
 
-        /* Khi đã chọn đáp án (đúng/sai) */
-        .option.correct {
-            background-color: #d4edda !important;
-            border-color: #28a745 !important;
-            color: #155724;
-            font-weight: 600;
-        }
+      /* Khi đã chọn đáp án (đúng/sai) */
+      .option.correct {
+        background-color: #d4edda !important;
+        border-color: #28a745 !important;
+        color: #155724;
+        font-weight: 600;
+      }
 
-        .option.correct::after {
-            content: "✓";
-            position: absolute;
-            right: 15px;
-            font-weight: bold;
-            color: #155724;
-        }
+      .option.correct::after {
+        content: "✓";
+        position: absolute;
+        right: 15px;
+        font-weight: bold;
+        color: #155724;
+      }
 
-        .option.wrong {
-            background-color: #f8d7da !important;
-            border-color: #dc3545 !important;
-            color: #721c24;
-            opacity: 0.8;
-        }
+      .option.wrong {
+        background-color: #f8d7da !important;
+        border-color: #dc3545 !important;
+        color: #721c24;
+        opacity: 0.8;
+      }
 
-        .option.wrong::after {
-            content: "✕";
-            position: absolute;
-            right: 15px;
-            font-weight: bold;
-            color: #721c24;
-        }
+      .option.wrong::after {
+        content: "✕";
+        position: absolute;
+        right: 15px;
+        font-weight: bold;
+        color: #721c24;
+      }
 
-        /* Vô hiệu hóa click sau khi đã chọn */
-        .options-grid.answered {
-            pointer-events: none;
-        }
+      /* Vô hiệu hóa click sau khi đã chọn */
+      .options-grid.answered {
+        pointer-events: none;
+      }
 
-        /* Nút cho phần tự luận */
-        .btn-toggle {
-            margin-top: 15px;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background: #e3f2fd; 
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-        
-        .answer-box {
-            margin-top: 15px;
-            padding: 15px;
-            background: #fff3cd;
-            border-radius: 6px;
-            color: #856404;
-            display: none;
-        }
-        .answer-box.visible { display: block; }
+      /* Nút cho phần tự luận */
+      .btn-toggle {
+        margin-top: 15px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: #e3f2fd;
+        color: var(--primary-color);
+        font-weight: 600;
+      }
 
+      .answer-box {
+        margin-top: 15px;
+        padding: 15px;
+        background: #fff3cd;
+        border-radius: 6px;
+        color: #856404;
+        display: none;
+      }
+      .answer-box.visible {
+        display: block;
+      }
     </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
+  </head>
+  <body>
+    <div class="container">
+      <header>
         <h1>TRẮC NGHIỆM TƯƠNG TÁC</h1>
-        <h2>Môn học: CNXH Khoa Học - Chương 5: Cơ cấu xã hội & Liên minh giai cấp</h2>
-    </header>
+        <h2>
+          Môn học: CNXH Khoa Học - Chương 5: Cơ cấu xã hội & Liên minh giai cấp
+        </h2>
+      </header>
 
-    <div class="stats-bar">
-        <div><strong>Tiến độ:</strong> <span id="progress">0</span> / <span id="total">0</span></div>
-        <div><strong>Điểm:</strong> <span id="score" style="color: var(--secondary-color); font-weight: bold;">0</span></div>
+      <div class="stats-bar">
+        <div>
+          <strong>Tiến độ:</strong> <span id="progress">0</span> /
+          <span id="total">0</span>
+        </div>
+        <div>
+          <strong>Điểm:</strong>
+          <span
+            id="score"
+            style="color: var(--secondary-color); font-weight: bold"
+            >0</span
+          >
+        </div>
+      </div>
+
+      <div class="section-header">
+        A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)
+      </div>
+      <div id="mc-container"></div>
+
+      <div class="section-header short">
+        B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)
+      </div>
+      <div id="sa-container"></div>
     </div>
 
-    <div class="section-header">A. CÂU HỎI TRẮC NGHIỆM (Click vào đáp án để chọn)</div>
-    <div id="mc-container"></div>
+    <script>
+      // --- DỮ LIỆU TỪ FILE CHUONG5.DOCX ---
+      // --- DỮ LIỆU CÂU HỎI TỪ FILE CHUONG5.DOCX ---
 
-    <div class="section-header short">B. CÂU HỎI TRẢ LỜI NGẮN (Nhấn nút để xem)</div>
-    <div id="sa-container"></div>
-</div>
-
-<script>
-    // --- DỮ LIỆU TỪ FILE CHUONG5.DOCX ---
-    // --- DỮ LIỆU CÂU HỎI TỪ FILE CHUONG5.DOCX ---
-
-const mcData = [
-    {
-        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Cơ cấu xã hội - giai cấp là hệ thống các giai cấp, tầng lớp xã hội tồn tại khách quan trong một chế độ xã hội nhất định, thông qua những mối quan hệ về sở hữu…",
-        a: "C",
-        ops: [
+      const mcData = [
+        {
+          q: "1.	Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Cơ cấu xã hội - giai cấp là hệ thống các giai cấp, tầng lớp xã hội tồn tại khách quan trong một chế độ xã hội nhất định, thông qua những mối quan hệ về sở hữu …	, về tổ chức quản lý quá trình sản xuất, về địa vị chính trị - xã hội.v.v.giữa các giai cấp và tầng lớp đó.",
+          a: "C",
+          ops: [
             "A. Của cải",
             "B. Tài sản",
             "C. Tư liệu sản xuất",
-            "D. Vật chất"
-        ]
-    },
-    {
-        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội - giai cấp là tổng thể các giai cấp, tầng lớp, các nhóm xã hội có mối quan hệ hợp tác và gắn bó chặt chẽ với nhau. Yếu tố quyết định mối quan hệ đó là họ cùng chung sức ………trên mọi lĩnh vực của đời sống xã hội.",
-        a: "D",
-        ops: [
+            "D. Vật chất",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội - giai cấp là tổng thể các giai cấp, tầng lớp, các nhóm xã hội có mối quan hệ hợp tác và gắn bó chặt chẽ với nhau. Yếu tố quyết định mối quan hệ đó là họ cùng chung sức ………trên mọi lĩnh vực của đời sống xã hội.",
+          a: "D",
+          ops: [
             "A. Cải tạo xã hội cũ và phát triển toàn diện",
             "B. Xây dựng xã hội mới và ổn định chính trị",
             "C. Phát triển toàn diện",
-            "D. Cải tạo xã hội cũ và xây dựng xã hội mới"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, yếu tố nào dẫn đến những biến đổi đa dạng, phức tạp trong cơ cấu xã hội - giai cấp trong thời kỳ quá độ lên chủ nghĩa xã hội?",
-        a: "D",
-        ops: [
+            "D. Cải tạo xã hội cũ và xây dựng xã hội mới",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, yếu tố nào dẫn đến những biến đổi đa dạng, phức tạp trong cơ cấu xã hội - giai cấp trong thời kỳ quá độ lên chủ nghĩa xã hội?",
+          a: "D",
+          ops: [
             "A. Kinh tế nhà nước",
             "B. Kinh tế tập thể",
             "C. Kinh tế tư nhân",
-            "D. Kinh tế nhiều thành phần"
-        ]
-    },
-    {
-        q: "Liên minh công, nông là vấn đề mang tính nguyên tắc để đảm bảo cho thắng lợi của cuộc cách mạng xã hội chủ nghĩa tháng Mười Nga năm 1917, là quan điểm của ai?",
-        a: "C",
-        ops: [
-            "A. C.Mác",
-            "B. Ph.Ăngghen",
-            "C. V.I.Lênin",
-            "D. Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, xét từ góc độ kinh tế, liên minh giữa giai cấp công nhân với giai cấp nông dân và các tầng lớp nhân dân lao dộng khác được hình thành xuất phát từ đâu?",
-        a: "B",
-        ops: [
+            "D. Kinh tế nhiều thành phần",
+          ],
+        },
+        {
+          q: "Liên minh công, nông là vấn đề mang tính nguyên tắc để đảm bảo cho thắng lợi của cuộc cách mạng xã hội chủ nghĩa tháng Mười Nga năm 1917, là quan điểm của ai?",
+          a: "C",
+          ops: ["A. C.Mác", "B. Ph.Ăngghen", "C. V.I.Lênin", "D. Hồ Chí Minh"],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, xét từ góc độ kinh tế, liên minh giữa giai cấp công nhân với giai cấp nông dân và các tầng lớp nhân dân lao dộng khác được hình thành xuất phát từ đâu?",
+          a: "B",
+          ops: [
             "A. Từ yêu cầu ổn định tình hình chính trị của đất nước",
             "B. Từ yêu cầu khách quan của quá trình đẩy mạnh công nghiệp hóa, hiện đại hóa.",
             "C. Từ yêu cầu phát triển văn hoá – tư tưởng",
-            "D. Từ yêu cầu phát triển giáo dục"
-        ]
-    },
-    {
-        q: "Cơ cấu xã hội - giai cấp của Việt Nam ở thời kỳ quá độ lên chủ nghĩa xã hội bao gồm những giai cấp, tầng lớp cơ bản nào?",
-        a: "B",
-        ops: [
+            "D. Từ yêu cầu phát triển giáo dục",
+          ],
+        },
+        {
+          q: "Cơ cấu xã hội - giai cấp của Việt Nam ở thời kỳ quá độ lên chủ nghĩa xã hội bao gồm những giai cấp, tầng lớp cơ bản nào?",
+          a: "A",
+          ops: [
             "A. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức của thời kỳ trước đổi mới",
             "B. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức, tầng lớp doanh nhân",
             "C. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức, tầng lớp doanh nhân, tiểu chủ",
-            "D. Giai cấp công nhân, giai cấp nông dân, đội ngũ trí thức, đội ngũ doanh nhân, phụ nữ, đội ngũ thanh niên……"
-        ]
-    },
-    {
-        q: "Lực lượng nào có vai trò quan trọng đặc biệt, là giai cấp lãnh đạo cách mạng thông qua đội tiền phong là Đảng Cộng sản Việt Nam?",
-        a: "A",
-        ops: [
+            "D. Giai cấp công nhân, giai cấp nông dân, đội ngũ trí thức, đội ngũ doanh nhân, phụ nữ, đội ngũ thanh niên……",
+          ],
+        },
+        {
+          q: "Lực lượng nào có vai trò quan trọng đặc biệt, là giai cấp lãnh đạo cách mạng thông qua đội tiền phong là Đảng Cộng sản Việt Nam?",
+          a: "A",
+          ops: [
             "A. Giai cấp công nhân Việt Nam",
             "B. Giai cấp nông dân Việt Nam",
             "C. Đội ngũ trí thức Việt Nam",
-            "D. Đội ngũ doanh nhân Việt Nam"
-        ]
-    },
-    {
-        q: "Ở Việt Nam, lực lượng nào giữ vị trí tiên phong trong sự nghiệp xây dựng chủ nghĩa xã hội, là lực lượng đi dầu trong sự nghiệp công nghiệp hóa, hiện dại hóa đất nước?",
-        a: "A",
-        ops: [
+            "D. Đội ngũ doanh nhân Việt Nam",
+          ],
+        },
+        {
+          q: "Ở Việt Nam, lực lượng nào giữ vị trí tiên phong trong sự nghiệp xây dựng chủ nghĩa xã hội, là lực lượng đi dầu trong sự nghiệp công nghiệp hóa, hiện dại hóa đất nước?",
+          a: "A",
+          ops: [
             "A. Giai cấp công nhân Việt Nam",
             "B. Giai cấp nông dân Việt Nam",
             "C. Đội ngũ trí thức Việt Nam",
-            "D. Đội ngũ doanh nhân Việt Nam"
-        ]
-    },
-    {
-        q: "Lực lượng đi đầu trong sự nghiệp phát triển kinh tế, tiến hành công nghiệp hóa, hiện đại hóa trong thời kỳ quá độ là:",
-        a: "C", // (Hoặc B tùy theo quan điểm cụ thể của giáo trình, nhưng chuẩn lý luận là GCCN)
-        ops: [
+            "D. Đội ngũ doanh nhân Việt Nam",
+          ],
+        },
+        {
+          q: "Lực lượng đi đầu trong sự nghiệp phát triển kinh tế, tiến hành công nghiệp hóa, hiện đại hóa trong thời kỳ quá độ là:",
+          a: "C", // (Hoặc B tùy theo quan điểm cụ thể của giáo trình, nhưng chuẩn lý luận là GCCN)
+          ops: [
             "A. Tầng lớp trí thức",
             "B. Đội ngũ doanh nhân",
             "C. Giai cấp công nhân",
-            "D. Giai cấp nông dân"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong thời kỳ quá độ lên chủ nghĩa xã hội, lực lượng nào có xu hướng giảm dần về số lượng và tỉ lệ trong cơ cấu xã hội - giai cấp?",
-        a: "D",
-        ops: [
+            "D. Giai cấp nông dân",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong thời kỳ quá độ lên chủ nghĩa xã hội, lực lượng nào có xu hướng giảm dần về số lượng và tỉ lệ trong cơ cấu xã hội - giai cấp?",
+          a: "D",
+          ops: [
             "A. Tầng lớp trí thức",
             "B. Đội ngũ doanh nhân",
             "C. Giai cấp công nhân",
-            "D. Giai cấp nông dân"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, lực lượng nào giữ vai trò là lực lượng lao động sáng tạo đặc biệt quan trọng trong tiến trình đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước và hội nhập quốc tế?",
-        a: "A",
-        ops: [
+            "D. Giai cấp nông dân",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, lực lượng nào giữ vai trò là lực lượng lao động sáng tạo đặc biệt quan trọng trong tiến trình đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước và hội nhập quốc tế?",
+          a: "A",
+          ops: [
             "A. Đội ngũ trí thức",
             "B. Đội ngũ doanh nhân",
             "C. Giai cấp công nhân",
-            "D. Giai cấp nông dân"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, lực lượng nào giữ vai trò là rường cột của nước nhà, chủ nhân tương lai của đất nước?",
-        a: "C",
-        ops: [
+            "D. Giai cấp nông dân",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, lực lượng nào giữ vai trò là rường cột của nước nhà, chủ nhân tương lai của đất nước?",
+          a: "C",
+          ops: [
             "A. Đội ngũ trí thức",
             "B. Đội ngũ doanh nhân",
             "C. Đội ngũ thanh niên",
-            "D. Phụ nữ"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, chăm lo, phát triển lực lượng nào vừa là mục tiêu, vừa là động lực bảo đảm cho sự ổn định và phát triển vững bền của đất nước?",
-        a: "D",
-        ops: [
+            "D. Phụ nữ",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, chăm lo, phát triển lực lượng nào vừa là mục tiêu, vừa là động lực bảo đảm cho sự ổn định và phát triển vững bền của đất nước?",
+          a: "C",
+          ops: [
             "A. Đội ngũ trí thức",
             "B. Đội ngũ doanh nhân",
             "C. Đội ngũ thanh niên",
-            "D. Phụ nữ"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, sự biến động của cơ cấu xã hội-giai cấp được quy định trực tiếp nhất bởi sự biến động của:",
-        a: "D",
-        ops: [
+            "D. Phụ nữ",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, sự biến động của cơ cấu xã hội-giai cấp được quy định trực tiếp nhất bởi sự biến động của:",
+          a: "D",
+          ops: [
             "A. Cơ cấu ngành, nghề",
             "B. Cơ cấu các thành phần kinh tế",
             "C. Cơ chế hành chính, kinh tế – xã hội",
-            "D. Cơ cấu ngành, nghề; Cơ cấu các thành phần kinh tế; Cơ chế hành chính, kinh tế – xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội - giai cấp là tổng thể các giai cấp, tầng lớp, các nhóm xã hội:",
-        a: "A",
-        ops: [
+            "D. Cơ cấu ngành, nghề; Cơ cấu các thành phần kinh tế; Cơ chế hành chính, kinh tế – xã hội",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội - giai cấp là tổng thể các giai cấp, tầng lớp, các nhóm xã hội:",
+          a: "A",
+          ops: [
             "A. Có mối quan hệ hợp tác và gắn bó chặt chẽ với nhau",
             "B. Có tính độc lập tương đối với nhau",
             "C. Phụ thuộc lẫn nhau",
-            "D. Mâu thuẫn với nhau"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong thời kỳ quá độ lên chủ nghĩa xã hội, yếu tố nào tất yếu đưa đến một kết cấu xã hội – giai cấp đa dạng và phức tạp?",
-        a: "D",
-        ops: [
+            "D. Mâu thuẫn với nhau",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong thời kỳ quá độ lên chủ nghĩa xã hội, yếu tố nào tất yếu đưa đến một kết cấu xã hội – giai cấp đa dạng và phức tạp?",
+          a: "D",
+          ops: [
             "A. Kinh tế nhà nước",
             "B. Kinh tế tập thể",
             "C. Kinh tế tư nhân",
-            "D. Nền kinh tế nhiều thành phần"
-        ]
-    },
-    {
-        q: "Lực lượng nào dưới đây là lực lượng sản xuất và lực lượng chính trị – xã hội đông đảo nhất trong những nước nông nghiệp?",
-        a: "D",
-        ops: [
+            "D. Nền kinh tế nhiều thành phần",
+          ],
+        },
+        {
+          q: "Lực lượng nào dưới đây là lực lượng sản xuất và lực lượng chính trị – xã hội đông đảo nhất trong những nước nông nghiệp?",
+          a: "C",
+          ops: [
             "A. Đội ngũ trí thức",
             "B. Đội ngũ doanh nhân",
             "C. Giai cấp công nhân",
-            "D. Giai cấp nông dân"
-        ]
-    },
-    {
-        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Cơ cấu xã hội là những …… cùng toàn bộ nhũng mối quan hệ xã hội do sự tác động lẫn nhau của các cộng đồng ấy tạo nên.",
-        a: "B",
-        ops: [
+            "D. Giai cấp nông dân",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Cơ cấu xã hội là những …… cùng toàn bộ nhũng mối quan hệ xã hội do sự tác động lẫn nhau của các cộng đồng ấy tạo nên.",
+          a: "B",
+          ops: [
             "A. Nhóm người",
             "B. Cộng đồng người",
             "C. Một số người",
-            "D. Tập đoàn người"
-        ]
-    },
-    {
-        q: "Dưới góc độ chính trị - xã hội, môn Chủ nghĩa xã hội khoa học tập trung nghiên cứu……… vì đó là một trong những cơ sở để nghiên cứu vấn đề liên minh giai cấp, tầng lớp trong một chế độ xã hội nhất định.",
-        a: "A",
-        ops: [
+            "D. Tập đoàn người",
+          ],
+        },
+        {
+          q: "Dưới góc độ chính trị - xã hội, môn Chủ nghĩa xã hội khoa học tập trung nghiên cứu……… vì đó là một trong những cơ sở để nghiên cứu vấn đề liên minh giai cấp, tầng lớp trong một chế độ xã hội nhất định.",
+          a: "A",
+          ops: [
             "A. Cơ cấu xã hội - giai cấp",
             "B. Cơ cấu xã hội - nghề nghiệp",
             "C. Cơ cấu xã hội - dân tộc",
-            "D. Cơ cấu xã hội - tôn giáo"
-        ]
-    },
-    {
-        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Cơ cấu xã hội - giai cấp là hệ thống các giai cấp, tầng lớp xã hội ……trong một chế độ xã hội nhất định...",
-        a: "A",
-        ops: [
+            "D. Cơ cấu xã hội - tôn giáo",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Cơ cấu xã hội - giai cấp là hệ thống các giai cấp, tầng lớp xã hội ……trong một chế độ xã hội nhất định, thông qua những mối quan hệ về sở hữu tư liệu sản xuất, về tổ chức quản lý quá trình sản xuất, về địa vị chính trị - xã hội.v.v.giữa các giai cấp và tầng lớp đó.",
+          a: "A",
+          ops: [
             "A. Tồn tại khách quan",
             "B. Xuất hiện",
             "C. Phát triển",
-            "D. Thường xuyên thay đổi"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội nào liên quan đến các đảng phái chính trị và nhà nước...?",
-        a: "A",
-        ops: [
-            "A. Giai cấp",
-            "B. Nghề nghiệp",
-            "C. Dân tộc",
-            "D. Tôn giáo"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội nào là căn cứ cơ bản để từ đó xây dựng chính sách phát triển kinh tế, văn hóa, xã hội của mỗi xã hội trong từng giai đoạn lịch sử cụ thể?",
-        a: "A",
-        ops: [
-            "A. Giai cấp",
-            "B. Nghề nghiệp",
-            "C. Dân tộc",
-            "D. Tôn giáo"
-        ]
-    },
-    {
-        q: "Sau thắng lợi của cuộc cách mạng xã hội chủ nghĩa, dưới sự lãnh đạo của Đảng Cộng sản, giai cấp công nhân cùng toàn thể các giai cấp, tầng lớp xã hội, các nhóm xã hội bước vào thời kỳ nào?",
-        a: "C",
-        ops: [
+            "D. Thường xuyên thay đổi",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội nào liên quan đến các đảng phái chính trị và nhà nước; đến quyền sở hữu tư liệu sản xuất, quản lý tổ chức lao động, vấn đề phân phối thu nhập.v.v. trong một hệ thống sản xuất nhất định.?",
+          a: "A",
+          ops: ["A. Giai cấp", "B. Nghề nghiệp", "C. Dân tộc", "D. Tôn giáo"],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội nào là căn cứ cơ bản để từ đó xây dựng chính sách phát triển kinh tế, văn hóa, xã hội của mỗi xã hội trong từng giai đoạn lịch sử cụ thể?",
+          a: "A",
+          ops: ["A. Giai cấp", "B. Nghề nghiệp", "C. Dân tộc", "D. Tôn giáo"],
+        },
+        {
+          q: "Sau thắng lợi của cuộc cách mạng xã hội chủ nghĩa, dưới sự lãnh đạo của Đảng Cộng sản, giai cấp công nhân cùng toàn thể các giai cấp, tầng lớp xã hội, các nhóm xã hội bước vào thời kỳ nào?",
+          a: "C",
+          ops: [
             "A. Xây dựng xã hội mới",
             "B. Phát triển vượt bật",
             "C. Quá độ lên chủ nghĩa xã hội",
-            "D. Xã hội chủ nghĩa"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, quá hình biến đổi trong cơ cấu nào tất yếu dẫn đến những biến đổi trong cơ cấu xã hội - giai cấp?",
-        a: "D",
-        ops: [
-            "A. Nghề nghiệp",
-            "B. Dân tộc",
-            "C. Tôn giáo",
-            "D. Kinh tế"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác - Lênin, hình thái kinh lế - xã hội cộng sản chủ nghĩa đã được “ thai nghén” từ trong lòng xã hội nào?",
-        a: "D",
-        ops: [
+            "D. Xã hội chủ nghĩa",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, quá hình biến đổi trong cơ cấu nào tất yếu dẫn đến những biến đổi trong cơ cấu xã hội - giai cấp?",
+          a: "D",
+          ops: ["A. Nghề nghiệp", "B. Dân tộc", "C. Tôn giáo", "D. Kinh tế"],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác - Lênin, hình thái kinh lế - xã hội cộng sản chủ nghĩa đã được “ thai nghén” từ trong lòng xã hội nào?",
+          a: "D",
+          ops: [
             "A. Công xã nguyên thuỷ",
             "B. Chiếm hữu nô lệ",
             "C. Phong kiến",
-            "D. Tư bản chủ nghĩa"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong từng giai đoạn của thời kỳ quá độ, mức độ liên minh, xích lại gần nhau giữa các giai cấp, tầng lớp trong xã hội tùy thuộc vào yếu tố nào?",
-        a: "A",
-        ops: [
+            "D. Tư bản chủ nghĩa",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong từng giai đoạn của thời kỳ quá độ, mức độ liên minh, xích lại gần nhau giữa các giai cấp, tầng lớp trong xã hội tùy thuộc vào yếu tố nào?",
+          a: "A",
+          ops: [
             "A. Các điều kiện kinh tế - xã hội của đất nước",
             "B. Các điều kiện chính trị xã hội",
             "C. Các điều kiện văn hoá – tư tưởng",
-            "D. Các điều kiện giáo dục"
-        ]
-    },
-    {
-        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Vai trò chủ đạo của ………còn được thể hiện ở sự phát triển mối quan hệ liên minh giữa giai cấp công nhân, giai câp nông dân và tầng lớp trí thức ngày càng giữ vị trí nền tảng chính trị - xã hội.",
-        a: "B", // (Hoặc Giai cấp công nhân - lãnh đạo. Nhưng vai trò chủ đạo thường gắn với Đảng hoặc GCCN)
-        ops: [
+            "D. Các điều kiện giáo dục",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Vai trò chủ đạo của ………còn được thể hiện ở sự phát triển mối quan hệ liên minh giữa giai cấp công nhân, giai câp nông dân và tầng lớp trí thức ngày càng giữ vị trí nền tảng chính trị - xã hội.",
+          a: "B", // (Hoặc Giai cấp công nhân - lãnh đạo. Nhưng vai trò chủ đạo thường gắn với Đảng hoặc GCCN)
+          ops: [
             "A. Đảng Cộng sản",
             "B. Giai cấp công nhân",
             "C. Giai cấp nông dân",
-            "D. Tầng lớp trí thức"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta... sự biến đổi của cơ cấu xã hội - giai cấp bị chi phối bởi những biến đổi trong ………..",
-        a: "D",
-        ops: [
+            "D. Tầng lớp trí thức",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta, cơ cấu xã hội - giai cấp cũng vận động, biến đổi theo đúng qui luật: đó là sự biến đổi của cơ cấu xã hội - giai cấp bị chi phối bởi những biến đổi trong ………..",
+          a: "D",
+          ops: [
             "A. Cơ cấu nghề nghiệp",
             "B. Cơ cấu dân tộc",
             "C. Cơ cấu tôn giáo",
-            "D. Cơ cấu kinh tế"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội - giai cấp đa dạng, phức tạp gồm:",
-        a: "A",
-        ops: [
+            "D. Cơ cấu kinh tế",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội - giai cấp đa dạng, phức tạp gồm:",
+          a: "C",
+          ops: [
             "A. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức, giai cấp tư sản đã xuất hiện sự tồn tại và phát triển của các tầng lớp xã hội mới...",
             "B. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức, tầng lớp doanh nhân",
             "C. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức, tầng lớp doanh nhân, tiểu chủ",
-            "D. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức, tiểu chủ"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, nội dung: giữ vững lập trường chính trị - tư tưởng của giai cấp công nhân... thuộc lĩnh vực nào của liên minh?",
-        a: "B",
-        ops: [
+            "D. Giai cấp công nhân, giai cấp nông dân, tầng lớp trí thức, tiểu chủ",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, nội dung: giữ vững lập trường chính trị - tư tưởng của giai cấp công nhân, đồng thời giữ vững vai trò lãnh đạo của Đảng Cộng sản Việt Nam đối với khối liên minh và đối vởi toàn xã hội, thuộc lĩnh vực nào của liên minh?",
+          a: "B",
+          ops: [
             "A. Nội dung kinh tế",
             "B. Nội dung chính trị",
             "C. Nội dung văn hoá",
-            "D. Nội dung xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, sự biến đổi của cơ cấu xã hội – giai cấp được quy định bởi sự biến động của cơ cấu nào?",
-        a: "B",
-        ops: [
-            "A. Dân số",
-            "B. Kinh tế",
-            "C. Dân tộc",
-            "D. Dân cư"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, yếu tố nào quyết định sự liên minh giữa giai cấp công nhân, giai cấp nông dân và tầng lớp trí thức?",
-        a: "C",
-        ops: [
+            "D. Nội dung xã hội",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, sự biến đổi của cơ cấu xã hội – giai cấp được quy định bởi sự biến động của cơ cấu nào?",
+          a: "B",
+          ops: ["A. Dân số", "B. Kinh tế", "C. Dân tộc", "D. Dân cư"],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, yếu tố nào quyết định sự liên minh giữa giai cấp công nhân, giai cấp nông dân và tầng lớp trí thức?",
+          a: "C",
+          ops: [
             "A. Do giai cấp công nhân mong muốn",
             "B. Do có cùng một kẻ thù là giai cấp tư sản",
             "C. Do có những lợi ích cơ bản thống nhất với nhau",
-            "D. Do mục tiêu về chính trị của giai cấp công nhân"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, lĩnh vực nào quan trọng nhất trong các nội dung liên minh công-nông-trí thức?",
-        a: "B", // (Kinh tế là quan trọng nhất/cơ bản nhất, Chính trị là nguyên tắc)
-        ops: [
+            "D. Do mục tiêu về chính trị của giai cấp công nhân",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, lĩnh vực nào quan trọng nhất trong các nội dung liên minh công-nông-trí thức?",
+          a: "B", // (Kinh tế là quan trọng nhất/cơ bản nhất, Chính trị là nguyên tắc)
+          ops: [
             "A. Chính trị",
             "B. Kinh tế",
             "C. Tư tưởng",
-            "D. Văn hoá- xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội muốn biến đổi theo hướng tích cực phải dựa trên cơ sở:",
-        a: "A",
-        ops: [
+            "D. Văn hoá- xã hội",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội muốn biến đổi theo hướng tích cực phải dựa trên cơ sở:",
+          a: "A",
+          ops: [
             "A. Tăng trưởng và phát triển kinh tế nhanh, bền vững.",
             "B. Giáo dục phát triển",
             "C. Chính trị ổn định",
-            "D. Văn hoá tiên tiến"
-        ]
-    },
-    {
-        q: "Ở những nước bước vào thời kỳ quá độ... cơ cấu kinh tế theo hướng:",
-        a: "C",
-        ops: [
+            "D. Văn hoá tiên tiến",
+          ],
+        },
+        {
+          q: "Ở những nước bước vào thời kỳ quá độ lên chủ nghĩa xã hội với xuất phát điểm thấp, cơ cấu kinh tế sẽ có những biến đổi đa dạng: từ một cơ cấu kinh tế chủ yếu là nông nghiệp và công nghiệp còn ở trình độ sơ khai chuyển sang cơ cấu kinh tế theo hướng:",
+          a: "C",
+          ops: [
             "A. Tăng tỉ trọng công nghiệp, giảm tỉ trọng nông nghiệp",
             "B. Tăng tỉ trọng dịch vụ, giảm tỉ trọng nông nghiệp",
             "C. Tăng tỉ trọng công nghiệp và dịch vụ, giảm tỉ trọng nông nghiệp",
-            "D. Tăng tỉ trọng công nghiệp và dịch vụ"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, liên minh công – nông – trí thức là:",
-        a: "A",
-        ops: [
+            "D. Tăng tỉ trọng công nghiệp và dịch vụ",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, liên minh công – nông – trí thức là:",
+          a: "A",
+          ops: [
             "A. Sự hợp tác toàn diện giữa công nhân, nông dân và trí thức trong tất cả các mặt khác nhau của đời sống xã hội",
             "B. Sự hợp tác giữa công nhân, nông dân và trí thức về lợi ích kinh tế",
             "C. Sự hợp tác giữa công nhân, nông dân và trí thức về lợi ích chính trị",
-            "D. Sự hợp tác giữa công nhân, nông dân và trí thức về lợi ích giáo dục, văn hoá, y tế"
-        ]
-    },
-    {
-        q: "Ngày nay, yếu tố nào đang trở thành lực lượng sản xuất trực tiếp của xã hội?",
-        a: "B",
-        ops: [
+            "D. Sự hợp tác giữa công nhân, nông dân và trí thức về lợi ích giáo dục, văn hoá, y tế",
+          ],
+        },
+        {
+          q: "Ngày nay, yếu tố nào đang trở thành lực lượng sản xuất trực tiếp của xã hội?",
+          a: "B",
+          ops: [
             "A. Giáo dục",
             "B. Khoa học và công nghệ",
             "C. Công nhân",
-            "D. Nông dân"
-        ]
-    },
-    {
-        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: ……ở chế độ nào cũng giúp giai cấp thống trị khái quát về lý luận để hình thành hệ tư tưởng của giai cấp thống trị xã hội.",
-        a: "A",
-        ops: [
+            "D. Nông dân",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: ……ở chế độ nào cũng giúp giai cấp thống trị khái quát về lý luận để hình thành hệ tư tưởng của giai cấp thống trị xã hội.",
+          a: "C",
+          ops: [
             "A. Đội ngũ trí thức",
             "B. Đội ngũ doanh nhân",
             "C. Giai cấp công nhân",
-            "D. Giai cấp nông dân"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội - giai cấp là ... có mối quan hệ hợp tác và gắn bó chặt chẽ với nhau.",
-        a: "B",
-        ops: [
+            "D. Giai cấp nông dân",
+          ],
+        },
+        {
+          q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội - giai cấp là ... có mối quan hệ hợp tác và gắn bó chặt chẽ với nhau.",
+          a: "C",
+          ops: [
             "A. Các giai cấp",
             "B. Tổng thể các giai cấp, tầng lớp, các nhóm xã hội",
             "C. Các nhóm xã hội",
-            "D. Các tầng lớp trong xã hội"
-        ]
-    },
-    {
-        q: "Song vị trí, vai trò của các loại cơ cấu xã hội là:",
-        a: "D",
-        ops: [
+            "D. Các tầng lớp trong xã hội",
+          ],
+        },
+        {
+          q: "Trong hệ thống xã hội, mỗi loại hình cơ cấu xã hội đều có vị trí, vai trò xác định và giữa chúng có mối quan hệ, phụ thuộc lẫn nhau. Song vị trí, vai trò của các loại cơ cấu xã hội là:",
+          a: "D",
+          ops: [
             "A. Không ngang nhau",
             "B. Ngang nhau",
             "C. Giống nhau",
-            "D. Khác nhau"
-        ]
-    },
-    {
-        q: "Loại hình cơ cấu xã hội nào là căn cứ cơ bản để từ đó xây dựng chính sách phát triển kinh tế, văn hóa, xã hội của mỗi xã hội trong từng giai đoạn lịch sử cụ thể?",
-        a: "C",
-        ops: [
-            "A. Nghề nghiệp",
-            "B. Dân số",
-            "C. Giai cấp",
-            "D. Dân tộc"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội - giai cấp biến đổi gắn liền và bị quy định bởi cơ cấu nào của thời kỳ quá độ lên chủ nghĩa xã hội?",
-        a: "C",
-        ops: [
-            "A. Nghề nghiệp",
-            "B. Dân số",
-            "C. Kinh tế",
-            "D. Dân tộc"
-        ]
-    },
-    {
-        q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Sau thắng lợi của cuộc cách mạng……., dưới sự lãnh đạo của Đảng Cộng sản, giai cấp công nhân cùng toàn thể các giai cấp, tầng lớp xã hội, các nhóm xã hội bước vào thời kỳ quá độ lên chủ nghĩa xã hội.",
-        a: "A",
-        ops: [
+            "D. Khác nhau",
+          ],
+        },
+        {
+          q: "Loại hình cơ cấu xã hội nào là căn cứ cơ bản để từ đó xây dựng chính sách phát triển kinh tế, văn hóa, xã hội của mỗi xã hội trong từng giai đoạn lịch sử cụ thể?",
+          a: "C",
+          ops: ["A. Nghề nghiệp", "B. Dân số", "C. Giai cấp", "D. Dân tộc"],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội - giai cấp biến đổi gắn liền và bị quy định bởi cơ cấu nào của thời kỳ quá độ lên chủ nghĩa xã hội?",
+          a: "C",
+          ops: ["A. Nghề nghiệp", "B. Dân số", "C. Kinh tế", "D. Dân tộc"],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Sau thắng lợi của cuộc cách mạng……., dưới sự lãnh đạo của Đảng Cộng sản, giai cấp công nhân cùng toàn thể các giai cấp, tầng lớp xã hội, các nhóm xã hội bước vào thời kỳ quá độ lên chủ nghĩa xã hội.",
+          a: "C",
+          ops: [
             "A. Dân tộc dân chủ nhân dân",
             "B. Tư sản",
             "C. Xã hội chủ nghĩa",
-            "D. Công nghiệp"
-        ]
-    },
-    {
-        q: "Quá trình biến đổi trong cơ cấu kinh tế tất yếu dẫn đến những biến đổi trong cơ cấu xã hội - giai cấp, sự biến đổi đó biểu hiện:",
-        a: "D",
-        ops: [
+            "D. Công nghiệp",
+          ],
+        },
+        {
+          q: "Quá trình biến đổi trong cơ cấu kinh tế tất yếu dẫn đến những biến đổi trong cơ cấu xã hội - giai cấp, sự biến đổi đó biểu hiện:",
+          a: "D",
+          ops: [
             "A. Trong cơ cấu tổng thể",
             "B. Trong nội bộ từng giai cấp.",
             "C. Trong nội bộ các tầng lớp xã hội, nhóm xã hội",
-            "D. Trong cơ cấu tổng thể cũng như những biến đổi trong nội bộ từng giai cấp, tầng lớp xã hội, nhóm xã hội"
-        ]
-    },
-    {
-        q: "Mức độ liên minh, xích lại gần nhau giữa các giai cấp, tầng lớp trong xã hội tùy thuộc vào … của đất nước trong từng giai đoạn của thời kỳ quá độ.",
-        a: "B",
-        ops: [
+            "D. Trong cơ cấu tổng thể cũng như những biến đổi trong nội bộ từng giai cấp, tầng lớp xã hội, nhóm xã hội",
+          ],
+        },
+        {
+          q: "Mức độ liên minh, xích lại gần nhau giữa các giai cấp, tầng lớp trong xã hội tùy thuộc vào … của đất nước trong từng giai đoạn của thời kỳ quá độ.",
+          a: "B",
+          ops: [
             "A. Các điều kiện chính trị",
             "B. Các điều kiện kinh tế - xã hội",
             "C. Các điều kiện văn hoá",
-            "D. Các điều kiện giáo dục"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, lực lượng nào vừa là lực lượng sản xuất cơ bản, vừa là lực lượng chính trị - xã hội to lớn?",
-        a: "A",
-        ops: [
+            "D. Các điều kiện giáo dục",
+          ],
+        },
+        {
+          q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, lực lượng nào vừa là lực lượng sản xuất cơ bản, vừa là lực lượng chính trị - xã hội to lớn?",
+          a: "D",
+          ops: [
             "A. Giai cấp công nhân",
             "B. Giai cấp nông dân",
             "C. Đội ngũ doanh nhân",
-            "D. Giai cấp công nhân, giai cấp nông dân và tầng lớp lao động khác"
-        ]
-    },
-    {
-        q: "Quan hệ lợi ích giữa công nhân, nông dân và trí thức trong thời kỳ quá độ có những biểu hiện mới là:",
-        a: "C",
-        ops: [
+            "D. Giai cấp công nhân, giai cấp nông dân và tầng lớp lao động khác",
+          ],
+        },
+        {
+          q: "Quan hệ lợi ích giữa công nhân, nông dân và trí thức trong thời kỳ quá độ có những biểu hiện mới là:",
+          a: "C",
+          ops: [
             "A. Luôn thống nhất về lợi ích kinh tế",
             "B. Luôn thống nhất về lợi ích chính trị",
             "C. Bên cạnh sự thống nhất về lợi ích kinh tế, xuất hiện những mâu thuẫn lợi ích ở những mức độ khác nhau.",
-            "D. Bên cạnh sự thống nhất về lợi ích kinh tế, xuất hiện những mâu thuẫn về chính trị"
-        ]
-    },
-    {
-        q: "Liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên chủ nghĩa xã hội là	…… giữa các giai cấp, tầng lớp xã hội...",
-        a: "A",
-        ops: [
+            "D. Bên cạnh sự thống nhất về lợi ích kinh tế, xuất hiện những mâu thuẫn về chính trị",
+          ],
+        },
+        {
+          q: "Liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên chủ nghĩa xã hội là	…… giữa các giai cấp, tầng lớp xã hội nhằm thực hiện nhu cầu và lợi ích của các chủ thể trong khối liên minh, đồng thời tạo động lực thực hiện thắng lợi mục tiêu của chủ nghĩa xã hội.",
+          a: "A",
+          ops: [
             "A. Sự liên kết, hợp tác, hỗ trợ nhau",
             "B. Sự tương trợ và đoàn kết",
             "C. Sự giúp đỡ và thấu hiểu",
-            "D. Sự giao lưu và giúp đỡ"
-        ]
-    },
-    {
-        q: "“Trong mọi thời đại lịch sử, sản xuất kinh tế và cơ cấu xã hội [...] cấu thành cơ sở của lịch sử chính trị...”. Đây là câu nói vủa ai?",
-        a: "B",
-        ops: [
+            "D. Sự giao lưu và giúp đỡ",
+          ],
+        },
+        {
+          q: "“Trong mọi thời đại lịch sử, sản xuất kinh tế và cơ cấu xã hội - cơ cấu này tất yếu phải do sản xuất kinh tế mà ra, - cả hai cái đó cấu thành cơ sở của lịch sử chính trị và lịch sử tư tưởng của thời đại ấy	”. Đây là câu nói vủa ai?",
+          a: "B",
+          ops: [
             "A. C. Mác",
             "B. Ph. Ăngghen",
             "C. V.I. Lênin",
-            "D. Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Những nhà tư tưởng nào dưới đây đã nêu ra nhiều lý luận nền tảng định hướng cho cuộc đấu tranh của giai cấp công nhân đi đến thắng lợi?",
-        a: "A",
-        ops: [
+            "D. Hồ Chí Minh",
+          ],
+        },
+        {
+          q: "Những nhà tư tưởng nào dưới đây đã nêu ra nhiều lý luận nền tảng định hướng cho cuộc đấu tranh của giai cấp công nhân đi đến thắng lợi?",
+          a: "A",
+          ops: [
             "A. C.Mác và Ph.Ăngghen",
             "B. C.Mác và V.I.Lênin",
             "C. Ph. Ăngghen và V.I. Lênin",
-            "D. V.I.Lênin và Chủ tịch Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội muốn biến đổi theo hướng tích cực phải dựa trên cơ sở:",
-        a: "A",
-        ops: [
+            "D. V.I.Lênin và Chủ tịch Hồ Chí Minh",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội muốn biến đổi theo hướng tích cực phải dựa trên cơ sở:",
+          a: "A",
+          ops: [
             "A. Tăng trưởng và phát triển kinh tế nhanh, bền vững.",
             "B. Chính trị ổn định",
             "C. Giáo dục phát triển",
-            "D. Y tế phát triển"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, xu hướng xích lại gần nhau từng bước giữa các giai cấp, tầng lớp về mối quan hệ với tư liệu sản xuất được thể hiện thông qua:",
-        a: "A",
-        ops: [
+            "D. Y tế phát triển",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, xu hướng xích lại gần nhau từng bước giữa các giai cấp, tầng lớp về mối quan hệ với tư liệu sản xuất được thể hiện thông qua:",
+          a: "A",
+          ops: [
             "A. Việc hoàn thiện quan hệ sản xuất xã hội chủ nghĩa từ thấp đến cao",
             "B. Phát triển cuộc cách mạng khoa học và công nghệ...",
             "C. Thực hiện ngày càng hoàn thiện nguyên tắc phân phối...",
-            "D. Cuộc cách mạng xã hội chủ nghĩa trên lĩnh vực tư tưởng - văn hoá"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, xu hướng xích lại gần nhau về mối quan hệ phân phối tư liệu tiêu dùng giữa các giai cấp và tầng lớp được thể hiện thông qua:",
-        a: "C",
-        ops: [
+            "D. Cuộc cách mạng xã hội chủ nghĩa trên lĩnh vực tư tưởng - văn hoá",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, xu hướng xích lại gần nhau về mối quan hệ phân phối tư liệu tiêu dùng giữa các giai cấp và tầng lớp được thể hiện thông qua:",
+          a: "C",
+          ops: [
             "A. Việc hoàn thiện quan hệ sản xuất xã hội chủ nghĩa từ thấp đến cao",
             "B. Phát triển cuộc cách mạng khoa học và công nghệ...",
             "C. Thực hiện ngày càng hoàn thiện nguyên tắc phân phối theo kết quả lao động và hiệu quả kinh tế",
-            "D. Cuộc cách mạng xã hội chủ nghĩa trên lĩnh vực tư tưởng - văn hoá"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, xu hướng xích lại gần nhau về tiến bộ đời sống tinh thần giữa các giai cấp, tầng lớp được thể hiện trực tiếp thông qua:",
-        a: "D",
-        ops: [
+            "D. Cuộc cách mạng xã hội chủ nghĩa trên lĩnh vực tư tưởng - văn hoá",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, xu hướng xích lại gần nhau về tiến bộ đời sống tinh thần giữa các giai cấp, tầng lớp được thể hiện trực tiếp thông qua:",
+          a: "D",
+          ops: [
             "A. Việc hoàn thiện quan hệ sản xuất xã hội chủ nghĩa từ thấp đến cao",
             "B. Phát triển cuộc cách mạng khoa học và công nghệ...",
             "C. Thực hiện ngày càng hoàn thiện nguyên tắc phân phối...",
-            "D. Cuộc cách mạng xã hội chủ nghĩa trên lĩnh vực tư tưởng - văn hoá"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, mục tiêu, lợi ích chính trị cơ bản nhất của giai cấp công nhân, giai cấp nông dân, trí thức và của cả dân tộc ta là:",
-        a: "D",
-        ops: [
+            "D. Cuộc cách mạng xã hội chủ nghĩa trên lĩnh vực tư tưởng - văn hoá",
+          ],
+        },
+        {
+          q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, mục tiêu, lợi ích chính trị cơ bản nhất của giai cấp công nhân, giai cấp nông dân, trí thức và của cả dân tộc ta là:",
+          a: "D",
+          ops: [
             "A. Độc lập dân tộc",
             "B. Chủ nghĩa xã hội",
             "C. Giải phóng người lao động",
-            "D. Độc lập dân tộc và chủ nghĩa xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, mỗi xã hội có phân chia giai cấp đều có cơ cấu xã hội - giai cấp đặc trưng của mình, nó thể hiện cho sự khác nhau về:",
-        a: "A",
-        ops: [
+            "D. Độc lập dân tộc và chủ nghĩa xã hội",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, mỗi xã hội có phân chia giai cấp đều có cơ cấu xã hội - giai cấp đặc trưng của mình, nó thể hiện cho sự khác nhau về:",
+          a: "A",
+          ops: [
             "A. Chất giữa cơ cấu xã hội này với cơ cấu xã hội khác",
             "B. Lượng giữa cơ cấu xã hội này với cơ cấu xã hội khác",
             "C. Mối quan hệ giữa cơ cấu xã hội này với cơ cấu xã hội khác",
-            "D. Lợi ích giữa cơ cấu xã hội này với cơ cấu xã hội khác"
-        ]
-    },
-    {
-        q: "Xu hướng phát triển cơ cấu xã hội - giai cấp ở Việt Nam trong thời kỳ quá độ mang tính:",
-        a: "B",
-        ops: [
+            "D. Lợi ích giữa cơ cấu xã hội này với cơ cấu xã hội khác",
+          ],
+        },
+        {
+          q: "Xu hướng phát triển cơ cấu xã hội - giai cấp ở Việt Nam trong thời kỳ quá độ mang tính:",
+          a: "B",
+          ops: [
             "A. Phổ biến",
             "B. Đa dạng và thống nhất",
             "C. Độc lập tương đối",
-            "D. Đa dạng"
-        ]
-    },
-    {
-        q: "V.I.Lênin khẳng định: \"… là một hình thức đặc biệt của liên minh giai cấp giữa giai cấp vô sản... với đông đảo những tầng lớp lao động không phải vô sản...\"",
-        a: "A",
-        ops: [
+            "D. Đa dạng",
+          ],
+        },
+        {
+          q: 'Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: V.I. Lênin khẳng định: "	là một hình thức đặc biệt của liên minh giai cấp giữa giai cấp vô sản, đội tiên phong của những người lao động, với đông đảo những tầng lớp lao động không phải vô sản (tiểu tư sản, tiểu chủ, nông dân, trí thức, v.v)',
+          a: "A",
+          ops: [
             "A. Chuyên chính vô sản",
             "B. Nhà nước",
             "C. Quốc hội",
-            "D. Các tổ chức chính trị xã hội"
-        ]
-    },
-    {
-        q: "Trong thời kỳ đầu của thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội – giai cấp nước ta biến đổi theo xu hướng:",
-        a: "A",
-        ops: [
-            "A. Tiến bộ, được phản ánh ở sự thay đổi tích cực của các giai cấp tầng lớp xã hội",
-            "B. Độc lập, tách rời của các giai cấp tầng lớp xã hội",
-            "C. Thục lùi tạm thời của các giai cấp tầng lớp xã hội",
-            "D. Phụ thuộc lẫn nhau của các giai cấp tầng lớp xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, trong suốt thời kỳ quá độ, … là lực lượng chính trị – xã hội cơ bản, là nền tảng của nhà nước pháp quyền xã hội chủ nghĩa.",
-        a: "A",
-        ops: [
+            "D. Các tổ chức chính trị xã hội",
+          ],
+        },
+        {
+          q: "Trong thời kỳ đầu của thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội – giai cấp nước ta biến đổi theo xu hướng:",
+          a: "A",
+          ops: [
+            "A.	Tiến bộ, được phản ánh ở sự thay đổi tích cực của các giai cấp tầng lớp xã hội (công nhân, nông dân, trí thức	)",
+            "B.	Độc lập, tách rời của các giai cấp tầng lớp xã hội (công nhân, nông dân, trí thức	)",
+            "C.	Thục lùi tạm thời của các giai cấp tầng lớp xã hội (công nhân, nông dân, trí thức	)",
+            "D.	Phụ thuộc lẫn nhau của các giai cấp tầng lớp xã hội (công nhân, nông dân, trí thức...)",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Theo quan điểm chủ nghĩa Mác – Lênin, trong suốt thời kỳ quá độ, … là lực lượng chính trị – xã hội cơ bản, là nền tảng của nhà nước pháp quyền xã hội chủ nghĩa.",
+          a: "A",
+          ops: [
             "A. Liên minh công – nông – trí thức",
             "B. Đảng Cộng sản",
             "C. Các tổ chức chính trị xã hội",
-            "D. Pháp luật"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, lực lượng nào có cơ cấu không thuần nhất... trong một nước nông nghiệp thì họ là lực lượng chính trị - xã hội đông đảo nhất...?",
-        a: "B",
-        ops: [
+            "D. Pháp luật",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, lực lượng nào có cơ cấu không thuần nhất, không có sự liên kết chặt chẽ cả về kinh tế và cả về tư tưởng, tổ chức. Trong một nước nông nghiệp thì họ là lực lượng chính trị - xã hội đông đảo nhất và khi được giác ngộ họ trở thành lực lượng cách mạng to lớn nhất trong cách mạng xã hội chủ nghĩa?",
+          a: "A",
+          ops: [
             "A. Giai cấp công nhân",
             "B. Giai cấp nông dân",
             "C. Đội ngũ trí thức",
-            "D. Đội ngũ doanh nhân"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, mỗi giai cấp, tầng lớp ở mỗi giai đoạn đều có lập trường chính trị - tư tưởng của mình. Tuy nhiên, khi liên minh sẽ là:",
-        a: "B",
-        ops: [
+            "D. Đội ngũ doanh nhân",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, mỗi giai cấp, tầng lớp ở mỗi giai đoạn đều có lập trường chính trị - tư tưởng của mình. Tuy nhiên, khi liên minh sẽ là:",
+          a: "B",
+          ops: [
             "A. Thực hiện sự dung hoà lập trường tư tưởng - chính trị của các giai cấp, tầng lớp này",
             "B. Đứng trên lập trường của giai cấp công nhân",
             "C. Đứng trên lập trường của giai cấp nông dân",
-            "D. Đứng trên lập trường của tầng lớp trí thức"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ, Đảng ta xác định cơ cấu kinh tế chung của cả nước là gì?",
-        a: "A",
-        ops: [
+            "D. Đứng trên lập trường của tầng lớp trí thức",
+          ],
+        },
+        {
+          q: "Trong thời kỳ quá độ, Đảng ta xác định cơ cấu kinh tế chung của cả nước là gì?",
+          a: "A",
+          ops: [
             "A. Công - nông nghiệp - dịch vụ",
             "B. Công – nông – thương nghiệp – dịch vụ",
             "C. Công – nông nghiệp",
-            "D. Công – thương nghiệp – dịch vụ"
-        ]
-    },
-    {
-        q: "Sau thắng lợi của cuộc cách mạng xã hội chủ nghĩa... bước vào …… lên chủ nghĩa xã hội.",
-        a: "C",
-        ops: [
+            "D. Công – thương nghiệp – dịch vụ",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Sau thắng lợi của cuộc cách mạng xã hội chủ nghĩa, dưới sự lãnh đạo của Đảng Cộng sản, giai cấp công nhân cùng toàn thể các giai cấp, tầng lớp xã hội, các nhóm xã hội bước vào ……lên chủ nghĩa xã hội.",
+          a: "C",
+          ops: [
             "A. Thời kỳ văn hoá đa dạng",
             "B. Thời kỳ kinh tế tri thức",
             "C. Thời kỳ quá độ",
-            "D. Thời kỳ hoàng kim"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, con người là vốn quý của xã hội, nhưng nếu người lao động thất nghiệp thì:",
-        a: "A",
-        ops: [
+            "D. Thời kỳ hoàng kim",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, con người là vốn quý của xã hội, nhưng nếu người lao động thất nghiệp thì:",
+          a: "B",
+          ops: [
             "A. Họ lại trở thành gánh nặng cho xã hội, trở thành một trong các nguyên nhân dẫn đến khủng hoảng, đổ vỡ của chế độ xã hội",
             "B. Nền kinh tế sẽ đi xuống",
             "C. Chính trị không ổn định",
-            "D. Đạo đức sẽ xuống cấp"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội - giai cấp:",
-        a: "A",
-        ops: [
+            "D. Đạo đức sẽ xuống cấp",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, cơ cấu xã hội - giai cấp:",
+          a: "A",
+          ops: [
             "A. Luôn biến đổi trong mọi xã hội",
             "B. Không biến đổi trong mọi xã hội",
             "C. Biến đổi gián đoạn trong mọi xã hội",
-            "D. Phát triển không đều trong mọi xã hội"
-        ]
-    },
-    {
-        q: "Theo quan điểm chủ nghĩa Mác – Lênin, do đặc điểm của thời kỳ quá độ, quá trình biến đổi cơ cấu xã hội - giai cấp cũ sang cơ cấu xã hội - giai cấp mới là quá trình:",
-        a: "A",
-        ops: [
+            "D. Phát triển không đều trong mọi xã hội",
+          ],
+        },
+        {
+          q: "Theo quan điểm chủ nghĩa Mác – Lênin, do đặc điểm của thời kỳ quá độ, quá trình biến đổi cơ cấu xã hội - giai cấp cũ sang cơ cấu xã hội - giai cấp mới là quá trình:",
+          a: "A",
+          ops: [
             "A. Liên tục, đa dạng, phức tạp và mạnh mẽ",
             "B. Phát triển liên tục",
             "C. Có những giai đoạn thục lùi",
-            "D. Đứng im tương đối"
-        ]
-    },
-    {
-        q: "Cơ cấu xã hội - giai cấp liên quan đến các đảng phái chính trị và nhà nước; đến quyền sở hữu… quản lý tổ chức lao động...",
-        a: "D",
-        ops: [
+            "D. Đứng im tương đối",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Cơ cấu xã hội - giai cấp liên quan đến các đảng phái chính trị và nhà nước; đến quyền sở hữu… quản lý tổ chức lao động, vấn đề phân phối thu nhập trong một hệ thống sản xuất nhất định.",
+          a: "D",
+          ops: [
             "A. Của cải",
             "B. Vật chất",
             "C. Tài sản",
-            "D. Tư liệu sản xuất"
-        ]
-    },
-    {
-        q: "Cơ cấu xã hội - giai cấp liên quan đến các đảng phái chính trị và nhà nước; đến quyền sở hữu tư liệu sản xuất... vấn đề …..trong một hệ thống sản xuất nhất định.",
-        a: "C",
-        ops: [
+            "D. Tư liệu sản xuất",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Cơ cấu xã hội - giai cấp liên quan đến các đảng phái chính trị và nhà nước; đến quyền sở hữu tư liệu sản xuất, quản lý tổ chức lao động, vấn đề …..trong một hệ thống sản xuất nhất định.",
+          a: "C",
+          ops: [
             "A. Phân phối của cải",
             "B. Phân phối tài sản",
             "C. Phân phối thu nhập",
-            "D. Phân phối"
-        ]
-    },
-    {
-        q: "Trong một hệ thống sản xuất nhất định, cơ cấu xã hội - giai cấp thường xuyên biến đổi do tác động của nhiều yếu tố, đặc biệt là những thay đổi về …, về cơ cấu ngành nghề, thành phần kinh tế, cơ chế kinh tế.",
-        a: "A",
-        ops: [
+            "D. Phân phối",
+          ],
+        },
+        {
+          q: "Trong một hệ thống sản xuất nhất định, cơ cấu xã hội - giai cấp thường xuyên biến đổi do tác động của nhiều yếu tố, đặc biệt là những thay đổi về …, về cơ cấu ngành nghề, thành phần kinh tế, cơ chế kinh tế.",
+          a: "A",
+          ops: [
             "A. Phương thức sản xuất",
             "B. Lực lượng sản xuất",
             "C. Quan hệ sản xuất",
-            "D. Kiến trúc thượng tầng"
-        ]
-    },
-    {
-        q: "Bước sang giai đoạn đế quốc chủ nghĩa, V.I.Lênin khẳng định liên minh công, nông là vấn đề mang tính … để đảm bảo cho thắng lợi của cuộc cách mạng xã hội chủ nghĩa tháng Mười Nga năm 1917.",
-        a: "C",
-        ops: [
+            "D. Kiến trúc thượng tầng",
+          ],
+        },
+        {
+          q: "Bước sang giai đoạn đế quốc chủ nghĩa, V.I.Lênin khẳng định liên minh công, nông là vấn đề mang tính … để đảm bảo cho thắng lợi của cuộc cách mạng xã hội chủ nghĩa tháng Mười Nga năm 1917.",
+          a: "C",
+          ops: [
             "A. Toàn diện",
             "B. Sống còn",
             "C. Nguyên tắc",
-            "D. Chiến lược"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội ờ nước ta, cơ cấu xã hội - giai cấp cũng vận động, biến đổi theo đúng qui luật: đó là sự biến đổi của cơ cấu xã hội - giai cấp bị chi phối bởi những biến đổi trong ….",
-        a: "A", // (Hoặc D - Cơ cấu kinh tế. Hai câu hỏi trùng nội dung. Ở trên chọn Kinh tế. Ở đây chọn Cơ cấu kinh tế. Cả hai đều đúng bản chất).
-        ops: [
+            "D. Chiến lược",
+          ],
+        },
+        {
+          q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội ờ nước ta, cơ cấu xã hội - giai cấp cũng vận động, biến đổi theo đúng qui luật: đó là sự biến đổi của cơ cấu xã hội - giai cấp bị chi phối bởi những biến đổi trong ….",
+          a: "A", // (Hoặc D - Cơ cấu kinh tế. Hai câu hỏi trùng nội dung. Ở trên chọn Kinh tế. Ở đây chọn Cơ cấu kinh tế. Cả hai đều đúng bản chất).
+          ops: [
             "A. Cơ cấu kinh tế",
             "B. Cơ cấu xã hội - dân tộc",
             "C. Cơ cấu xã hội - tôn giáo",
-            "D. Cơ cấu xã hội - nghề nghiệp"
-        ]
-    },
-    {
-        q: "Giai cấp công nhân - lực lượng đi đầu của quá trình này sẽ có những biến đổi nhanh cả về số lượng, … và có sự thay đổi đa dạng về cơ cấu.",
-        a: "D",
-        ops: [
-            "A. Kỹ năng",
-            "B. Trình độ",
-            "C. Quy mô",
-            "D. Chất lượng"
-        ]
-    },
-    {
-        q: "Hiện nay, cùng với yêu cầu đẩy mạnh công nghiệp hóa, hiện đại hóa gắn với phát triển kinh tế tri thức trong điều kiện khoa học - công nghệ và cách mạng công nghiệp … đang phát triển mạnh mẽ thì vai trò của đội ngũ trí thức càng trở nên quan trọng",
-        a: "D",
-        ops: [
+            "D. Cơ cấu xã hội - nghề nghiệp",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, nhiệm vụ trung tâm là phát triển kinh tế, tiến hành công nghiệp hóa, hiện đại hóa. Giai cấp công nhân - lực lượng đi đầu của quá trình này sẽ có những biến đổi nhanh cả về số lượng, … và có sự thay đổi đa dạng về cơ cấu.",
+          a: "D",
+          ops: ["A. Kỹ năng", "B. Trình độ", "C. Quy mô", "D. Chất lượng"],
+        },
+        {
+          q: "Hiện nay, cùng với yêu cầu đẩy mạnh công nghiệp hóa, hiện đại hóa gắn với phát triển kinh tế tri thức trong điều kiện khoa học - công nghệ và cách mạng công nghiệp … đang phát triển mạnh mẽ thì vai trò của đội ngũ trí thức càng trở nên quan trọng",
+          a: "D",
+          ops: [
             "A. Lần thứ nhất",
             "B. lần thứ hai",
             "C. Lần thứ ba",
-            "D. Lần thứ tư"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá dộ lên chủ nghĩa xã hội ở Việt Nam, các giai cấp, tầng lớp xã hội …….trong nội tại mỗi giai cấp, tầng lớp, hoặc xuất hiện thêm các nhóm xã hội mới.",
-        a: "B",
-        ops: [
+            "D. Lần thứ tư",
+          ],
+        },
+        {
+          q: "Trong thời kỳ quá dộ lên chủ nghĩa xã hội ở Việt Nam, các giai cấp, tầng lớp xã hội …….trong nội tại mỗi giai cấp, tầng lớp, hoặc xuất hiện thêm các nhóm xã hội mới.",
+          a: "B",
+          ops: [
             "A. Biến đổi gián đoạn",
             "B. Biến đổi liên tục",
             "C. 퐃 ऀ n định",
-            "D. Không biến đổi"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, Việt Nam cần phải đẩy mạnh công nghiệp hóa, hiện đại hóa... tạo môi trường và điều kiện thúc đẩy biến đổi … theo hướng tích cực.",
-        a: "A",
-        ops: [
+            "D. Không biến đổi",
+          ],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, Việt Nam cần phải đẩy mạnh công nghiệp hóa, hiện đại hóa; giải quyết tốt mối quan hệ giữa tăng trưởng kinh tế với đảm bảo tiến bộ, công bằng xã hội tạo môi trường và điều kiện thúc đẩy biến đổi .... theo hướng tích cực.",
+          a: "A",
+          ops: [
             "A. Cơ cấu xã hội – giai cấp",
             "B. Cơ cấu xã hội - dân tộc",
             "C. Cơ cấu xã hội - tôn giáo",
-            "D. Cơ cấu xã hội - nghề nghiệp"
-        ]
-    },
-    {
-        q: "Tư tưởng: “Chuyên chính vô sản là một hình thức đặc biệt của liên minh giai cấp...” là của ai?",
-        a: "C",
-        ops: [
-            "A. C.Mác",
-            "B. Ph.Ăngghen",
-            "C. V.I.Lênin",
-            "D. Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "“Trước sự liên minh của các đại biểu khoa học, giai cấp vô sản và giới kỹ thuật, không một thế lực đen tối nào đứng vững được”. Đây là tư tưởng của ai...?",
-        a: "C",
-        ops: [
-            "A. C.Mác",
-            "B. Ph.Ăngghen",
-            "C. V.I.Lênin",
-            "D. Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam, nội dung chính trị của liên minh là giữ vững lập trường chính trị - tư tưởng của …, đồng thời giữ vững vai trò lãnh đạo của Đảng Cộng sản Việt Nam...",
-        a: "A",
-        ops: [
+            "D. Cơ cấu xã hội - nghề nghiệp",
+          ],
+        },
+        {
+          q: "Tư tưởng: “Chuyên chính vô sản là một hình thức đặc biệt của liên minh giai cấp giữa giai cấp vô sản, đội tiền phong của những người lao động, với đông đảo những tầng lớp lao động không phải vô sản (tiểu tư sản, tiểu chủ, nông dân, trí thức, v.v.), hoặc với phần lớn những tầng lớp đó, liên minh nhằm chống lại tư bản, liên minh nhằm lật đổ hoàn toàn tư bản, tiêu diệt hoàn toàn sự chống cự của giai cấp tư sản và những mưu toan khôi phục của giai cấp ấy, nhằm thiết lập và củng cố vĩnh viễn chủ nghĩa xã hội” là của ai?",
+          a: "C",
+          ops: ["A. C.Mác", "B. Ph.Ăngghen", "C. V.I.Lênin", "D. Hồ Chí Minh"],
+        },
+        {
+          q: "“Trước sự liên minh của các đại biểu khoa học, giai cấp vô sản và giới kỹ thuật, không một thế lực đen tối nào đứng vững được”. Đây là tư tưởng của ai khi khẳng định vai trò của trí thức trong khối liên minh?",
+          a: "C",
+          ops: ["A. C.Mác", "B. Ph.Ăngghen", "C. V.I.Lênin", "D. Hồ Chí Minh"],
+        },
+        {
+          q: "Chọn cụm từ thích hợp thay thế dấu (…) trong nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam, nội dung chính trị của liên minh là giữ vững lập trường chính trị - tư tưởng của ..., đồng thời giữ vững vai trò lãnh đạo của Đảng Cộng sản Việt Nam đối với khối liên minh và đối với toàn xã hội để xây dựng và bảo vệ vững chắc chế độ chính trị, giữ vững độc lập dân tộc và định hướng đi lên chủ nghĩa xã hội.",
+          a: "A",
+          ops: [
             "A. Giai cấp công nhân",
             "B. Giai cấp nông dân",
             "C. Tầng lớp trí thức",
-            "D. Đội ngũ doanh nhân"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, Việt Nam cần phải xây dựng và thực hiện hệ thống chính sách xã hội tổng thể nhằm tác động tạo sự biến đổi tích cực cơ cấu xã hội, nhất là các chính sách liên quan đến…",
-        a: "A",
-        ops: [
+            "D. Đội ngũ doanh nhân",
+          ],
+        },
+        {
+          q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, Việt Nam cần phải xây dựng và thực hiện hệ thống chính sách xã hội tổng thể nhằm tác động tạo sự biến đổi tích cực cơ cấu xã hội, nhất là các chính sách liên quan đến…",
+          a: "A",
+          ops: [
             "A. Cơ cấu xã hội - giai cấp",
             "B. Cơ cấu xã hội - dân tộc",
             "C. Cơ cấu xã hội - tôn giáo",
-            "D. Cơ cấu xã hội - nghề nghiệp"
-        ]
-    },
-    {
-        q: "Nói về liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam, Đại hội nào của Đảng ta tiếp tục khẳng định “Hoàn thiện, phát huy dân chủ xã hội chủ nghĩa... tăng cường sự đồng thuận xã hội”?",
-        a: "D",
-        ops: [
-            "A. IX",
-            "B. X",
-            "C. XI",
-            "D. XII"
-        ]
-    },
-    {
-        q: "Đại hội nào của Đảng ta tiếp tục khẳng định phải đảm bảo “gắn tăng trưởng kinh tế với phát triển văn hóa, phát triển, xây dựng con người và thực hiện tiến bộ, công bằng xã hội”?",
-        a: "D",
-        ops: [
-            "A. IX",
-            "B. X",
-            "C. XI",
-            "D. XII"
-        ]
-    },
-    {
-        q: "Đại hội nào của Đảng ta tiếp tục khẳng định: Văn hóa thực sự trở thành nền tảng tinh thần vững chắc của xã hội...?",
-        a: "D",
-        ops: [
-            "A. IX",
-            "B. X",
-            "C. XI",
-            "D. XII"
-        ]
-    },
-    {
-        q: "Quan điểm: giai cấp nông dân có \"bản chất hai mặt\" một mặt họ là những người lao động... mặt khác, họ là những người tư hữu nhỏ..., là của ai?",
-        a: "C",
-        ops: [
-            "A. C.Mác",
-            "B. Ph.Ăngghen",
-            "C. V.I.Lênin",
-            "D. Hồ Chí Minh"
-        ]
-    },
-    {
-        q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, sản phẩm lao động trực tiếp nhất của lực lượng nào dưới đây có tác động quyết định đến năng suất lao động...?",
-        a: "A",
-        ops: [
+            "D. Cơ cấu xã hội - nghề nghiệp",
+          ],
+        },
+        {
+          q: "Nói về liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam, Đại hội nào của Đảng ta tiếp tục khẳng định “Hoàn thiện, phát huy dân chủ xã hội chủ nghĩa và quyền làm chủ của nhân dân; không ngừng củng cố, phát huy sức mạnh của khối đại đoàn kết toàn dân tộc; tăng cường sự đồng thuận xã hội	”?",
+          a: "D",
+          ops: ["A. IX", "B. X", "C. XI", "D. XII"],
+        },
+        {
+          q: "Nói về liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam. Đại hội nào của Đảng ta tiếp tục khẳng định phải đảm bảo “gắn tăng trưởng kinh tế với phát triển văn hóa, phát triển, xây dựng con người và thực hiện tiến bộ, công bằng xã hội”?",
+          a: "D",
+          ops: ["A. IX", "B. X", "C. XI", "D. XII"],
+        },
+        {
+          q: "Nói về liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam, Đại hội nào của Đảng ta tiếp tục khẳng định: Văn hóa thực sự trở thành nền tảng tinh thần vững chắc của xã hội, là sức mạnh nội sinh quan trọng bảo đảm sự phát triển bền vững và bảo vệ vững chắc Tổ quốc vì mục tiêu “dân giàu, nước mạnh, dân chủ, công bằng, văn minh”?",
+          a: "D",
+          ops: ["A. IX", "B. X", "C. XI", "D. XII"],
+        },
+        {
+          q: 'Quan điểm: giai cấp nông dân có "bản chất hai mặt" một mặt họ là những người lao động (đây là mặt cơ bản nhất); mặt khác, họ là những người tư hữu nhỏ (đây là mặt hạn chế sẽ được khắc phục trong quá trình công nghiệp hoá, hiện đại hoá), là của ai?',
+          a: "C",
+          ops: ["A. C.Mác", "B. Ph.Ăngghen", "C. V.I.Lênin", "D. Hồ Chí Minh"],
+        },
+        {
+          q: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, sản phẩm lao động trực tiếp nhất của lực lượng nào dưới đây có tác động quyết định đến năng suất lao động, chất lượng sản xuất, tốc độ tăng trưởng và phát triển của xã hội trên cả đời sống vật chất lẫn đời sống tinh thần?",
+          a: "C",
+          ops: [
             "A. Đội ngũ trí thức",
             "B. Đội ngũ doanh nhân",
             "C. Giai cấp công nhân",
-            "D. Giai cấp nông dân"
-        ]
-    }
-];
+            "D. Giai cấp nông dân",
+          ],
+        },
+      ];
 
-// --- DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN ---
+      // --- DỮ LIỆU CÂU HỎI TRẢ LỜI NGẮN ---
 
-const saData = [
-    {
-        q: "Trong các nội dung liên minh giai cấp ở tiến trình xây dựng xã hội chủ nghĩa là liên minh kinh tế, liên minh chính trị và liên minh tư tưởng văn hóa, liên minh nào là trọng tâm?",
-        a: "Nội dung kinh tế"
-    },
-    {
-        q: "Để giành thắng lợi trong cách mạng xã hội, giai cấp nào cần liên minh với giai cấp nông dân, tầng lớp trí thức và tiểu tư sản?",
-        a: "Giai cấp công nhân."
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…). Theo quan điểm của Chủ nghĩa Mác – Lênin, trong mối quan hệ với giai cấp công nhân, giai cấp nông dân là người bạn “đồng minh…..”.",
-        a: "tự nhiên"
-    },
-    {
-        q: "Trong liên minh giai cấp, giai cấp nào là lực lượng đông đảo nhất ủng hộ giai cấp công nhân?",
-        a: "Giai cấp nông dân"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Liên minh kinh tế cơ bản trong xây dựng chủ nghĩa xã hội bao gồm những liên minh công nghiệp, nông nghiệp,……, khoa học kỹ thuật.",
-        a: "Dịch vụ"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Liên minh giai cấp, tầng lớp cơ bản trong xây dựng …….bao gồm những giai cấp công nhân, nông dân, tầng lớp trí thức và doanh nhân.",
-        a: "Khối đại doàn kết."
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, dưới góc độ kinh tế, Đảng và Nhà nước ta cần tổ chức các hình thức giao lưu, hợp tác, liên kết kinh tế giữa công nghiệp - nông nghiệp - khoa học và công nghệ - dịch vụ... giữa trong nước và ...",
-        a: "quốc tế"
-    },
-    {
-        q: "Theo V.I. Lênin, giai cấp nào có \"bản chất hai mặt\" một mặt họ là những người lao động... mặt khác, họ là những người tư hữu nhỏ?",
-        a: "Giai cấp nông dân"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, Đảng và Nhà nước ta cần phải có những giải pháp sát thực... trong sự nghiệp phát triển đất nước theo định hướng….",
-        a: "xã hội chủ nghĩa ."
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, cơ cấu xã hội - giai cấp là hệ thống các giai cấp, tầng lớp xã hội tồn tại ... trong một chế độ xã hội nhất định...",
-        a: "khách quan"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Các giai cấp, tầng lớp xã hội... bao gồm: giai cấp công nhân, giai cấp nông dân,…, tầng lớp doanh nhân, tầng lớp tiểu chủ, tầng lớp thanh niên, phụ nữ v.v.",
-        a: "tầng lớp trí thức"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong cách mạng xã hội chủ nghĩa... giai cấp công nhân phải liên minh với giai cấp nông dân... đảm bảo cho thắng lợi của cuộc cách mạng …….cả trong giai đoạn giành chính quyền và giai đoạn xây dựng chế độ xã hội mới.",
-        a: "xã hội chủ nghĩa"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong đội ngũ doanh nhân có các ……… với tiềm lực kinh tế lớn...",
-        a: "Doanh Nhân" // (Theo đáp án gốc trong file, dù ngữ pháp có thể là 'tập đoàn kinh tế')
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, sự biến đổi của cơ cấu xã hội – giai cấp gắn liền và được quy định bởi sự biến động của cơ cấu nào?",
-        a: "Cơ cấu kinh tế"
-    },
-    {
-        q: "Theo quan điểm của chủ nghĩa Mác – Lênin, trong các loại cơ cấu xã hội, loại nào có vị trí hàng đầu, chi phối các loại hình cơ cấu xã hội khác?",
-        a: "Cơ cấu xã hội - giai cấp"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, cơ cấu xã hội muốn biến đổi theo hướng tích cực... dựa trên sự phát triển của ... hiện đại...",
-        a: "khoa học công nghệ"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, cơ cấu xã hội là những ……cùng toàn bộ nhũng mối quan hệ xã hội do sự tác động lẫn nhau của các cộng đồng ấy tạo nên.",
-        a: "cộng đồng người"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, sự biến đổi của cơ cấu xã hội - giai cấp tất yếu sẽ ảnh hưởng đển sự biến đổi của các cơ cấu xã hội khác và tác động đến sự biến đổi của toàn bộ….",
-        a: "cơ cấu xã hội"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Cơ cấu kinh tế trong thời kỳ quá độ tuy vận động theo cơ chế thị trường, song có sự quản lý của ……xã hội chủ nghĩa nhằm xây dựng thành công chủ nghĩa xã hội.",
-        a: "Nhà nước pháp quyền"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta... sự biến đổi của cơ cấu xã hội - giai cấp bị chi phối bởi những biến đổi trong…..",
-        a: "cơ cấu kinh tế"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Nội dung kinh tế của liên minh giai cấp công nhân với giai cấp nông dân và đội ngũ trí thức ở nước ta thực chất là sự ... giữa họ...",
-        a: "Hợp tác"
-    },
-    {
-        q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, dưới góc độ ……, Đảng và Nhà nước ta cần phải xác định đúng tiềm lực kinh tế và nhu cầu kinh tế...",
-        a: "Kinh tế"
-    },
-    {
-        q: "Bước sang giai đoạn đế quốc chủ nghĩa, Ông khẳng định liên minh công, nông là vấn đề mang tính nguyên tắc... Ông là ai?",
-        a: "VILênin"
-    },
-    {
-        q: "Từ Đại hội nào Việt Nam chuyển mạnh sang cơ chế thị trường phát triển kinh tế nhiều thành phần định hướng xã hội chủ nghĩa.",
-        a: "XII"
-    },
-    {
-        q: "Tư tưởng: “Trước sự liên minh của các đại biểu khoa học, giai cấp vô sản và giới kỹ thuật, không một thế lực đen tối nào đứng vững được” là của ai?",
-        a: "VILênin"
-    }
-];
+      const saData = [
+        {
+          q: "Trong các nội dung liên minh giai cấp ở tiến trình xây dựng xã hội chủ nghĩa là liên minh kinh tế, liên minh chính trị và liên minh tư tưởng văn hóa, liên minh nào là trọng tâm?",
+          a: "Nội dung kinh tế",
+        },
+        {
+          q: "Để giành thắng lợi trong cách mạng xã hội, giai cấp nào cần liên minh với giai cấp nông dân, tầng lớp trí thức và tiểu tư sản?",
+          a: "Giai cấp công nhân.",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…). Theo quan điểm của Chủ nghĩa Mác – Lênin, trong mối quan hệ với giai cấp công nhân, giai cấp nông dân là người bạn “đồng minh…..”.",
+          a: "tự nhiên",
+        },
+        {
+          q: "Trong liên minh giai cấp, giai cấp nào là lực lượng đông đảo nhất ủng hộ giai cấp công nhân?",
+          a: "Giai cấp nông dân",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Liên minh kinh tế cơ bản trong xây dựng chủ nghĩa xã hội bao gồm những liên minh công nghiệp, nông nghiệp,……, khoa học kỹ thuật.",
+          a: "Dịch vụ",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Liên minh giai cấp, tầng lớp cơ bản trong xây dựng …….bao gồm những giai cấp công nhân, nông dân, tầng lớp trí thức và doanh nhân.",
+          a: "Khối đại doàn kết.",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, dưới góc độ kinh tế, Đảng và Nhà nước ta cần tổ chức các hình thức giao lưu, hợp tác, liên kết kinh tế giữa công nghiệp - nông nghiệp - khoa học và công nghệ - dịch vụ... giữa trong nước và ...",
+          a: "quốc tế",
+        },
+        {
+          q: 'Theo V.I. Lênin, giai cấp nào có "bản chất hai mặt" một mặt họ là những người lao động... mặt khác, họ là những người tư hữu nhỏ?',
+          a: "Giai cấp nông dân",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, Đảng và Nhà nước ta cần phải có những giải pháp sát thực... trong sự nghiệp phát triển đất nước theo định hướng….",
+          a: "xã hội chủ nghĩa .",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, cơ cấu xã hội - giai cấp là hệ thống các giai cấp, tầng lớp xã hội tồn tại ... trong một chế độ xã hội nhất định...",
+          a: "khách quan",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Các giai cấp, tầng lớp xã hội... bao gồm: giai cấp công nhân, giai cấp nông dân,…, tầng lớp doanh nhân, tầng lớp tiểu chủ, tầng lớp thanh niên, phụ nữ v.v.",
+          a: "tầng lớp trí thức",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong cách mạng xã hội chủ nghĩa... giai cấp công nhân phải liên minh với giai cấp nông dân... đảm bảo cho thắng lợi của cuộc cách mạng …….cả trong giai đoạn giành chính quyền và giai đoạn xây dựng chế độ xã hội mới.",
+          a: "xã hội chủ nghĩa",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong đội ngũ doanh nhân có các ……… với tiềm lực kinh tế lớn...",
+          a: "Doanh Nhân", // (Theo đáp án gốc trong file, dù ngữ pháp có thể là 'tập đoàn kinh tế')
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, sự biến đổi của cơ cấu xã hội – giai cấp gắn liền và được quy định bởi sự biến động của cơ cấu nào?",
+          a: "Cơ cấu kinh tế",
+        },
+        {
+          q: "Theo quan điểm của chủ nghĩa Mác – Lênin, trong các loại cơ cấu xã hội, loại nào có vị trí hàng đầu, chi phối các loại hình cơ cấu xã hội khác?",
+          a: "Cơ cấu xã hội - giai cấp",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, cơ cấu xã hội muốn biến đổi theo hướng tích cực... dựa trên sự phát triển của ... hiện đại...",
+          a: "khoa học công nghệ",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, cơ cấu xã hội là những ……cùng toàn bộ nhũng mối quan hệ xã hội do sự tác động lẫn nhau của các cộng đồng ấy tạo nên.",
+          a: "cộng đồng người",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Theo quan điểm của chủ nghĩa Mác – Lênin, sự biến đổi của cơ cấu xã hội - giai cấp tất yếu sẽ ảnh hưởng đển sự biến đổi của các cơ cấu xã hội khác và tác động đến sự biến đổi của toàn bộ….",
+          a: "cơ cấu xã hội",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Cơ cấu kinh tế trong thời kỳ quá độ tuy vận động theo cơ chế thị trường, song có sự quản lý của ……xã hội chủ nghĩa nhằm xây dựng thành công chủ nghĩa xã hội.",
+          a: "Nhà nước pháp quyền",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội ở nước ta... sự biến đổi của cơ cấu xã hội - giai cấp bị chi phối bởi những biến đổi trong…..",
+          a: "cơ cấu kinh tế",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) trong nội dung sau: Nội dung kinh tế của liên minh giai cấp công nhân với giai cấp nông dân và đội ngũ trí thức ở nước ta thực chất là sự ... giữa họ...",
+          a: "Hợp tác",
+        },
+        {
+          q: "Điền từ còn thiếu vào dấu (…) ở nội dung sau: Trong thời kỳ quá độ lên chủ nghĩa xã hội, dưới góc độ ……, Đảng và Nhà nước ta cần phải xác định đúng tiềm lực kinh tế và nhu cầu kinh tế...",
+          a: "Kinh tế",
+        },
+        {
+          q: "Bước sang giai đoạn đế quốc chủ nghĩa, Ông khẳng định liên minh công, nông là vấn đề mang tính nguyên tắc... Ông là ai?",
+          a: "VILênin",
+        },
+        {
+          q: "Từ Đại hội nào Việt Nam chuyển mạnh sang cơ chế thị trường phát triển kinh tế nhiều thành phần định hướng xã hội chủ nghĩa.",
+          a: "XII",
+        },
+        {
+          q: "Tư tưởng: “Trước sự liên minh của các đại biểu khoa học, giai cấp vô sản và giới kỹ thuật, không một thế lực đen tối nào đứng vững được” là của ai?",
+          a: "VILênin",
+        },
+      ];
 
+      // KHỞI TẠO
+      const mcContainer = document.getElementById("mc-container");
+      const saContainer = document.getElementById("sa-container");
+      const totalEl = document.getElementById("total");
+      const progressEl = document.getElementById("progress");
+      const scoreEl = document.getElementById("score");
 
-    // KHỞI TẠO
-    const mcContainer = document.getElementById('mc-container');
-    const saContainer = document.getElementById('sa-container');
-    const totalEl = document.getElementById('total');
-    const progressEl = document.getElementById('progress');
-    const scoreEl = document.getElementById('score');
+      let answeredCount = 0;
+      let score = 0;
 
-    let answeredCount = 0;
-    let score = 0;
+      // Hiển thị tổng số câu hỏi
+      totalEl.innerText = mcData.length;
 
-    // Hiển thị tổng số câu hỏi
-    totalEl.innerText = mcData.length;
-
-    // RENDER TRẮC NGHIỆM
-    mcData.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'question-card';
+      // RENDER TRẮC NGHIỆM
+      mcData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
         card.innerHTML = `
             <span class="q-number">Câu ${index + 1}</span>
             <div class="q-text">${item.q}</div>
             <div class="options-grid" id="ops-${index}">
-                ${item.ops.map(op => {
+                ${item.ops
+                  .map((op) => {
                     const letter = op.charAt(0); // A, B, C, D
                     return `<div class="option" onclick="checkAnswer(this, ${index}, '${item.a}', '${letter}')">${op}</div>`;
-                }).join('')}
+                  })
+                  .join("")}
             </div>
         `;
         mcContainer.appendChild(card);
-    });
+      });
 
-    // RENDER TRẢ LỜI NGẮN
-    saData.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'question-card';
-        card.style.borderLeftColor = '#17a2b8';
+      // RENDER TRẢ LỜI NGẮN
+      saData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.style.borderLeftColor = "#17a2b8";
         card.innerHTML = `
             <div class="q-text">${item.q}</div>
             <button class="btn-toggle" onclick="toggleSa(${index})">Xem Đáp Án Gợi Ý</button>
             <div id="sa-ans-${index}" class="answer-box"><strong>Đáp án:</strong> ${item.a}</div>
         `;
         saContainer.appendChild(card);
-    });
+      });
 
-    // XỬ LÝ CLICK TRẮC NGHIỆM
-    function checkAnswer(el, index, correctLetter, selectedLetter) {
+      // XỬ LÝ CLICK TRẮC NGHIỆM
+      function checkAnswer(el, index, correctLetter, selectedLetter) {
         const parent = document.getElementById(`ops-${index}`);
-        
+
         // Ngăn click lại nếu đã trả lời
-        if (parent.classList.contains('answered')) return;
-        parent.classList.add('answered');
+        if (parent.classList.contains("answered")) return;
+        parent.classList.add("answered");
 
         // Logic Đúng/Sai
         if (selectedLetter === correctLetter) {
-            el.classList.add('correct');
-            score++;
+          el.classList.add("correct");
+          score++;
         } else {
-            el.classList.add('wrong');
-            // Tìm và hiện đáp án đúng
-            const options = parent.children;
-            for (let op of options) {
-                if (op.innerText.startsWith(correctLetter)) {
-                    op.classList.add('correct');
-                }
+          el.classList.add("wrong");
+          // Tìm và hiện đáp án đúng
+          const options = parent.children;
+          for (let op of options) {
+            if (op.innerText.startsWith(correctLetter)) {
+              op.classList.add("correct");
             }
+          }
         }
 
         // Cập nhật thống kê
         answeredCount++;
         progressEl.innerText = answeredCount;
         scoreEl.innerText = score;
-    }
+      }
 
-    // XỬ LÝ TRẢ LỜI NGẮN
-    function toggleSa(index) {
+      // XỬ LÝ TRẢ LỜI NGẮN
+      function toggleSa(index) {
         const box = document.getElementById(`sa-ans-${index}`);
-        box.classList.toggle('visible');
-    }
-
-</script>
-
-</body>
+        box.classList.toggle("visible");
+      }
+    </script>
+  </body>
 </html>
